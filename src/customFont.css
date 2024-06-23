@@ -1,0 +1,22 @@
+@font-face {
+  font-family: "CustomFont";
+  src: url("./CVA.TTF") format("truetype");
+}
+
+.custom-font-output {
+  font-family: "CustomFont", sans-serif;
+}
+
+.custom-font-output .katex {
+  font-family: KaTeX_Main, "Times New Roman", serif;
+}
+.custom-font-output .katex .katex-html {
+  font-weight: 200; /* Adjust this value as needed */
+}
+
+/* Ensure math operators remain visible */
+.custom-font-output .katex .katex-html .mop,
+.custom-font-output .katex .katex-html .mbin,
+.custom-font-output .katex .katex-html .mrel {
+  font-weight: 400; /* Slightly heavier than the rest to ensure visibility */
+}

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import "katex/dist/katex.min.css";
 import Latex from "react-latex-next";
+import "./customFont.css"; // Create this CSS file to import your custom font
 
 const App = () => {
   const [inputText, setInputText] = useState("");
@@ -25,7 +26,6 @@ const App = () => {
     const end = input.selectionEnd;
     const textBeforeCursor = inputText.substring(0, start);
     const textAfterCursor = inputText.substring(end);
-
     let newFormula = formula;
     let newCursorPos = start + formula.length;
 
@@ -62,7 +62,12 @@ const App = () => {
           value={inputText}
           onChange={handleInputChange}
           placeholder="Enter LaTeX formula"
-          style={{ width: "100%", padding: "10px", marginBottom: "10px" }}
+          style={{
+            width: "100%",
+            padding: "10px",
+            marginBottom: "10px",
+            fontSize: "25px",
+          }}
         />
         <div
           style={{
@@ -85,7 +90,12 @@ const App = () => {
       </div>
       <div>
         <h2>Output:</h2>
-        <Latex>{inputText}</Latex>
+        <div
+          style={{ fontSize: "25px", fontWeight: "500" }}
+          class="custom-font-output"
+        >
+          <Latex>{inputText}</Latex>
+        </div>
       </div>
     </div>
   );
