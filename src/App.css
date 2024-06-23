@@ -36,6 +36,6 @@
     transform: rotate(360deg);
   }
 }
-.latex-text {
-  color: green; /* Chuyển màu sang xanh cho các đoạn nằm trong $...$ */
+.latex-text-green {
+  color: green; /* Sets the text color to green */
 }
