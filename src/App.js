@@ -435,9 +435,9 @@ const App = () => {
         </div>
       </div> */}
       <div className="p-5 bg-gray-200" style={{ height: "100vh" }}>
-        <div className="grid grid-cols-[auto,1fr,1fr] gap-4 border border-gray-300 divide-x divide-solid divide-black h-full">
+        <div className="grid grid-cols-[250px,1fr,1fr] gap-4 border border-gray-300 divide-x divide-solid divide-black h-full">
           <div
-            className="overflow-y-auto"
+            className="overflow-y-auto pr-1"
             style={{ maxHeight: "calc(100vh - 40px)" }}
           >
             <div className="grid grid-rows-5 gap-1">
