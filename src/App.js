@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "katex/dist/katex.min.css";
 import Latex from "react-latex-next";
 import "./customFont.css"; // Create this CSS file to import your custom font
@@ -6,34 +6,127 @@ import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 const App = () => {
   const [inputText, setInputText] = useState("");
   const inputRef = useRef(null);
+  const [basicFormulas1, setBasicFormulas] = useState([]);
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
 
-  const basicFormulas1 = [
-    {
-      name: "Square",
-      formula: "\\sqrt{}",
-      linkimage:
-        "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-      pos: 1,
-    },
-    { name: "Square", formula: "\\sqrt{x}" },
-    { name: "Fraction", formula: "\\frac{x}{y}" },
-    { name: "Integral", formula: "\\int_{a}^{b} x dx" },
-    { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
-    { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
-    { name: "Square", formula: "x^2" },
-    { name: "Square Root", formula: "\\sqrt{x}" },
-    { name: "Fraction", formula: "\\frac{x}{y}" },
-    { name: "Square Root", formula: "\\sqrt{x}" },
-    { name: "Fraction", formula: "\\frac{x}{y}" },
-    { name: "Square Root", formula: "\\sqrt{x}" },
-    { name: "Fraction", formula: "\\frac{x}{y}" },
-    { name: "Square Root", formula: "\\sqrt{x}" },
-    { name: "Fraction", formula: "\\frac{x}{y}" },
-    { name: "Square Root", formula: "\\sqrt{x}" },
-  ];
+  useEffect(() => {
+    // Lấy dữ liệu từ file JSON
+    fetch("/data.json")
+      .then((response) => response.json())
+      .then((data) => setBasicFormulas(data))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
+
+  // const basicFormulas1 = [
+  //   {
+  //     name: "Square",
+  //     formula: "\\sqrt{}",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Square",
+  //     formula: "\\sqrt{x}",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Fraction",
+  //     formula: "\\frac{x}{y}",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Integral",
+  //     formula: "\\int_{a}^{b} x dx",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Sum",
+  //     formula: "\\sum_{i=1}^{n} x_i",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
+  //   {
+  //     name: "Square",
+  //     formula: "x^2",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Square Root",
+  //     formula: "\\sqrt{x}",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Fraction",
+  //     formula: "\\frac{x}{y}",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Square Root",
+  //     formula: "\\sqrt{x}",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Fraction",
+  //     formula: "\\frac{x}{y}",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Square Root",
+  //     formula: "\\sqrt{x}",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Fraction",
+  //     formula: "\\frac{x}{y}",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Square Root",
+  //     formula: "\\sqrt{x}",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Fraction",
+  //     formula: "\\frac{x}{y}",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  //   {
+  //     name: "Square Root",
+  //     formula: "\\sqrt{x}",
+  //     linkimage:
+  //       "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+  //     pos: 1,
+  //   },
+  // ];
   const basicFormulas2 = [
     { name: "Square", formula: "x^2" },
     { name: "Square Root", formula: "\\sqrt{x}" },
@@ -190,7 +283,7 @@ const App = () => {
             style={{ borderWidth: "1px", margin: "5px" }}
           >
             {basicFormulas1.map((item, index) => (
-              <div key={index} className="relative inline-block">
+              <div key={index}>
                 <button
                   onClick={() => insertFormula(item.formula, item.pos)}
                   className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
@@ -204,7 +297,6 @@ const App = () => {
               </div>
             ))}
           </div>
-          <div>Heloo</div>
           <div>Heloo</div>
           <div>Heloo</div>
           <div>Heloo</div>

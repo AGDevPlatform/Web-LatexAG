@@ -1,0 +1,96 @@
+[
+    {
+        "name": "Square",
+        "formula": "\\sqrt{}",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Square",
+        "formula": "\\sqrt{x}",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Fraction",
+        "formula": "\\frac{x}{y}",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Integral",
+        "formula": "\\int_{a}^{b} x dx",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Sum",
+        "formula": "\\sum_{i=1}^{n} x_i",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Product",
+        "formula": "\\prod_{i=1}^{n} x_i"
+    },
+    {
+        "name": "Square",
+        "formula": "x^2",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Square Root",
+        "formula": "\\sqrt{x}",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Fraction",
+        "formula": "\\frac{x}{y}",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Square Root",
+        "formula": "\\sqrt{x}",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Fraction",
+        "formula": "\\frac{x}{y}",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Square Root",
+        "formula": "\\sqrt{x}",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Fraction",
+        "formula": "\\frac{x}{y}",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Square Root",
+        "formula": "\\sqrt{x}",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Fraction",
+        "formula": "\\frac{x}{y}",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    },
+    {
+        "name": "Square Root",
+        "formula": "\\sqrt{x}",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
+    }
+]
