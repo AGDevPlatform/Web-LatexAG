@@ -103,8 +103,8 @@ $3\\leq a+b+c\\leq \\dfrac{2\\left(ab+bc+ca\\right)+3}{3}$`);
         <h1>Latex AG</h1>
       </div>
 
-      <div className="p-5 bg-gray-200" style={{ height: "100vh" }}>
-        <div className="grid grid-cols-[250px,1fr,1fr] gap-4 border border-gray-300 divide-x divide-solid divide-black h-full">
+      <div className="p-5 bg-white" style={{ height: "100vh" }}>
+        <div className="grid grid-cols-[250px,1fr,1fr] gap-0 border border-gray-300 divide-x divide-solid divide-black h-full">
           <div
             className="overflow-y-auto pr-1"
             style={{ maxHeight: "calc(100vh - 40px)" }}
@@ -174,6 +174,63 @@ $3\\leq a+b+c\\leq \\dfrac{2\\left(ab+bc+ca\\right)+3}{3}$`);
           </div>
         </div>
       </div>
+      <footer className="flex flex-col space-y-10 justify-center m-10">
+        <div className="flex justify-center space-x-5">
+          <a
+            href="https://facebook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://img.icons8.com/fluent/30/000000/facebook-new.png"
+              alt="Facebook"
+            />
+          </a>
+          <a
+            href="https://linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://img.icons8.com/fluent/30/000000/linkedin-2.png"
+              alt="LinkedIn"
+            />
+          </a>
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://img.icons8.com/fluent/30/000000/instagram-new.png"
+              alt="Instagram"
+            />
+          </a>
+          <a
+            href="https://messenger.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://img.icons8.com/fluent/30/000000/facebook-messenger--v2.png"
+              alt="Messenger"
+            />
+          </a>
+          <a
+            href="https://twitter.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src="https://img.icons8.com/fluent/30/000000/twitter.png"
+              alt="Twitter"
+            />
+          </a>
+        </div>
+        <p className="text-center text-gray-700 font-medium">
+          &copy; 2024 Nguyen Duong The Vi. All rights reserved.
+        </p>
+      </footer>
     </div>
   );
 };
