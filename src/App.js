@@ -44,6 +44,10 @@ const App = () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
+  const removeExtraSpaces = (text) => {
+    return text.replace(/\s+/g, " ").trim(); // Replace multiple spaces with single space and trim
+  };
+
   const insertFormula = (formula, pos) => {
     const editor = inputRef.current.editor;
     const position = editor.getCursorPosition();
@@ -135,7 +139,6 @@ const App = () => {
               ref={inputRef}
               mode="latex"
               theme="dracula"
-              // theme="textmate"
               onChange={handleInputChange} // Updated to handleInputChange directly
               value={inputText} // Bind value directly to inputText state
               name="latex-editor"
@@ -155,7 +158,7 @@ const App = () => {
             style={{ maxHeight: "calc(100vh - 40px)" }}
           >
             <div className="break-words whitespace-pre-wrap text-justify">
-              <Latex>{inputText}</Latex>
+              <Latex>{removeExtraSpaces(inputText)}</Latex>
             </div>
           </div>
         </div>
