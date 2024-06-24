@@ -31,7 +31,9 @@
     },
     {
         "name": "Product",
-        "formula": "\\prod_{i=1}^{n} x_i"
+        "formula": "\\prod_{i=1}^{n} x_i",
+        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "pos": 1
     },
     {
         "name": "Square",

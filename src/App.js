@@ -10,7 +10,11 @@ const App = () => {
   const handleInputChange = (event) => {
     setInputText(event.target.value);
   };
+  const sectionRefs = useRef([]);
 
+  const scrollToSection = (index) => {
+    sectionRefs.current[index].scrollIntoView({ behavior: "smooth" });
+  };
   useEffect(() => {
     // Lấy dữ liệu từ file JSON
     fetch("/data.json")
@@ -18,8 +22,19 @@ const App = () => {
       .then((data) => setBasicFormulas(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      const message = "Do you want to exit the website or not?";
+      event.returnValue = message; // Standard for most browsers
+      return message; // For some older browsers
+    };
 
-  // const basicFormulas1 = [
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
   //   {
   //     name: "Square",
   //     formula: "\\sqrt{}",
@@ -275,44 +290,208 @@ const App = () => {
     //     </div>
     //   </div>
     // </div>
-    <div className="p-5 bg-gray-200">
-      <div className="grid grid-cols-[auto,1fr,1fr] gap-4 h-screen border border-gray-300 divide-x divide-solid divide-black">
-        <div className="h-full grid grid-rows-4 gap-4 ">
-          <div
-            className="grid grid-rows-4 grid-flow-col gap-1 p-2"
-            style={{ borderWidth: "1px", margin: "5px" }}
-          >
-            {basicFormulas1.map((item, index) => (
-              <div key={index}>
-                <button
-                  onClick={() => insertFormula(item.formula, item.pos)}
-                  className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
-                >
-                  <img
-                    src={item?.linkimage}
-                    alt="dummy-image"
-                    className="w-full h-full object-contain"
-                  />
-                </button>
-              </div>
-            ))}
+    <div>
+      <div>
+        <h1>Latex AG</h1>
+      </div>
+      {/* <div className="p-5 bg-gray-200" style={{ height: "100%" }}>
+        <div className="grid grid-cols-[auto,1fr,1fr] gap-4  border border-gray-300 divide-x divide-solid divide-black">
+          <div className=" grid grid-rows-5 gap-1 h-full">
+            <div
+              className="grid grid-rows-4 grid-flow-col gap-1 p-2"
+              style={{
+                borderWidth: "1px",
+                margin: "5px",
+                borderColor: "red",
+                borderRadius: "10px",
+              }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="flex justify-center items-center">
+                  <button
+                    onClick={() => insertFormula(item.formula, item.pos)}
+                    className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+                  >
+                    <img
+                      src={item?.linkimage}
+                      alt="dummy-image"
+                      className="w-full h-full object-contain"
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div
+              className="grid grid-rows-4 grid-flow-col gap-1 p-2"
+              style={{
+                borderWidth: "1px",
+                margin: "5px",
+                borderColor: "red",
+                borderRadius: "10px",
+              }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="flex justify-center items-center">
+                  <button
+                    onClick={() => insertFormula(item.formula, item.pos)}
+                    className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+                  >
+                    <img
+                      src={item?.linkimage}
+                      alt="dummy-image"
+                      className="w-full h-full object-contain"
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div
+              className="grid grid-rows-4 grid-flow-col gap-1 p-2"
+              style={{
+                borderWidth: "1px",
+                margin: "5px",
+                borderColor: "red",
+                borderRadius: "10px",
+              }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="flex justify-center items-center">
+                  <button
+                    onClick={() => insertFormula(item.formula, item.pos)}
+                    className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+                  >
+                    <img
+                      src={item?.linkimage}
+                      alt="dummy-image"
+                      className="w-full h-full object-contain"
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div
+              className="grid grid-rows-4 grid-flow-col gap-1 p-2"
+              style={{
+                borderWidth: "1px",
+                margin: "5px",
+                borderColor: "red",
+                borderRadius: "10px",
+              }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="flex justify-center items-center">
+                  <button
+                    onClick={() => insertFormula(item.formula, item.pos)}
+                    className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+                  >
+                    <img
+                      src={item?.linkimage}
+                      alt="dummy-image"
+                      className="w-full h-full object-contain"
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div
+              className="grid grid-rows-4 grid-flow-col gap-1 p-2"
+              style={{
+                borderWidth: "1px",
+                margin: "5px",
+                borderColor: "red",
+                borderRadius: "10px",
+              }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="flex justify-center items-center">
+                  <button
+                    onClick={() => insertFormula(item.formula, item.pos)}
+                    className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+                  >
+                    <img
+                      src={item?.linkimage}
+                      alt="dummy-image"
+                      className="w-full h-full object-contain"
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
-          <div>Heloo</div>
-          <div>Heloo</div>
-          <div>Heloo</div>
+          <div className="h-full">
+            <textarea
+              ref={inputRef}
+              value={inputText}
+              onChange={handleInputChange}
+              placeholder="Enter LaTeX formula"
+              className="w-full h-full p-4 text-base mb-4 outline-none"
+            />
+          </div>
+          <div className="p-4 h-full mb-4 text-lg font-medium custom-font-output overflow-auto bg-white">
+            <div className="break-words whitespace-pre-wrap text-justify">
+              <Latex>{inputText}</Latex>
+            </div>
+          </div>
         </div>
-        <div className="h-full">
-          <textarea
-            ref={inputRef}
-            value={inputText}
-            onChange={handleInputChange}
-            placeholder="Enter LaTeX formula"
-            className="w-full h-full p-4 text-base mb-4 outline-none"
-          />
-        </div>
-        <div className="h-full p-4 mb-4 text-lg font-medium custom-font-output overflow-auto bg-white">
-          <div className="break-words whitespace-pre-wrap text-justify">
-            <Latex>{inputText}</Latex>
+      </div> */}
+      <div className="p-5 bg-gray-200" style={{ height: "100vh" }}>
+        <div className="grid grid-cols-[auto,1fr,1fr] gap-4 border border-gray-300 divide-x divide-solid divide-black h-full">
+          <div
+            className="overflow-y-auto"
+            style={{ maxHeight: "calc(100vh - 40px)" }}
+          >
+            <div className="grid grid-rows-5 gap-1">
+              {[...Array(5)].map((_, index) => (
+                <div
+                  key={index}
+                  className="grid grid-rows-4 grid-flow-col gap-1 p-2"
+                  style={{
+                    borderWidth: "1px",
+                    margin: "5px",
+                    borderColor: "red",
+                    borderRadius: "10px",
+                  }}
+                >
+                  {basicFormulas1.map((item, itemIndex) => (
+                    <div
+                      key={itemIndex}
+                      className="flex justify-center items-center"
+                    >
+                      <button
+                        onClick={() => insertFormula(item.formula, item.pos)}
+                        className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+                      >
+                        <img
+                          src={item?.linkimage}
+                          alt="dummy-image"
+                          className="w-full h-full object-contain"
+                        />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div
+            className="overflow-y-auto"
+            style={{ maxHeight: "calc(100vh - 40px)" }}
+          >
+            <textarea
+              ref={inputRef}
+              value={inputText}
+              onChange={handleInputChange}
+              placeholder="Enter LaTeX formula"
+              className="w-full h-full p-4 text-base outline-none"
+            />
+          </div>
+          <div
+            className="overflow-y-auto p-4 text-lg font-medium custom-font-output bg-white"
+            style={{ maxHeight: "calc(100vh - 40px)" }}
+          >
+            <div className="break-words whitespace-pre-wrap text-justify">
+              <Latex>{inputText}</Latex>
+            </div>
           </div>
         </div>
       </div>
