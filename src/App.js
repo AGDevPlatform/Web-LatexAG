@@ -21,16 +21,8 @@ const App = () => {
     { name: "Square", formula: "x^2" },
     { name: "Square Root", formula: "\\sqrt{x}" },
     { name: "Fraction", formula: "\\frac{x}{y}" },
-    { name: "Integral", formula: "\\int_{a}^{b} x dx" },
-    { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
-    { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
-    { name: "Square", formula: "x^2" },
     { name: "Square Root", formula: "\\sqrt{x}" },
     { name: "Fraction", formula: "\\frac{x}{y}" },
-    { name: "Integral", formula: "\\int_{a}^{b} x dx" },
-    { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
-    { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
-    { name: "Square", formula: "x^2" },
     { name: "Square Root", formula: "\\sqrt{x}" },
   ];
   const basicFormulas2 = [
@@ -43,17 +35,12 @@ const App = () => {
     { name: "Square", formula: "x^2" },
     { name: "Square Root", formula: "\\sqrt{x}" },
     { name: "Fraction", formula: "\\frac{x}{y}" },
-    { name: "Integral", formula: "\\int_{a}^{b} x dx" },
-    { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
-    { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
-    { name: "Square", formula: "x^2" },
     { name: "Square Root", formula: "\\sqrt{x}" },
     { name: "Fraction", formula: "\\frac{x}{y}" },
-    { name: "Integral", formula: "\\int_{a}^{b} x dx" },
-    { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
-    { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
-    { name: "Square", formula: "x^2" },
     { name: "Square Root", formula: "\\sqrt{x}" },
+    { name: "Fraction", formula: "\\frac{x}{y}" },
+    { name: "Square Root", formula: "\\sqrt{x}" },
+    { name: "Fraction", formula: "\\frac{x}{y}" },
   ];
   const insertFormula = (formula) => {
     const input = inputRef.current;
@@ -98,39 +85,265 @@ const App = () => {
             marginBottom: "10px",
           }}
         >
-          <div className="grid grid-cols-20 gap-1">
-            <div>
+          <div className="grid grid-rows-1 grid-flow-col gap-2">
+            <div
+              className="grid grid-cols-3 gap-0 p-1"
+              style={{ borderWidth: "2px" }}
+            >
               {basicFormulas1.map((item, index) => (
-                <div key={index} className="relative inline-block mr-1 mb-4">
+                <div key={index} className="relative inline-block mr-1">
                   <button
                     onClick={() => insertFormula(item.formula)}
                     style={{ borderRadius: "5px" }}
-                    className="w-8 h-8  bg-gray border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-1"
+                    className="w-9 h-9 bg-gray border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5"
                   >
                     <img
                       src={
-                        "https://res.cloudinary.com/dhs93uix6/image/upload/v1719199189/save-instagram_wpxkov.png"
+                        "https://res.cloudinary.com/decwrwfpa/image/upload/v1719205399/img024arrows_zyowgf.svg"
                       }
                       alt="dummy-image"
                       style={{
                         width: "100%",
                         height: "100%",
-                        objectFit: "contain", // Ensure the entire image fits within the button dimensions
+                        objectFit: "contain", // Đảm bảo toàn bộ hình ảnh nằm gọn trong kích thước của nút
                       }}
                     />
                   </button>
                 </div>
               ))}
             </div>
-            <div>
+            <div
+              className="grid grid-cols-3 gap-0 p-1"
+              style={{ borderWidth: "2px" }}
+            >
               {basicFormulas1.map((item, index) => (
-                <button
-                  key={index}
-                  onClick={() => insertFormula(item.formula)}
-                  style={{ padding: "5px" }}
-                >
-                  {item.name}
-                </button>
+                <div key={index} className="relative inline-block mr-1">
+                  <button
+                    onClick={() => insertFormula(item.formula)}
+                    style={{ borderRadius: "5px" }}
+                    className="w-9 h-9 bg-gray border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5"
+                  >
+                    <img
+                      src={
+                        "https://res.cloudinary.com/decwrwfpa/image/upload/v1719205399/img024arrows_zyowgf.svg"
+                      }
+                      alt="dummy-image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain", // Đảm bảo toàn bộ hình ảnh nằm gọn trong kích thước của nút
+                      }}
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div
+              className="grid grid-cols-3 gap-0 p-1"
+              style={{ borderWidth: "2px" }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="relative inline-block mr-1">
+                  <button
+                    onClick={() => insertFormula(item.formula)}
+                    style={{ borderRadius: "5px" }}
+                    className="w-9 h-9 bg-gray border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5"
+                  >
+                    <img
+                      src={
+                        "https://res.cloudinary.com/decwrwfpa/image/upload/v1719205399/img024arrows_zyowgf.svg"
+                      }
+                      alt="dummy-image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain", // Đảm bảo toàn bộ hình ảnh nằm gọn trong kích thước của nút
+                      }}
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div
+              className="grid grid-cols-3 gap-0 p-1"
+              style={{ borderWidth: "2px" }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="relative inline-block mr-1">
+                  <button
+                    onClick={() => insertFormula(item.formula)}
+                    style={{ borderRadius: "5px" }}
+                    className="w-9 h-9 bg-gray border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5"
+                  >
+                    <img
+                      src={
+                        "https://res.cloudinary.com/decwrwfpa/image/upload/v1719205399/img024arrows_zyowgf.svg"
+                      }
+                      alt="dummy-image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain", // Đảm bảo toàn bộ hình ảnh nằm gọn trong kích thước của nút
+                      }}
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div
+              className="grid grid-cols-3 gap-0 p-1"
+              style={{ borderWidth: "2px" }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="relative inline-block mr-1">
+                  <button
+                    onClick={() => insertFormula(item.formula)}
+                    style={{ borderRadius: "5px" }}
+                    className="w-9 h-9 bg-gray border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5"
+                  >
+                    <img
+                      src={
+                        "https://res.cloudinary.com/decwrwfpa/image/upload/v1719205399/img024arrows_zyowgf.svg"
+                      }
+                      alt="dummy-image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain", // Đảm bảo toàn bộ hình ảnh nằm gọn trong kích thước của nút
+                      }}
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div
+              className="grid grid-cols-3 gap-0 p-1"
+              style={{ borderWidth: "2px" }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="relative inline-block mr-1">
+                  <button
+                    onClick={() => insertFormula(item.formula)}
+                    style={{ borderRadius: "5px" }}
+                    className="w-9 h-9 bg-gray border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5"
+                  >
+                    <img
+                      src={
+                        "https://res.cloudinary.com/decwrwfpa/image/upload/v1719205399/img024arrows_zyowgf.svg"
+                      }
+                      alt="dummy-image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain", // Đảm bảo toàn bộ hình ảnh nằm gọn trong kích thước của nút
+                      }}
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div
+              className="grid grid-cols-3 gap-0 p-1"
+              style={{ borderWidth: "2px" }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="relative inline-block mr-1">
+                  <button
+                    onClick={() => insertFormula(item.formula)}
+                    style={{ borderRadius: "5px" }}
+                    className="w-9 h-9 bg-gray border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5"
+                  >
+                    <img
+                      src={
+                        "https://res.cloudinary.com/decwrwfpa/image/upload/v1719205399/img024arrows_zyowgf.svg"
+                      }
+                      alt="dummy-image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain", // Đảm bảo toàn bộ hình ảnh nằm gọn trong kích thước của nút
+                      }}
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>{" "}
+            <div
+              className="grid grid-cols-3 gap-0 p-1"
+              style={{ borderWidth: "2px" }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="relative inline-block mr-1">
+                  <button
+                    onClick={() => insertFormula(item.formula)}
+                    style={{ borderRadius: "5px" }}
+                    className="w-9 h-9 bg-gray border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5"
+                  >
+                    <img
+                      src={
+                        "https://res.cloudinary.com/decwrwfpa/image/upload/v1719205399/img024arrows_zyowgf.svg"
+                      }
+                      alt="dummy-image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain", // Đảm bảo toàn bộ hình ảnh nằm gọn trong kích thước của nút
+                      }}
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>{" "}
+            <div
+              className="grid grid-cols-3 gap-0 p-1"
+              style={{ borderWidth: "2px" }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="relative inline-block mr-1">
+                  <button
+                    onClick={() => insertFormula(item.formula)}
+                    style={{ borderRadius: "5px" }}
+                    className="w-9 h-9 bg-gray border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5"
+                  >
+                    <img
+                      src={
+                        "https://res.cloudinary.com/decwrwfpa/image/upload/v1719205399/img024arrows_zyowgf.svg"
+                      }
+                      alt="dummy-image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain", // Đảm bảo toàn bộ hình ảnh nằm gọn trong kích thước của nút
+                      }}
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>{" "}
+            <div
+              className="grid grid-cols-3 gap-0 p-1"
+              style={{ borderWidth: "2px" }}
+            >
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="relative inline-block mr-1">
+                  <button
+                    onClick={() => insertFormula(item.formula)}
+                    style={{ borderRadius: "5px" }}
+                    className="w-9 h-9 bg-gray border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5"
+                  >
+                    <img
+                      src={
+                        "https://res.cloudinary.com/decwrwfpa/image/upload/v1719205399/img024arrows_zyowgf.svg"
+                      }
+                      alt="dummy-image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain", // Đảm bảo toàn bộ hình ảnh nằm gọn trong kích thước của nút
+                      }}
+                    />
+                  </button>
+                </div>
               ))}
             </div>
           </div>
