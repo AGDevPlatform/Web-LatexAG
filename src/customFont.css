@@ -23,3 +23,13 @@
 .latex-output {
   white-space: pre-wrap; /* Đảm bảo xuống dòng tự động */
 }
+/* customFont.css */
+.textarea-highlight {
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 10px;
+}
+
+.textarea-highlight .highlighted-text {
+  color: green;
+}

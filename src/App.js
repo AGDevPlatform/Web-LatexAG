@@ -11,15 +11,50 @@ const App = () => {
     setInputText(event.target.value);
   };
 
-  const basicFormulas = [
+  const basicFormulas1 = [
     { name: "Square", formula: "x^2" },
     { name: "Square Root", formula: "\\sqrt{x}" },
     { name: "Fraction", formula: "\\frac{x}{y}" },
     { name: "Integral", formula: "\\int_{a}^{b} x dx" },
     { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
     { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
+    { name: "Square", formula: "x^2" },
+    { name: "Square Root", formula: "\\sqrt{x}" },
+    { name: "Fraction", formula: "\\frac{x}{y}" },
+    { name: "Integral", formula: "\\int_{a}^{b} x dx" },
+    { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
+    { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
+    { name: "Square", formula: "x^2" },
+    { name: "Square Root", formula: "\\sqrt{x}" },
+    { name: "Fraction", formula: "\\frac{x}{y}" },
+    { name: "Integral", formula: "\\int_{a}^{b} x dx" },
+    { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
+    { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
+    { name: "Square", formula: "x^2" },
+    { name: "Square Root", formula: "\\sqrt{x}" },
   ];
-
+  const basicFormulas2 = [
+    { name: "Square", formula: "x^2" },
+    { name: "Square Root", formula: "\\sqrt{x}" },
+    { name: "Fraction", formula: "\\frac{x}{y}" },
+    { name: "Integral", formula: "\\int_{a}^{b} x dx" },
+    { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
+    { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
+    { name: "Square", formula: "x^2" },
+    { name: "Square Root", formula: "\\sqrt{x}" },
+    { name: "Fraction", formula: "\\frac{x}{y}" },
+    { name: "Integral", formula: "\\int_{a}^{b} x dx" },
+    { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
+    { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
+    { name: "Square", formula: "x^2" },
+    { name: "Square Root", formula: "\\sqrt{x}" },
+    { name: "Fraction", formula: "\\frac{x}{y}" },
+    { name: "Integral", formula: "\\int_{a}^{b} x dx" },
+    { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
+    { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
+    { name: "Square", formula: "x^2" },
+    { name: "Square Root", formula: "\\sqrt{x}" },
+  ];
   const insertFormula = (formula) => {
     const input = inputRef.current;
     const start = input.selectionStart;
@@ -63,15 +98,42 @@ const App = () => {
             marginBottom: "10px",
           }}
         >
-          {basicFormulas.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => insertFormula(item.formula)}
-              style={{ padding: "5px 10px" }}
-            >
-              {item.name}
-            </button>
-          ))}
+          <div className="grid grid-cols-20 gap-1">
+            <div>
+              {basicFormulas1.map((item, index) => (
+                <div key={index} className="relative inline-block mr-1 mb-4">
+                  <button
+                    onClick={() => insertFormula(item.formula)}
+                    style={{ borderRadius: "5px" }}
+                    className="w-8 h-8  bg-gray border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-1"
+                  >
+                    <img
+                      src={
+                        "https://res.cloudinary.com/dhs93uix6/image/upload/v1719199189/save-instagram_wpxkov.png"
+                      }
+                      alt="dummy-image"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain", // Ensure the entire image fits within the button dimensions
+                      }}
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <div>
+              {basicFormulas1.map((item, index) => (
+                <button
+                  key={index}
+                  onClick={() => insertFormula(item.formula)}
+                  style={{ padding: "5px" }}
+                >
+                  {item.name}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 h-screen border border-gray-300  divide-x divide-solid divide-black divide-w-2">
