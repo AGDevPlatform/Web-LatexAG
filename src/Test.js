@@ -1,106 +1,101 @@
 import React, { useState, useRef } from "react";
 import "katex/dist/katex.min.css";
-import { InlineMath } from "react-katex";
+import Latex from "react-latex-next";
+import "./customFont.css"; // Create this CSS file to import your custom font
 
 const App = () => {
   const [inputText, setInputText] = useState("");
-  const inputAreaRef = useRef(null);
+  const inputRef = useRef(null);
 
-  const handleInputChange = (e) => {
-    setInputText(e.target.value);
+  const handleInputChange = (event) => {
+    setInputText(event.target.value);
   };
 
-  const insertAtCursor = (textToInsert) => {
-    const textarea = inputAreaRef.current;
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const text = textarea.value;
+  const basicFormulas = [
+    { name: "Square", formula: "x^2" },
+    { name: "Square Root", formula: "\\sqrt{x}" },
+    { name: "Fraction", formula: "\\frac{x}{y}" },
+    { name: "Integral", formula: "\\int_{a}^{b} x dx" },
+    { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
+    { name: "Product", formula: "\\prod_{i=1}^{n} x_i" },
+  ];
 
-    // Check if the cursor is currently inside a "$..$" pair
-    const before = text.substring(0, start);
-    const after = text.substring(end, text.length);
-    const selectedText = text.substring(start, end);
-    const hasStartDollar = before.lastIndexOf("$");
-    const hasEndDollar = after.indexOf("$");
+  const insertFormula = (formula) => {
+    const input = inputRef.current;
+    const start = input.selectionStart;
+    const end = input.selectionEnd;
+    const textBeforeCursor = inputText.substring(0, start);
+    const textAfterCursor = inputText.substring(end);
+    let newFormula = formula;
+    let newCursorPos = start + formula.length;
 
-    // If the cursor is inside a "$..$" pair, replace the selected text without adding extra "$" markers
-    if (hasStartDollar !== -1 && hasEndDollar !== -1) {
-      setInputText(before + selectedText + textToInsert + after);
+    // Check if cursor is inside a $$ pair
+    const beforeDollarCount = (textBeforeCursor.match(/\$/g) || []).length;
+    const afterDollarCount = (textAfterCursor.match(/\$/g) || []).length;
+
+    if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
+      // Cursor is inside $$, don't add extra $$
+      newFormula = formula;
     } else {
-      // Otherwise, add "$..$" around the inserted text
-      setInputText(before + `$${textToInsert}$` + after);
+      // Cursor is outside $$, add $$ around the formula
+      newFormula = `$${formula}$`;
+      newCursorPos += 2; // Adjust for added $ signs
     }
 
-    // Focus back on the textarea after inserting text
-    textarea.focus();
-  };
+    const newText = textBeforeCursor + newFormula + textAfterCursor;
+    setInputText(newText);
 
-  const renderTextWithLatex = (text) => {
-    const parts = text.split(/(\$[^\$]*\$)/g);
-    return parts.map((part, index) => {
-      if (part.startsWith("$") && part.endsWith("$")) {
-        return (
-          <InlineMath
-            className="text-teal-400"
-            key={index}
-            math={part.slice(1, -1)}
-          />
-        );
-      } else {
-        return <span key={index}>{part}</span>;
-      }
-    });
+    // Set cursor position after update
+    setTimeout(() => {
+      input.focus();
+      input.setSelectionRange(newCursorPos, newCursorPos);
+    }, 0);
   };
 
   return (
-    <div className="p-4">
-      <div className="mb-4">
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => insertAtCursor("x^2")}
-        >
-          x^2
-        </button>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => insertAtCursor("\\sqrt{x}")}
-        >
-          √x
-        </button>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => insertAtCursor("\\frac{a}{b}")}
-        >
-          a/b
-        </button>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => insertAtCursor("\\int_0^\\infty")}
-        >
-          ∫
-        </button>
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={() => insertAtCursor("\\sum_{i=1}^n")}
-        >
-          Σ
-        </button>
-      </div>
-      <div className="mb-4">
-        <textarea
-          ref={inputAreaRef}
-          // id="inputArea"
-          rows="4"
-          cols="50"
+    <div style={{ padding: "20px" }}>
+      <h1>LaTeX Formula Generator</h1>
+      <div style={{ marginBottom: "20px" }}>
+        <input
+          ref={inputRef}
+          type="text"
           value={inputText}
           onChange={handleInputChange}
-          placeholder="Enter text with LaTeX formulas between $"
-          className="border border-gray-300 rounded-md p-2 w-full"
+          placeholder="Enter LaTeX formula"
+          style={{
+            width: "100%",
+            padding: "10px",
+            marginBottom: "10px",
+            fontSize: "25px",
+          }}
         />
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "10px",
+            marginBottom: "10px",
+          }}
+        >
+          {basicFormulas.map((item, index) => (
+            <button
+              key={index}
+              onClick={() => insertFormula(item.formula)}
+              style={{ padding: "5px 10px" }}
+            >
+              {item.name}
+            </button>
+          ))}
+        </div>
       </div>
-      <div className="output-area border border-gray-300 rounded-md p-2 w-full">
-        {renderTextWithLatex(inputText)}
+      <div>
+        <h2>Output:</h2>
+        <div
+          style={{ fontSize: "25px", fontWeight: "600" }}
+          class="custom-font-output"
+        >
+          <Latex>{inputText}</Latex>
+        </div>
       </div>
     </div>
   );

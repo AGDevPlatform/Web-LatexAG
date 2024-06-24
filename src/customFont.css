@@ -20,3 +20,6 @@
 .custom-font-output .katex .katex-html .mrel {
   font-weight: 400; /* Slightly heavier than the rest to ensure visibility */
 }
+.latex-output {
+  white-space: pre-wrap; /* Đảm bảo xuống dòng tự động */
+}

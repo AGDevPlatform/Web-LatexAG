@@ -12,6 +12,7 @@
     "react-katex": "^3.0.1",
     "react-latex-next": "^3.0.0",
     "react-scripts": "5.0.1",
+    "react-zoom-pan-pinch": "^3.5.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

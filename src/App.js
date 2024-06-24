@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import "katex/dist/katex.min.css";
 import Latex from "react-latex-next";
 import "./customFont.css"; // Create this CSS file to import your custom font
-
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 const App = () => {
   const [inputText, setInputText] = useState("");
   const inputRef = useRef(null);
@@ -53,22 +53,8 @@ const App = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>LaTeX Formula Generator</h1>
+    <div style={{ padding: "20px", backgroundColor: "#f3f3f3" }}>
       <div style={{ marginBottom: "20px" }}>
-        <input
-          ref={inputRef}
-          type="text"
-          value={inputText}
-          onChange={handleInputChange}
-          placeholder="Enter LaTeX formula"
-          style={{
-            width: "100%",
-            padding: "10px",
-            marginBottom: "10px",
-            fontSize: "25px",
-          }}
-        />
         <div
           style={{
             display: "flex",
@@ -88,13 +74,78 @@ const App = () => {
           ))}
         </div>
       </div>
-      <div>
-        <h2>Output:</h2>
+      <div className="grid grid-cols-2 gap-4 h-screen border border-gray-300  divide-x divide-solid divide-black divide-w-2">
+        <div className="h-full">
+          <textarea
+            ref={inputRef}
+            value={inputText}
+            onChange={handleInputChange}
+            placeholder="Enter LaTeX formula"
+            className="w-full h-full p-4  text-base mb-4 outline-none"
+          />
+        </div>
         <div
-          style={{ fontSize: "25px", fontWeight: "500" }}
-          class="custom-font-output"
+          className="h-full p-4 mb-4 text-lg font-medium custom-font-output overflow-auto"
+          style={{ backgroundColor: "white" }}
         >
-          <Latex>{inputText}</Latex>
+          <div
+            className="output-container"
+            style={{ height: "calc(100vh - 250px)", overflow: "hidden" }}
+          >
+            <TransformWrapper
+              initialScale={1}
+              initialPositionX={0}
+              initialPositionY={0}
+              minScale={0.5}
+              maxScale={3}
+              limitToBounds={false}
+              centerOnInit={true}
+            >
+              {({ zoomIn, zoomOut, resetTransform }) => (
+                <>
+                  <TransformComponent
+                    wrapperStyle={{
+                      width: "100%",
+                      height: "100%",
+                      overflow: "visible",
+                    }}
+                    contentStyle={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  >
+                    <div
+                      className="text-lg font-medium custom-font-output"
+                      style={{
+                        overflowWrap: "break-word",
+                        wordWrap: "break-word",
+                        whiteSpace: "pre-wrap",
+                        textAlign: "justify",
+                        padding: "20px",
+                        minWidth: "100%",
+                        minHeight: "100%",
+                      }}
+                    >
+                      <Latex>{inputText}</Latex>
+                    </div>
+                  </TransformComponent>
+                  {/* <div
+                    className="tools"
+                    style={{
+                      position: "absolute",
+                      bottom: "10px",
+                      left: "10px",
+                      zIndex: 1000,
+                    }}
+                  >
+                    <button onClick={() => zoomIn()}>Zoom In</button>
+                    <button onClick={() => zoomOut()}>Zoom Out</button>
+                    <button onClick={() => resetTransform()}>Reset</button>
+                  </div> */}
+                </>
+              )}
+            </TransformWrapper>
+          </div>
         </div>
       </div>
     </div>
