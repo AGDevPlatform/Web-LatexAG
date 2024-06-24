@@ -11,7 +11,11 @@ import "ace-builds/src-noconflict/theme-dracula"; // Import theme tomorrow
 import "./customFont.css"; // Create this CSS file to import your custom font
 
 const App = () => {
-  const [inputText, setInputText] = useState("");
+  const [inputText, setInputText] = useState(`Ví dụ:
+Cho ba số thực $a, b, c$  không âm thỏa mãn: $a^2 + b^2+c^2+3=2 \\left(ab+bc+ca\\right)$. Chứng minh:  
+
+$3\\leq a+b+c\\leq \\dfrac{2\\left(ab+bc+ca\\right)+3}{3}$`);
+
   const inputRef = useRef(null);
   const [basicFormulas1, setBasicFormulas] = useState([]);
 
@@ -44,8 +48,15 @@ const App = () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
-  const removeExtraSpaces = (text) => {
-    return text.replace(/\s+/g, " ").trim(); // Replace multiple spaces with single space and trim
+  // const removeExtraSpaces = (text) => {
+  //   return text.replace(/\s+/g, " ").trim(); // Replace multiple spaces with single space and trim
+  // };
+  const processInputText = (text) => {
+    // Replace "\\" with newline character "\n"
+    const processedText = text.replace(/\\\\/g, "\n");
+    // Replace multiple spaces with single space and trim
+    // return processedText.replace(/\s+/g, " ").trim();
+    return processedText.trim();
   };
 
   const insertFormula = (formula, pos) => {
@@ -158,7 +169,7 @@ const App = () => {
             style={{ maxHeight: "calc(100vh - 40px)" }}
           >
             <div className="break-words whitespace-pre-wrap text-justify">
-              <Latex>{removeExtraSpaces(inputText)}</Latex>
+              <Latex>{processInputText(inputText)}</Latex>
             </div>
           </div>
         </div>
