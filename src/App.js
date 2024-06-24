@@ -89,62 +89,14 @@ const App = () => {
           style={{ backgroundColor: "white" }}
         >
           <div
-            className="output-container"
-            style={{ height: "calc(100vh - 250px)", overflow: "hidden" }}
+            style={{
+              overflowWrap: "break-word",
+              wordWrap: "break-word",
+              whiteSpace: "pre-wrap",
+              textAlign: "justify",
+            }}
           >
-            <TransformWrapper
-              initialScale={1}
-              initialPositionX={0}
-              initialPositionY={0}
-              minScale={0.5}
-              maxScale={3}
-              limitToBounds={false}
-              centerOnInit={true}
-            >
-              {({ zoomIn, zoomOut, resetTransform }) => (
-                <>
-                  <TransformComponent
-                    wrapperStyle={{
-                      width: "100%",
-                      height: "100%",
-                      overflow: "visible",
-                    }}
-                    contentStyle={{
-                      width: "100%",
-                      height: "100%",
-                    }}
-                  >
-                    <div
-                      className="text-lg font-medium custom-font-output"
-                      style={{
-                        overflowWrap: "break-word",
-                        wordWrap: "break-word",
-                        whiteSpace: "pre-wrap",
-                        textAlign: "justify",
-                        padding: "20px",
-                        minWidth: "100%",
-                        minHeight: "100%",
-                      }}
-                    >
-                      <Latex>{inputText}</Latex>
-                    </div>
-                  </TransformComponent>
-                  {/* <div
-                    className="tools"
-                    style={{
-                      position: "absolute",
-                      bottom: "10px",
-                      left: "10px",
-                      zIndex: 1000,
-                    }}
-                  >
-                    <button onClick={() => zoomIn()}>Zoom In</button>
-                    <button onClick={() => zoomOut()}>Zoom Out</button>
-                    <button onClick={() => resetTransform()}>Reset</button>
-                  </div> */}
-                </>
-              )}
-            </TransformWrapper>
+            <Latex>{inputText}</Latex>
           </div>
         </div>
       </div>
