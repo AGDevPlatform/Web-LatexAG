@@ -11,8 +11,14 @@ const App = () => {
   };
 
   const basicFormulas1 = [
-    { name: "Square", formula: "x^2" },
-    { name: "Square Root", formula: "\\sqrt{x}" },
+    {
+      name: "Square",
+      formula: "\\sqrt{}",
+      linkimage:
+        "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+      pos: 1,
+    },
+    { name: "Square", formula: "\\sqrt{x}" },
     { name: "Fraction", formula: "\\frac{x}{y}" },
     { name: "Integral", formula: "\\int_{a}^{b} x dx" },
     { name: "Sum", formula: "\\sum_{i=1}^{n} x_i" },
@@ -45,7 +51,7 @@ const App = () => {
     { name: "Square Root", formula: "\\sqrt{x}" },
     { name: "Fraction", formula: "\\frac{x}{y}" },
   ];
-  const insertFormula = (formula) => {
+  const insertFormula = (formula, pos) => {
     const input = inputRef.current;
     const start = input.selectionStart;
     const end = input.selectionEnd;
@@ -61,10 +67,12 @@ const App = () => {
     if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
       // Cursor is inside $$, don't add extra $$
       newFormula = formula;
+      newCursorPos = newCursorPos - pos;
     } else {
       // Cursor is outside $$, add $$ around the formula
       newFormula = `$${formula}$`;
       newCursorPos += 2; // Adjust for added $ signs
+      newCursorPos = newCursorPos - pos - 1;
     }
 
     const newText = textBeforeCursor + newFormula + textAfterCursor;
@@ -184,11 +192,11 @@ const App = () => {
             {basicFormulas1.map((item, index) => (
               <div key={index} className="relative inline-block">
                 <button
-                  onClick={() => insertFormula(item.formula)}
+                  onClick={() => insertFormula(item.formula, item.pos)}
                   className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
                 >
                   <img
-                    src="https://res.cloudinary.com/decwrwfpa/image/upload/v1719209406/img010operators_lmm7mj.svg"
+                    src={item?.linkimage}
                     alt="dummy-image"
                     className="w-full h-full object-contain"
                   />
