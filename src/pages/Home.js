@@ -121,7 +121,7 @@ function Home() {
         className="p-5 bg-white"
         style={{ height: "100vh", marginTop: "50px" }}
       >
-        <div className="grid grid-cols-[190px,1.4fr,1fr] gap-0 border border-gray-300 divide-x divide-solid divide-black h-full">
+        <div className="grid grid-cols-[190px,1.4fr,1fr] gap-0 divide-x divide-solid divide-black h-full">
           <div
             className="overflow-y-auto pr-1"
             style={{ maxHeight: "calc(100vh - 20px)" }}
