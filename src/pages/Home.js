@@ -2,13 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-latex";
 import "ace-builds/src-noconflict/theme-dracula";
-import "./customFont.css";
-
-const App = () => {
+// import "./customFont.css";
+function Home() {
   const [inputText, setInputText] = useState(`Ví dụ:
-Cho ba số thực $a, b, c$  không âm thỏa mãn: $a^2 + b^2+c^2+3=2 \\left(ab+bc+ca\\right)$. Chứng minh:  
-
-$3\\leq a+b+c\\leq \\dfrac{2\\left(ab+bc+ca\\right)+3}{3}$`);
+        Cho ba số thực $a, b, c$  không âm thỏa mãn: $a^2 + b^2+c^2+3=2 \\left(ab+bc+ca\\right)$. Chứng minh:  
+        
+        $3\\leq a+b+c\\leq \\dfrac{2\\left(ab+bc+ca\\right)+3}{3}$`);
   const inputRef = useRef(null);
   const iframeRef = useRef(null);
   const [basicFormulas, setBasicFormulas] = useState([]);
@@ -46,32 +45,32 @@ $3\\leq a+b+c\\leq \\dfrac{2\\left(ab+bc+ca\\right)+3}{3}$`);
     if (iframeRef.current) {
       const processedText = processInputText(text);
       const iframeContent = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
-          <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
-          <style>
-            body { font-family: Times New Roman, sans-serif; }
-            .katex { font-size: 1.1em; }
-          </style>
-        </head>
-        <body>
-          <div id="latex-content">${processedText}</div>
-          <script>
-            document.addEventListener("DOMContentLoaded", function() {
-              renderMathInElement(document.body, {
-                delimiters: [
-                  {left: "$$", right: "$$", display: true},
-                  {left: "$", right: "$", display: false}
-                ]
-              });
-            });
-          </script>
-        </body>
-        </html>
-      `;
+                <!DOCTYPE html>
+                <html>
+                <head>
+                  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+                  <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
+                  <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
+                  <style>
+                    body { font-family: Times New Roman, sans-serif; }
+                    .katex { font-size: 1.1em; }
+                  </style>
+                </head>
+                <body>
+                  <div id="latex-content">${processedText}</div>
+                  <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                      renderMathInElement(document.body, {
+                        delimiters: [
+                          {left: "$$", right: "$$", display: true},
+                          {left: "$", right: "$", display: false}
+                        ]
+                      });
+                    });
+                  </script>
+                </body>
+                </html>
+              `;
       iframeRef.current.srcdoc = iframeContent;
     }
   };
@@ -115,9 +114,9 @@ $3\\leq a+b+c\\leq \\dfrac{2\\left(ab+bc+ca\\right)+3}{3}$`);
     <div>
       <div
         className="p-5 bg-white"
-        style={{ height: "100vh", marginTop: "150px" }}
+        style={{ height: "100vh", marginTop: "70px" }}
       >
-        <div className="grid grid-cols-[250px,1fr,1fr] gap-0 border border-gray-300 divide-x divide-solid divide-black h-full">
+        <div className="grid grid-cols-[190px,1fr,1fr] gap-0 border border-gray-300 divide-x divide-solid divide-black h-full">
           <div
             className="overflow-y-auto pr-1"
             style={{ maxHeight: "calc(100vh - 20px)" }}
@@ -186,6 +185,5 @@ $3\\leq a+b+c\\leq \\dfrac{2\\left(ab+bc+ca\\right)+3}{3}$`);
       <div>jhhh</div>
     </div>
   );
-};
-
-export default App;
+}
+export default Home;

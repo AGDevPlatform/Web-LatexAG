@@ -70,29 +70,5 @@
         "formula": "\\sqrt{x}",
         "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
         "pos": 1
-    },
-    {
-        "name": "Fraction",
-        "formula": "\\frac{x}{y}",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
-    },
-    {
-        "name": "Square Root",
-        "formula": "\\sqrt{x}",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
-    },
-    {
-        "name": "Fraction",
-        "formula": "\\frac{x}{y}",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
-    },
-    {
-        "name": "Square Root",
-        "formula": "\\sqrt{x}",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
     }
 ]

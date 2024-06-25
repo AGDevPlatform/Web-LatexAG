@@ -1,183 +1,40 @@
-import React, { useState, useEffect, useRef } from "react";
-import "katex/dist/katex.min.css";
-import Latex from "react-latex-next";
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-latex";
-import "ace-builds/src-noconflict/theme-github";
-import "ace-builds/src-noconflict/theme-textmate";
-import "ace-builds/src-noconflict/theme-tomorrow"; // Import theme tomorrow
-import "ace-builds/src-noconflict/theme-dracula"; // Import theme tomorrow
+import React, { useState, useRef, useEffect } from "react";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
+import Home from "./pages/Home";
+import About from "./pages/About";
 
-import "./customFont.css"; // Create this CSS file to import your custom font
-<script src="./PdfTeXEngine.js"></script>;
 const App = () => {
-  const [inputText, setInputText] = useState(`Ví dụ:
-Cho ba số thực $a, b, c$  không âm thỏa mãn: $a^2 + b^2+c^2+3=2 \\left(ab+bc+ca\\right)$. Chứng minh:  
-
-$3\\leq a+b+c\\leq \\dfrac{2\\left(ab+bc+ca\\right)+3}{3}$`);
-
-  const inputRef = useRef(null);
-  const [basicFormulas1, setBasicFormulas] = useState([]);
-
-  const handleInputChange = (value) => {
-    setInputText(value);
-  };
-
-  const scrollToSection = (index) => {
-    // Implement scrolling logic as needed
-  };
-
-  useEffect(() => {
-    // Fetch data from JSON file
-    fetch("/data.json")
-      .then((response) => response.json())
-      .then((data) => setBasicFormulas(data))
-      .catch((error) => console.error("Error fetching data:", error));
-  }, []);
-
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      const message = "Do you want to exit the website or not?";
-      event.returnValue = message; // Standard for most browsers
-      return message; // For some older browsers
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
-  // const removeExtraSpaces = (text) => {
-  //   return text.replace(/\s+/g, " ").trim(); // Replace multiple spaces with single space and trim
-  // };
-  const processInputText = (text) => {
-    // Replace "\\" with newline character "\n"
-    const processedText = text.replace(/\\\\/g, "\n");
-    // Replace multiple spaces with single space and trim
-    // return processedText.replace(/\s+/g, " ").trim();
-    return processedText.trim();
-  };
-
-  const insertFormula = (formula, pos) => {
-    const editor = inputRef.current.editor;
-    const position = editor.getCursorPosition();
-    const textBeforeCursor = inputText.substring(
-      0,
-      editor.session.doc.positionToIndex(position)
-    );
-    const textAfterCursor = inputText.substring(
-      editor.session.doc.positionToIndex(position)
-    );
-    let newFormula = formula;
-    let newCursorPos = position.column + formula.length;
-
-    // Check if cursor is inside a $$ pair
-    const beforeDollarCount = (textBeforeCursor.match(/\$/g) || []).length;
-    const afterDollarCount = (textAfterCursor.match(/\$/g) || []).length;
-
-    if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
-      // Cursor is inside $$, don't add extra $$
-      newFormula = formula;
-      newCursorPos = newCursorPos - pos;
-    } else {
-      // Cursor is outside $$, add $$ around the formula
-      newFormula = `$${formula}$`;
-      newCursorPos += 2; // Adjust for added $ signs
-      newCursorPos = newCursorPos - pos - 1;
-    }
-
-    const newText = textBeforeCursor + newFormula + textAfterCursor;
-    setInputText(newText);
-
-    // Set cursor position after update
-    setTimeout(() => {
-      editor.focus();
-      editor.moveCursorTo(position.row, newCursorPos);
-    }, 0);
-  };
-
   return (
-    <div>
-      <div
-        className="p-5 bg-white"
-        style={{ height: "100vh", marginTop: "150px" }}
-      >
-        <div className="grid grid-cols-[250px,1fr,1fr] gap-0 border border-gray-300 divide-x divide-solid divide-black h-full">
-          <div
-            className="overflow-y-auto pr-1"
-            style={{ maxHeight: "calc(100vh - 40px)" }}
-          >
-            <div className="grid grid-rows-5 gap-1">
-              {[...Array(5)].map((_, index) => (
-                <div
-                  key={index}
-                  className="grid grid-rows-4 grid-flow-col gap-1 p-2"
-                  style={{
-                    borderWidth: "1px",
-                    margin: "5px",
-                    borderColor: "red",
-                    borderRadius: "10px",
-                  }}
-                >
-                  {basicFormulas1.map((item, itemIndex) => (
-                    <div
-                      key={itemIndex}
-                      className="flex justify-center items-center"
-                    >
-                      <button
-                        onClick={() => insertFormula(item.formula, item.pos)}
-                        className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
-                      >
-                        <img
-                          src={item?.linkimage}
-                          alt="dummy-image"
-                          className="w-full h-full object-contain"
-                        />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div
-            className="overflow-y-auto"
-            style={{ maxHeight: "calc(100vh - 40px)" }}
-          >
-            <AceEditor
-              ref={inputRef}
-              mode="latex"
-              theme="dracula"
-              onChange={handleInputChange} // Updated to handleInputChange directly
-              value={inputText} // Bind value directly to inputText state
-              name="latex-editor"
-              editorProps={{ $blockScrolling: Infinity }}
-              width="100%"
-              height="100%"
-              fontSize="14px"
-              enableBasicAutocompletion={true}
-              enableLiveAutocompletion={true}
-              enableSnippets={true}
-              wrapEnabled={true} // Prevent automatic wrapping
-              softWrap={true} // Disable soft wrapping
-            />
-          </div>
-          <div
-            className="overflow-y-auto p-4 text-lg font-medium custom-font-output bg-white"
-            style={{ maxHeight: "calc(100vh - 40px)" }}
-          >
-            <div className="break-words whitespace-pre-wrap text-justify">
-              <Latex>{processInputText(inputText)}</Latex>
-            </div>
-          </div>
+    <div className="max-w-screen font-sans leading-normal text-black lg:text-base">
+      <div className="w-full flex justify-center items-start md:items-center box-border md:py-2 py-3 bg-[#E6F8F9] md:px-3 pl-3 pr-12 lg:relative top-0 z-[99999] lg:z-auto">
+        <div className="relative my-auto mr-3 mt-0 md:m-0 md:mr-1">
+          <span style={{ fontSize: "25px", margin: "5px" }}>🎉</span>
         </div>
+        <div>
+          <span className="my-auto text-[#414045] font-medium text-14 mr-1">
+            Trang web đang trong quá trình phát triển !
+          </span>
+        </div>
+        <button className="absolute md:right-6 right-4 md:top-[15px] top-4">
+          <i className="svicon-close text-2xl font-bold"></i>
+        </button>
       </div>
-      {/* <footer className="flex flex-col  justify-center">
-        <p className="text-center text-gray-700 font-medium">
-          &copy; 2024 Nguyen Duong The Vi. All rights reserved.
-        </p>
-      </footer> */}
+      <div>
+        <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        />
+
+        <main className="relative mx-auto max-w-8xl px-15 lg:flex-wrap lg:gap-x-8 lg:ml-70 lg:mr-70">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+          </Routes>
+        </main>
+      </div>
     </div>
   );
 };
