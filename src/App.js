@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Routes, Route, Link, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -34,6 +35,9 @@ const App = () => {
             <Route path="/about" element={<About />} />
           </Routes>
         </main>
+        <div>
+          <Footer />
+        </div>
       </div>
     </div>
   );

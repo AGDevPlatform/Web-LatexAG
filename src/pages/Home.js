@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-latex";
 import "ace-builds/src-noconflict/theme-dracula";
+import Footer from "../components/Footer";
 // import "./customFont.css";
 function Home() {
   const [inputText, setInputText] = useState(`Ví dụ:
@@ -118,7 +119,7 @@ function Home() {
     <div>
       <div
         className="p-5 bg-white"
-        style={{ height: "100vh", marginTop: "70px" }}
+        style={{ height: "100vh", marginTop: "50px" }}
       >
         <div className="grid grid-cols-[190px,1.4fr,1fr] gap-0 border border-gray-300 divide-x divide-solid divide-black h-full">
           <div
@@ -186,7 +187,6 @@ function Home() {
           </div>
         </div>
       </div>
-      <div>jhhh</div>
     </div>
   );
 }
