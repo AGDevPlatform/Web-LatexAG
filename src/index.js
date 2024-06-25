@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Helmet>
-      <title>EduArchive</title>
+      <title>Latex AG</title>
     </Helmet>
     <BrowserRouter>
       <App />

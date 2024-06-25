@@ -91,13 +91,17 @@ function Home() {
     const beforeDollarCount = (textBeforeCursor.match(/\$/g) || []).length;
     const afterDollarCount = (textAfterCursor.match(/\$/g) || []).length;
 
-    if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
-      newFormula = formula;
-      newCursorPos = newCursorPos - pos;
+    if (formula !== "$$") {
+      if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
+        newFormula = formula;
+        newCursorPos = newCursorPos - pos;
+      } else {
+        newFormula = `$${formula}$`;
+        newCursorPos += 2;
+        newCursorPos = newCursorPos - pos - 1;
+      }
     } else {
-      newFormula = `$${formula}$`;
-      newCursorPos += 2;
-      newCursorPos = newCursorPos - pos - 1;
+      newCursorPos = newCursorPos - pos;
     }
 
     const newText = textBeforeCursor + newFormula + textAfterCursor;
@@ -116,7 +120,7 @@ function Home() {
         className="p-5 bg-white"
         style={{ height: "100vh", marginTop: "70px" }}
       >
-        <div className="grid grid-cols-[190px,1fr,1fr] gap-0 border border-gray-300 divide-x divide-solid divide-black h-full">
+        <div className="grid grid-cols-[190px,1.4fr,1fr] gap-0 border border-gray-300 divide-x divide-solid divide-black h-full">
           <div
             className="overflow-y-auto pr-1"
             style={{ maxHeight: "calc(100vh - 20px)" }}

@@ -1,15 +1,9 @@
 [
     {
-        "name": "CanBacHai",
-        "formula": "\\sqrt{}",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "name": "MathMode",
+        "formula": "$$",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719322906/mathmode_afnbrw.svg",
         "pos": 1
-    },
-    {
-        "name": "PhanSo",
-        "formula": "\\dfrac{}{}",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719287981/t%E1%BA%A3i_xu%E1%BB%91ng_kzeysc.svg",
-        "pos": 3
     },
     {
         "name": "Mu",
@@ -30,45 +24,51 @@
         "pos": 4
     },
     {
+        "name": "CanBacHai",
+        "formula": "\\sqrt{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719324861/IconLatexAG/CanBacHai_aidewu.svg",
+        "pos": 1
+    },
+    {
         "name": "CanN",
         "formula": "\\sqrt[]{}",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719289270/IconLatexAG/CanN_oh0sp4.svg",
         "pos": 3
     },
     {
-        "name": "CanPhanSo",
-        "formula": "x^2",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
+        "name": "PhanSo",
+        "formula": "\\dfrac{}{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719287981/t%E1%BA%A3i_xu%E1%BB%91ng_kzeysc.svg",
+        "pos": 3
     },
     {
-        "name": "Square Root",
-        "formula": "\\sqrt{x}",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
+        "name": "Tong",
+        "formula": "\\sum_{}^{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719325093/IconLatexAG/Tong_pgo164.svg",
+        "pos": 4
     },
     {
-        "name": "Fraction",
-        "formula": "\\frac{x}{y}",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
+        "name": "NguyenHam",
+        "formula": "\\displaystyle\\int{}\\;\\mathrm{d}x",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719323621/IconLatexAG/NguyenHam_kmejyt.svg",
+        "pos": 14
     },
     {
-        "name": "Square Root",
-        "formula": "\\sqrt{x}",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
+        "name": "TichPhan",
+        "formula": "\\displaystyle\\int\\limits_{ }^{ } { }\\;\\mathrm{d}x",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719323949/IconLatexAG/TichPhan_akmull.svg",
+        "pos": 23
     },
     {
-        "name": "Fraction",
-        "formula": "\\frac{x}{y}",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
+        "name": "GioiHan0",
+        "formula": "\\displaystyle \\lim_{ \\to 0}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719324196/IconLatexAG/GioiHan0_tyjwic.svg",
+        "pos": 7
     },
     {
-        "name": "Square Root",
-        "formula": "\\sqrt{x}",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
+        "name": "DaoHam",
+        "formula": "\\dfrac{\\mathrm{d} }{\\mathrm{d} x}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719324510/IconLatexAG/DaoHam_smqbil.svg",
+        "pos": 0
     }
 ]
