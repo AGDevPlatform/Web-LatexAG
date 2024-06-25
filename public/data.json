@@ -1,42 +1,42 @@
 [
     {
-        "name": "Square",
+        "name": "CanBacHai",
         "formula": "\\sqrt{}",
         "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
         "pos": 1
     },
     {
-        "name": "Square",
-        "formula": "\\sqrt{x}",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "name": "PhanSo",
+        "formula": "\\dfrac{}{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719287981/t%E1%BA%A3i_xu%E1%BB%91ng_kzeysc.svg",
+        "pos": 3
+    },
+    {
+        "name": "Mu",
+        "formula": "^{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719288250/canbac_laybgk.svg",
         "pos": 1
     },
     {
-        "name": "Fraction",
-        "formula": "\\frac{x}{y}",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
+        "name": "MuDuoi",
+        "formula": "_{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719288641/MuDuoi_wzqxqf.svg",
         "pos": 1
     },
     {
-        "name": "Integral",
-        "formula": "\\int_{a}^{b} x dx",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
+        "name": "MuTrenDuoi",
+        "formula": "_{}^{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719288901/MuTrenDuoi_ntvrnh.svg",
+        "pos": 4
     },
     {
-        "name": "Sum",
-        "formula": "\\sum_{i=1}^{n} x_i",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
+        "name": "CanN",
+        "formula": "\\sqrt[]{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719289270/IconLatexAG/CanN_oh0sp4.svg",
+        "pos": 3
     },
     {
-        "name": "Product",
-        "formula": "\\prod_{i=1}^{n} x_i",
-        "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
-        "pos": 1
-    },
-    {
-        "name": "Square",
+        "name": "CanPhanSo",
         "formula": "x^2",
         "linkimage": "https://res.cloudinary.com/decwrwfpa/image/upload/v1719206089/img095misc-math_p73yij.svg",
         "pos": 1
