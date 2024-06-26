@@ -43,9 +43,9 @@ const App = () => {
       />
 
       <main style={mainContentStyle}>
-        <div style={headerStyle}>
+        {/* <div style={headerStyle}>
           <Header />
-        </div>
+        </div> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />

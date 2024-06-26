@@ -2,6 +2,13 @@ import React, { useState, useRef, useEffect } from "react";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-latex";
 import "ace-builds/src-noconflict/theme-dracula";
+import "ace-builds/src-noconflict/theme-dreamweaver";
+
+import "ace-builds/src-noconflict/theme-tomorrow";
+
+import "ace-builds/src-noconflict/theme-dracula";
+
+import "ace-builds/src-noconflict/theme-dracula";
 
 import Footer from "../components/Footer";
 // import "./customFont.css";
@@ -194,20 +201,56 @@ u { text-decoration: underline; }
 
   return (
     <>
-      <div className=" bg-white">
-        <div className="grid grid-cols-[155px,1.5fr,1fr] gap-0 divide-x divide-solid divide-black h-full">
+      <div
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#F3F3F3",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "#E5E5E5",
+            padding: "2px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              marginTop: "5px",
+              marginBottom: "5px",
+              borderWidth: "2px",
+              borderColor: "#CCCCCC",
+              borderStyle: "solid",
+              borderRadius: "5px",
+              width: "600px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            Latex AG
+          </div>
+        </div>
+        <div className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray h-full">
           <div
             className="overflow-y-auto pr-1"
-            style={{ maxHeight: "calc(100vh - 20px)" }}
+            style={{
+              maxHeight: "calc(100vh - 0px)",
+              backgroundColor: "#F3F3F3",
+            }}
           >
-            <div className="grid grid-rows-5 gap-1">
+            <div className="grid grid-rows-5 ">
               <div
                 className="grid grid-rows-4 grid-flow-col gap-1 p-2"
                 style={{
-                  borderWidth: "1px",
                   margin: "5px",
-                  borderColor: "gray",
+
+                  borderColor: "#D3D3D3",
                   borderRadius: "10px",
+                  // borderWidth: "1px",
                 }}
               >
                 {basicFormulas.map((item, itemIndex) => (
@@ -219,7 +262,7 @@ u { text-decoration: underline; }
                       onClick={() =>
                         insertFormula(item.formula, item.pos, item.x, item.y)
                       }
-                      className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+                      className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
                     >
                       <img
                         src={item?.linkimage}
@@ -233,10 +276,10 @@ u { text-decoration: underline; }
               <div
                 className="grid grid-rows-4 grid-flow-col gap-1 p-2"
                 style={{
-                  borderWidth: "1px",
                   margin: "5px",
-                  borderColor: "gray",
+                  borderColor: "#D3D3D3",
                   borderRadius: "10px",
+                  // borderWidth: "1px",
                 }}
               >
                 {basicFormulas2.map((item, itemIndex) => (
@@ -248,7 +291,7 @@ u { text-decoration: underline; }
                       onClick={() =>
                         insertFormula(item.formula, item.pos, item.x, item.y)
                       }
-                      className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+                      className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
                     >
                       <img
                         src={item?.linkimage}
@@ -263,23 +306,158 @@ u { text-decoration: underline; }
           </div>
 
           <div class="grid grid-cols-1 gap-0">
-            <div>
-              <button
-                style={{
-                  padding: "5px",
-                  margin: "5px",
-                  backgroundColor: "gray",
-                }}
-              >
-                <i className="fa-solid fa-clipboard">Copy</i>
-              </button>
+            <div
+              className="flex items-center"
+              style={{
+                backgroundColor: "#F8F8F8",
+                display: "flex",
+                alignItems: "center",
+                borderColor: "#E5E5E5",
+
+                borderBottomWidth: "1px",
+              }}
+            >
+              <div className="flex-1">
+                <button
+                  style={{
+                    margin: "8px",
+                    padding: "4px",
+                    color: "#808080",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "#1f1f1f")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "#616161")
+                  }
+                >
+                  <i class="fa-solid fa-xmark fa-xl" />
+                </button>
+                <button
+                  style={{
+                    margin: "8px",
+                    padding: "4px",
+                    color: "#808080",
+
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "#1f1f1f")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "#616161")
+                  }
+                >
+                  <i className="fa-regular fa-clipboard fa-xl" />
+                </button>
+              </div>
+
+              <div className="flex space-x-2">
+                <button
+                  style={{
+                    margin: "8px",
+                    padding: "4px",
+                    color: "#808080",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "#1f1f1f")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "#616161")
+                  }
+                >
+                  <i class="fa-solid fa-bold fa-xl"></i>
+                </button>
+                <button
+                  style={{
+                    margin: "8px",
+                    padding: "4px",
+                    color: "#808080",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "#1f1f1f")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "#616161")
+                  }
+                >
+                  <i class="fa-solid fa-underline fa-xl"></i>
+                </button>
+                <button
+                  style={{
+                    margin: "8px",
+                    padding: "4px",
+                    color: "#808080",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "#1f1f1f")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "#616161")
+                  }
+                >
+                  <i class="fa-solid fa-italic fa-xl" />{" "}
+                </button>
+                <button
+                  style={{
+                    margin: "8px",
+                    padding: "4px",
+                    color: "#808080",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "#1f1f1f")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "#616161")
+                  }
+                >
+                  <i class="fa-solid fa-align-left fa-xl"></i>
+                </button>
+                <button
+                  style={{
+                    margin: "8px",
+                    padding: "4px",
+                    color: "#808080",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "#1f1f1f")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "#616161")
+                  }
+                >
+                  <i class="fa-solid fa-align-center fa-xl"></i>{" "}
+                </button>
+                <button
+                  style={{
+                    margin: "8px",
+                    padding: "4px",
+                    color: "#808080",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = "#1f1f1f")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = "#616161")
+                  }
+                >
+                  <i class="fa-solid fa-align-right fa-xl"></i>{" "}
+                </button>
+              </div>
             </div>
 
             <div style={{ height: "calc(100vh - 20px)", overflow: "auto" }}>
               <AceEditor
                 ref={inputRef}
                 mode="latex"
-                theme="dracula"
+                theme="tomorrow"
                 onChange={handleInputChange}
                 value={inputText}
                 name="latex-editor"
@@ -297,17 +475,31 @@ u { text-decoration: underline; }
             </div>
           </div>
           <div class="grid grid-cols-1 gap-0">
-            <div>
+            <div
+              style={{
+                backgroundColor: "#F8F8F8",
+                display: "flex",
+                alignItems: "center",
+                borderColor: "#E5E5E5",
+
+                borderBottomWidth: "1px",
+              }}
+            >
               <button
                 style={{
-                  padding: "5px",
-                  margin: "5px",
-                  backgroundColor: "gray",
+                  margin: "8px",
+                  padding: "4px",
+                  color: "#808080",
+
+                  cursor: "pointer",
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#1f1f1f")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#616161")}
               >
-                <i className="fa-solid fa-clipboard">Copy</i>
+                <i className="fa-regular fa-clipboard fa-xl" />
               </button>
             </div>
+
             <div style={{ height: "calc(100vh - 20px)", overflow: "hidden" }}>
               <iframe
                 ref={iframeRef}
@@ -317,10 +509,23 @@ u { text-decoration: underline; }
                   height: "100%",
                   border: "none",
                   paddingBottom: "0px",
+                  backgroundColor: "white",
                 }}
               />
             </div>
           </div>
+        </div>
+        <div
+          style={{
+            backgroundColor: "#007ACC",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            display: "flex",
+            color: "white",
+          }}
+        >
+          2024 Nguyen Duong The Vi. All right reserved.
         </div>
       </div>
     </>
