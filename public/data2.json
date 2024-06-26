@@ -1,31 +1,27 @@
 [
     {
-        "name": "MathMode",
-        "formula": "$$",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719322906/mathmode_afnbrw.svg",
-        "pos": 1,
-        "index": 2,
-        "x": 1
+        "name": "DauNgoacTron",
+        "formula": "\\left (  \\right )",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719358861/IconLatexAG/DauNgoacTron_o6petv.svg",
+        "pos": 9
     },
     {
-        "name": "Mu",
-        "formula": "^{}",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719288250/canbac_laybgk.svg",
-        "pos": 1,
-        "index": 1
+        "name": "DauNgoacVuong",
+        "formula": "\\left [  \\right ]",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719359302/IconLatexAG/DauNgoacVuong_kx5uzo.svg",
+        "pos": 9
     },
     {
-        "name": "MuDuoi",
-        "formula": "_{}",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719288641/MuDuoi_wzqxqf.svg",
-        "pos": 1,
-        "index": 2
+        "name": "DauNgoacNhon",
+        "formula": "\\left\\{  \\right\\}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719359461/IconLatexAG/DauNgoacNhon_usjjsa.svg",
+        "pos": 9
     },
     {
-        "name": "MuTrenDuoi",
-        "formula": "_{}^{}",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719288901/MuTrenDuoi_ntvrnh.svg",
-        "pos": 4
+        "name": "DauNgoacNhon_2",
+        "formula": "\\left<  \\right>",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719359814/IconLatexAG/DauNgoacNhon_2_qcn4rm.svg",
+        "pos": 8
     },
     {
         "name": "CanBacHai",

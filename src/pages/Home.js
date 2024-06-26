@@ -12,6 +12,7 @@ function Home() {
   const inputRef = useRef(null);
   const iframeRef = useRef(null);
   const [basicFormulas, setBasicFormulas] = useState([]);
+  const [basicFormulas2, setBasicFormulas2] = useState([]);
 
   const handleInputChange = (value) => {
     setInputText(value);
@@ -23,7 +24,10 @@ function Home() {
       .then((response) => response.json())
       .then((data) => setBasicFormulas(data))
       .catch((error) => console.error("Error fetching data:", error));
-
+    fetch("/data2.json")
+      .then((response) => response.json())
+      .then((data) => setBasicFormulas2(data))
+      .catch((error) => console.error("Error fetching data:", error));
     updateIframeContent(inputText);
   }, []);
 
@@ -38,13 +42,31 @@ function Home() {
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, []);
 
-  const processInputText = (text) => {
-    return text.replace(/\\\\/g, "\n").trim();
-  };
+  // const processInputText = (text) => {
+  //   return text.replace(/\\\\/g, "\n").trim();
+  // };
 
   const updateIframeContent = (text) => {
     if (iframeRef.current) {
-      const processedText = processInputText(text);
+      // const processedText = text;
+      const processedText = text
+        .replace(/\\\\(\s*)/g, "<br>")
+        .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
+        .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
+        .replace(/\\underline\{([^}]+)\}/g, "<u>$1</u>")
+        .replace(
+          /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
+          '<div style="text-align: center;">$1</div>'
+        )
+        .replace(
+          /\\begin\{flushleft\}([\s\S]*?)\\end\{flushleft\}/g,
+          '<div style="text-align: left;">$1</div>'
+        )
+        .replace(
+          /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
+          '<div style="text-align: right;">$1</div>'
+        ); // Replace \\ followed by any whitespace with <br>
+
       const iframeContent = `
                 <!DOCTYPE html>
                 <html>
@@ -53,8 +75,14 @@ function Home() {
                   <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
                   <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
                   <style>
-                    body { font-family: Times New Roman, sans-serif; }
+                    body { font-family: Times New Roman, sans-serif;
+                     white-space: normal;
+              word-wrap: break-word;
+              padding: 10px; }
                     .katex { font-size: 1.1em; }
+                    strong { font-weight: bold; }
+                    em { font-style: italic; }
+u { text-decoration: underline; }
                   </style>
                 </head>
                 <body>
@@ -127,36 +155,62 @@ function Home() {
             style={{ maxHeight: "calc(100vh - 20px)" }}
           >
             <div className="grid grid-rows-5 gap-1">
-              {[...Array(5)].map((_, index) => (
-                <div
-                  key={index}
-                  className="grid grid-rows-4 grid-flow-col gap-1 p-2"
-                  style={{
-                    borderWidth: "1px",
-                    margin: "5px",
-                    borderColor: "red",
-                    borderRadius: "10px",
-                  }}
-                >
-                  {basicFormulas.map((item, itemIndex) => (
-                    <div
-                      key={itemIndex}
-                      className="flex justify-center items-center"
+              <div
+                className="grid grid-rows-4 grid-flow-col gap-1 p-2"
+                style={{
+                  borderWidth: "1px",
+                  margin: "5px",
+                  borderColor: "red",
+                  borderRadius: "10px",
+                }}
+              >
+                {basicFormulas.map((item, itemIndex) => (
+                  <div
+                    key={itemIndex}
+                    className="flex justify-center items-center"
+                  >
+                    <button
+                      onClick={() =>
+                        insertFormula(item.formula, item.pos, item.index)
+                      }
+                      className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
                     >
-                      <button
-                        onClick={() => insertFormula(item.formula, item.pos)}
-                        className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
-                      >
-                        <img
-                          src={item?.linkimage}
-                          alt="formula"
-                          className="w-full h-full object-contain"
-                        />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              ))}
+                      <img
+                        src={item?.linkimage}
+                        alt="formula"
+                        className="w-full h-full object-contain"
+                      />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div
+                className="grid grid-rows-4 grid-flow-col gap-1 p-2"
+                style={{
+                  borderWidth: "1px",
+                  margin: "5px",
+                  borderColor: "red",
+                  borderRadius: "10px",
+                }}
+              >
+                {basicFormulas2.map((item, itemIndex) => (
+                  <div
+                    key={itemIndex}
+                    className="flex justify-center items-center"
+                  >
+                    <button
+                      onClick={() => insertFormula(item.formula, item.pos)}
+                      className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+                    >
+                      <img
+                        src={item?.linkimage}
+                        alt="formula"
+                        className="w-full h-full object-contain"
+                      />
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           <div style={{ height: "calc(100vh - 20px)", overflow: "auto" }}>
