@@ -144,12 +144,9 @@ u { text-decoration: underline; }
   };
 
   return (
-    <div>
-      <div
-        className="p-5 bg-white"
-        style={{ height: "100vh", marginTop: "50px" }}
-      >
-        <div className="grid grid-cols-[190px,1.4fr,1fr] gap-0 divide-x divide-solid divide-black h-full">
+    <>
+      <div className=" bg-white">
+        <div className="grid grid-cols-[155px,1.5fr,1fr] gap-0 divide-x divide-solid divide-black h-full">
           <div
             className="overflow-y-auto pr-1"
             style={{ maxHeight: "calc(100vh - 20px)" }}
@@ -160,7 +157,7 @@ u { text-decoration: underline; }
                 style={{
                   borderWidth: "1px",
                   margin: "5px",
-                  borderColor: "red",
+                  borderColor: "gray",
                   borderRadius: "10px",
                 }}
               >
@@ -189,7 +186,7 @@ u { text-decoration: underline; }
                 style={{
                   borderWidth: "1px",
                   margin: "5px",
-                  borderColor: "red",
+                  borderColor: "gray",
                   borderRadius: "10px",
                 }}
               >
@@ -213,35 +210,69 @@ u { text-decoration: underline; }
               </div>
             </div>
           </div>
-          <div style={{ height: "calc(100vh - 20px)", overflow: "auto" }}>
-            <AceEditor
-              ref={inputRef}
-              mode="latex"
-              theme="dracula"
-              onChange={handleInputChange}
-              value={inputText}
-              name="latex-editor"
-              editorProps={{ $blockScrolling: Infinity }}
-              width="100%"
-              height="100%"
-              fontSize="14px"
-              enableBasicAutocompletion={true}
-              enableLiveAutocompletion={true}
-              enableSnippets={true}
-              wrapEnabled={true}
-              softWrap={true}
-            />
+
+          <div class="grid grid-cols-1 gap-0">
+            <div>
+              <button
+                style={{
+                  padding: "5px",
+                  margin: "5px",
+                  backgroundColor: "gray",
+                }}
+              >
+                <i className="fa-solid fa-clipboard">Copy</i>
+              </button>
+            </div>
+
+            <div style={{ height: "calc(100vh - 20px)", overflow: "auto" }}>
+              <AceEditor
+                ref={inputRef}
+                mode="latex"
+                theme="dracula"
+                onChange={handleInputChange}
+                value={inputText}
+                name="latex-editor"
+                editorProps={{ $blockScrolling: Infinity }}
+                width="100%"
+                height="100%"
+                fontSize="14px"
+                enableBasicAutocompletion={true}
+                enableLiveAutocompletion={true}
+                enableSnippets={true}
+                wrapEnabled={true}
+                softWrap={true}
+                style={{ paddingBottom: "40px" }}
+              />
+            </div>
           </div>
-          <div style={{ height: "calc(100vh - 20px)", overflow: "hidden" }}>
-            <iframe
-              ref={iframeRef}
-              title="LaTeX Output"
-              style={{ width: "100%", height: "100%", border: "none" }}
-            />
+          <div class="grid grid-cols-1 gap-0">
+            <div>
+              <button
+                style={{
+                  padding: "5px",
+                  margin: "5px",
+                  backgroundColor: "gray",
+                }}
+              >
+                <i className="fa-solid fa-clipboard">Copy</i>
+              </button>
+            </div>
+            <div style={{ height: "calc(100vh - 20px)", overflow: "hidden" }}>
+              <iframe
+                ref={iframeRef}
+                title="LaTeX Output"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  border: "none",
+                  paddingBottom: "0px",
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 export default Home;
