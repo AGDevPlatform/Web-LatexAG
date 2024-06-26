@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-latex";
 import "ace-builds/src-noconflict/theme-dracula";
+
 import Footer from "../components/Footer";
 // import "./customFont.css";
 function Home() {
@@ -104,43 +105,91 @@ u { text-decoration: underline; }
     }
   };
 
-  const insertFormula = (formula, pos) => {
+  const insertFormula = (formula, pos, x, y) => {
     const editor = inputRef.current.editor;
     const position = editor.getCursorPosition();
-    const textBeforeCursor = inputText.substring(
-      0,
-      editor.session.doc.positionToIndex(position)
-    );
-    const textAfterCursor = inputText.substring(
-      editor.session.doc.positionToIndex(position)
-    );
-    let newFormula = formula;
-    let newCursorPos = position.column + formula.length;
+    const selection = editor.getSelection();
+    const range = selection.getRange();
+    const selectionRange = editor.getSelection().getRange();
+    const isTextSelected = !selectionRange.isEmpty();
+    if (isTextSelected) {
+      const selectedText = editor.getSelectedText();
+      const startPos = editor.session.doc.positionToIndex(selectionRange.start);
+      const endPos = editor.session.doc.positionToIndex(selectionRange.end);
 
-    const beforeDollarCount = (textBeforeCursor.match(/\$/g) || []).length;
-    const afterDollarCount = (textAfterCursor.match(/\$/g) || []).length;
+      const textBeforeSelection = inputText.substring(0, startPos);
+      const textAfterSelection = inputText.substring(endPos);
 
-    if (formula !== "$$") {
-      if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
-        newFormula = formula;
-        newCursorPos = newCursorPos - pos;
+      const beforeDollarCount = (textBeforeSelection.match(/\$/g) || []).length;
+      const afterDollarCount = (textAfterSelection.match(/\$/g) || []).length;
+
+      let newFormula = formula;
+      if (formula !== "$$") {
+        if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
+          newFormula = `${formula}`;
+          x = x - 1;
+        } else {
+          newFormula = `$${formula}$`;
+        }
       } else {
-        newFormula = `$${formula}$`;
-        newCursorPos += 2;
-        newCursorPos = newCursorPos - pos - 1;
+        newFormula = `${formula}`;
       }
+
+      const insertionPoint = startPos + x;
+      const newFormulaWithSelectedText =
+        newFormula.slice(0, insertionPoint - startPos) +
+        selectedText +
+        newFormula.slice(insertionPoint - startPos);
+
+      const newText =
+        textBeforeSelection + newFormulaWithSelectedText + textAfterSelection;
+
+      const newCursorPos = startPos + x + selectedText.length + y;
+      setInputText(newText);
+      updateIframeContent(newText);
+      setTimeout(() => {
+        editor.focus();
+        editor.moveCursorToPosition(
+          editor.session.doc.indexToPosition(newCursorPos)
+        );
+        editor.clearSelection();
+      }, 0);
     } else {
-      newCursorPos = newCursorPos - pos;
+      const textBeforeCursor = inputText.substring(
+        0,
+        editor.session.doc.positionToIndex(position)
+      );
+      const textAfterCursor = inputText.substring(
+        editor.session.doc.positionToIndex(position)
+      );
+      let newFormula = formula;
+      let newCursorPos = position.column + formula.length;
+
+      const beforeDollarCount = (textBeforeCursor.match(/\$/g) || []).length;
+      const afterDollarCount = (textAfterCursor.match(/\$/g) || []).length;
+
+      if (formula !== "$$") {
+        if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
+          newFormula = formula;
+          newCursorPos = newCursorPos - pos;
+        } else {
+          newFormula = `$${formula}$`;
+          newCursorPos += 2;
+          newCursorPos = newCursorPos - pos - 1;
+        }
+      } else {
+        newCursorPos = newCursorPos - pos;
+      }
+
+      const newText = textBeforeCursor + newFormula + textAfterCursor;
+      setInputText(newText);
+      updateIframeContent(newText);
+
+      setTimeout(() => {
+        editor.focus();
+        editor.moveCursorTo(range.start.row, newCursorPos);
+      }, 0);
     }
-
-    const newText = textBeforeCursor + newFormula + textAfterCursor;
-    setInputText(newText);
-    updateIframeContent(newText);
-
-    setTimeout(() => {
-      editor.focus();
-      editor.moveCursorTo(position.row, newCursorPos);
-    }, 0);
   };
 
   return (
@@ -168,7 +217,7 @@ u { text-decoration: underline; }
                   >
                     <button
                       onClick={() =>
-                        insertFormula(item.formula, item.pos, item.index)
+                        insertFormula(item.formula, item.pos, item.x, item.y)
                       }
                       className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
                     >
@@ -196,7 +245,9 @@ u { text-decoration: underline; }
                     className="flex justify-center items-center"
                   >
                     <button
-                      onClick={() => insertFormula(item.formula, item.pos)}
+                      onClick={() =>
+                        insertFormula(item.formula, item.pos, item.x, item.y)
+                      }
                       className="w-9 h-9 bg-gray-300 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
                     >
                       <img

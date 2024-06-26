@@ -11,98 +11,6 @@ function Home() {
         $3\\leq a+b+c\\leq \\dfrac{2\\left(ab+bc+ca\\right)+3}{3}$`);
   const inputRef = useRef(null);
   const iframeRef = useRef(null);
-  const [basicFormulas, setBasicFormulas] = useState([]);
-  const [basicFormulas2, setBasicFormulas2] = useState([]);
-
-  const handleInputChange = (value) => {
-    setInputText(value);
-    updateIframeContent(value);
-  };
-
-  useEffect(() => {
-    fetch("/data.json")
-      .then((response) => response.json())
-      .then((data) => setBasicFormulas(data))
-      .catch((error) => console.error("Error fetching data:", error));
-    fetch("/data2.json")
-      .then((response) => response.json())
-      .then((data) => setBasicFormulas2(data))
-      .catch((error) => console.error("Error fetching data:", error));
-    updateIframeContent(inputText);
-  }, []);
-
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      const message = "Do you want to exit the website or not?";
-      event.returnValue = message;
-      return message;
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, []);
-
-  // const processInputText = (text) => {
-  //   return text.replace(/\\\\/g, "\n").trim();
-  // };
-
-  const updateIframeContent = (text) => {
-    if (iframeRef.current) {
-      // const processedText = text;
-      const processedText = text
-        .replace(/\\\\(\s*)/g, "<br>")
-        .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
-        .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
-        .replace(/\\underline\{([^}]+)\}/g, "<u>$1</u>")
-        .replace(
-          /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
-          '<div style="text-align: center;">$1</div>'
-        )
-        .replace(
-          /\\begin\{flushleft\}([\s\S]*?)\\end\{flushleft\}/g,
-          '<div style="text-align: left;">$1</div>'
-        )
-        .replace(
-          /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
-          '<div style="text-align: right;">$1</div>'
-        ); // Replace \\ followed by any whitespace with <br>
-
-      const iframeContent = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
-                  <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
-                  <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
-                  <style>
-                    body { font-family: Times New Roman, sans-serif;
-                     white-space: normal;
-              word-wrap: break-word;
-              padding: 10px; }
-                    .katex { font-size: 1.1em; }
-                    strong { font-weight: bold; }
-                    em { font-style: italic; }
-u { text-decoration: underline; }
-                  </style>
-                </head>
-                <body>
-                  <div id="latex-content">${processedText}</div>
-                  <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                      renderMathInElement(document.body, {
-                        delimiters: [
-                          {left: "$$", right: "$$", display: true},
-                          {left: "$", right: "$", display: false}
-                        ]
-                      });
-                    });
-                  </script>
-                </body>
-                </html>
-              `;
-      iframeRef.current.srcdoc = iframeContent;
-    }
-  };
 
   const insertFormula = (formula, pos) => {
     const editor = inputRef.current.editor;
@@ -146,7 +54,7 @@ u { text-decoration: underline; }
   return (
     <>
       <div className=" bg-white">
-        <div className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-black h-full">
+        <div className="grid grid-cols-[155px,1.5fr,1fr] gap-0 divide-x divide-solid divide-black h-full">
           <div
             className="overflow-y-auto pr-1"
             style={{ maxHeight: "calc(100vh - 20px)" }}
@@ -186,7 +94,7 @@ u { text-decoration: underline; }
                 style={{
                   borderWidth: "1px",
                   margin: "5px",
-                  borderColor: "red",
+                  borderColor: "gray",
                   borderRadius: "10px",
                 }}
               >

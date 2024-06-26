@@ -3,25 +3,33 @@
         "name": "DauNgoacTron",
         "formula": "\\left (  \\right )",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719358861/IconLatexAG/DauNgoacTron_o6petv.svg",
-        "pos": 9
+        "pos": 9,
+        "x": 8,
+        "y": 0
     },
     {
         "name": "DauNgoacVuong",
         "formula": "\\left [  \\right ]",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719359302/IconLatexAG/DauNgoacVuong_kx5uzo.svg",
-        "pos": 9
+        "pos": 9,
+        "x": 8,
+        "y": 0
     },
     {
         "name": "DauNgoacNhon",
         "formula": "\\left\\{  \\right\\}",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719359461/IconLatexAG/DauNgoacNhon_usjjsa.svg",
-        "pos": 9
+        "pos": 9,
+        "x": 8,
+        "y": 0
     },
     {
         "name": "DauNgoacNhon_2",
         "formula": "\\left<  \\right>",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719359814/IconLatexAG/DauNgoacNhon_2_qcn4rm.svg",
-        "pos": 8
+        "pos": 8,
+        "x": 8,
+        "y": 0
     },
     {
         "name": "CanBacHai",
