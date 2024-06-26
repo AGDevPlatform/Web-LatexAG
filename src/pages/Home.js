@@ -496,7 +496,7 @@ u { text-decoration: underline; }
                 onMouseEnter={(e) => (e.currentTarget.style.color = "#1f1f1f")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "#616161")}
               >
-                <i className="fa-regular fa-clipboard fa-xl" />
+                <i class="fa-solid fa-circle-down fa-xl"></i>{" "}
               </button>
             </div>
 
