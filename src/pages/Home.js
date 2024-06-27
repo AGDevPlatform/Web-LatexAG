@@ -3,7 +3,7 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-latex";
 import "ace-builds/src-noconflict/theme-dracula";
 import "ace-builds/src-noconflict/theme-dreamweaver";
-
+import { Tooltip } from "react-tooltip";
 import "ace-builds/src-noconflict/theme-tomorrow";
 
 import "ace-builds/src-noconflict/theme-dracula";
@@ -12,6 +12,8 @@ import "ace-builds/src-noconflict/theme-dracula";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 // import "./customFont.css";
 function Home() {
   const [stringInit, setStrinhInit] = useState(`\\begin{center}
@@ -123,62 +125,19 @@ u { text-decoration: underline; }
       iframeRef.current.srcdoc = iframeContent;
     }
   };
-
-  const insertFormula = (formula, pos, x, y, check) => {
+  //pos:Vị trí con trỏ sau khi chèn (Không tô đen)
+  //x: Vị trí chèn phần tử tô đen (So với công thức)
+  //y: Vị trí con trỏ sau khi chèn phần tô đen (So với vị trí kết thúc phần tô đen vừa chèn)
+  //check: kiểm tra có phải là các công thức khác không (Căn lề, in đậm, in nghiên,....)
+  //icon: kiểm tra phải chèn một kí tự dạng icon
+  const insertFormula = (formula, pos, x, y, check, icon) => {
     const editor = inputRef?.current?.editor;
     const position = editor.getCursorPosition();
     const selection = editor.getSelection();
     const range = selection.getRange();
     const selectionRange = editor.getSelection().getRange();
     const isTextSelected = !selectionRange.isEmpty();
-    if (isTextSelected) {
-      const selectedText = editor.getSelectedText();
-      const startPos = editor.session.doc.positionToIndex(selectionRange.start);
-      const endPos = editor.session.doc.positionToIndex(selectionRange.end);
-
-      const textBeforeSelection = inputText.substring(0, startPos);
-      const textAfterSelection = inputText.substring(endPos);
-
-      const beforeDollarCount = (textBeforeSelection.match(/\$/g) || []).length;
-      const afterDollarCount = (textAfterSelection.match(/\$/g) || []).length;
-
-      let newFormula = formula;
-      if (check === true) {
-        newFormula = `${formula}`;
-        x = x - 1;
-      } else {
-        if (formula !== "$$") {
-          if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
-            newFormula = `${formula}`;
-            x = x - 1;
-          } else {
-            newFormula = `$${formula}$`;
-          }
-        } else {
-          newFormula = `${formula}`;
-        }
-      }
-
-      const insertionPoint = startPos + x;
-      const newFormulaWithSelectedText =
-        newFormula.slice(0, insertionPoint - startPos) +
-        selectedText +
-        newFormula.slice(insertionPoint - startPos);
-
-      const newText =
-        textBeforeSelection + newFormulaWithSelectedText + textAfterSelection;
-
-      const newCursorPos = startPos + x + selectedText.length + y;
-      setInputText(newText);
-      updateIframeContent(newText);
-      setTimeout(() => {
-        editor.focus();
-        editor.moveCursorToPosition(
-          editor.session.doc.indexToPosition(newCursorPos)
-        );
-        editor.clearSelection();
-      }, 0);
-    } else {
+    if (icon === 99) {
       const textBeforeCursor = inputText.substring(
         0,
         editor.session.doc.positionToIndex(position)
@@ -217,7 +176,116 @@ u { text-decoration: underline; }
         editor.focus();
         editor.moveCursorTo(range.start.row, newCursorPos);
       }, 0);
+    } else {
+      if (isTextSelected) {
+        const selectedText = editor.getSelectedText();
+        const startPos = editor.session.doc.positionToIndex(
+          selectionRange.start
+        );
+        const endPos = editor.session.doc.positionToIndex(selectionRange.end);
+
+        const textBeforeSelection = inputText.substring(0, startPos);
+        const textAfterSelection = inputText.substring(endPos);
+
+        const beforeDollarCount = (textBeforeSelection.match(/\$/g) || [])
+          .length;
+        const afterDollarCount = (textAfterSelection.match(/\$/g) || []).length;
+
+        let newFormula = formula;
+        if (check === true) {
+          newFormula = `${formula}`;
+          x = x - 1;
+        } else {
+          if (formula !== "$$") {
+            if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
+              newFormula = `${formula}`;
+              x = x - 1;
+            } else {
+              newFormula = `$${formula}$`;
+            }
+          } else {
+            newFormula = `${formula}`;
+          }
+        }
+
+        const insertionPoint = startPos + x;
+        const newFormulaWithSelectedText =
+          newFormula.slice(0, insertionPoint - startPos) +
+          selectedText +
+          newFormula.slice(insertionPoint - startPos);
+
+        const newText =
+          textBeforeSelection + newFormulaWithSelectedText + textAfterSelection;
+
+        const newCursorPos = startPos + x + selectedText.length + y;
+        setInputText(newText);
+        updateIframeContent(newText);
+        setTimeout(() => {
+          editor.focus();
+          editor.moveCursorToPosition(
+            editor.session.doc.indexToPosition(newCursorPos)
+          );
+          editor.clearSelection();
+        }, 0);
+      } else {
+        const textBeforeCursor = inputText.substring(
+          0,
+          editor.session.doc.positionToIndex(position)
+        );
+        const textAfterCursor = inputText.substring(
+          editor.session.doc.positionToIndex(position)
+        );
+        let newFormula = formula;
+        let newCursorPos = position.column + formula.length;
+
+        const beforeDollarCount = (textBeforeCursor.match(/\$/g) || []).length;
+        const afterDollarCount = (textAfterCursor.match(/\$/g) || []).length;
+        if (check === true) {
+          newFormula = formula;
+          newCursorPos = newCursorPos - pos;
+        } else {
+          if (formula !== "$$") {
+            if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
+              newFormula = formula;
+              newCursorPos = newCursorPos - pos;
+            } else {
+              newFormula = `$${formula}$`;
+              newCursorPos += 2;
+              newCursorPos = newCursorPos - pos - 1;
+            }
+          } else {
+            newCursorPos = newCursorPos - pos;
+          }
+        }
+
+        const newText = textBeforeCursor + newFormula + textAfterCursor;
+        setInputText(newText);
+        updateIframeContent(newText);
+
+        setTimeout(() => {
+          editor.focus();
+          editor.moveCursorTo(range.start.row, newCursorPos);
+        }, 0);
+      }
     }
+  };
+
+  //Copy
+  const copyTextToClipboard = async (text) => {
+    if ("clipboard" in navigator) {
+      return await navigator.clipboard.writeText(text);
+    } else {
+      return document.execCommand("copy", true, text);
+    }
+  };
+  const handleCopy = () => {
+    copyTextToClipboard(inputText)
+      .then(() => {
+        toast.success("Đã copy tất cả nội dung thành công !");
+      })
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
   };
 
   return (
@@ -231,21 +299,20 @@ u { text-decoration: underline; }
       >
         <div className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray h-full">
           <div
-            className="overflow-y-auto pr-1"
+            className="overflow-y-auto p-1 flex flex-col gap-0 flex-shrink-0"
             style={{
-              maxHeight: "calc(100vh - 0px)",
+              maxHeight: "calc(100vh + 30px)",
               backgroundColor: "#F3F3F3",
             }}
           >
-            <div className="grid grid-rows-5 ">
+            <div className="mb-3" style={{ marginTop: "45px" }}>
               <div
-                className="grid grid-rows-4 grid-flow-col gap-1 p-2"
+                className="grid grid-rows-4 grid-flow-col"
                 style={{
-                  margin: "5px",
-
                   borderColor: "#D3D3D3",
                   borderRadius: "10px",
-                  // borderWidth: "1px",
+                  borderWidth: "1px",
+                  padding: "6px",
                 }}
               >
                 {basicFormulas.map((item, itemIndex) => (
@@ -268,13 +335,15 @@ u { text-decoration: underline; }
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="mb-3">
               <div
-                className="grid grid-rows-3 grid-flow-col gap-1 p-2"
+                className="grid grid-rows-3 grid-flow-col"
                 style={{
-                  margin: "5px",
                   borderColor: "#D3D3D3",
                   borderRadius: "10px",
-                  // borderWidth: "1px",
+                  borderWidth: "1px",
+                  padding: "6px",
                 }}
               >
                 {basicFormulas2.map((item, itemIndex) => (
@@ -297,14 +366,15 @@ u { text-decoration: underline; }
                   </div>
                 ))}
               </div>
+            </div>
+            <div className="mb-1">
               <div
-                className="grid grid-rows-4 grid-flow-col gap-1 p-2"
+                className="grid grid-rows-4 grid-flow-col"
                 style={{
-                  margin: "5px",
-
                   borderColor: "#D3D3D3",
                   borderRadius: "10px",
-                  // borderWidth: "1px",
+                  borderWidth: "1px",
+                  padding: "6px",
                 }}
               >
                 {basicFormulas3.map((item, itemIndex) => (
@@ -357,7 +427,7 @@ u { text-decoration: underline; }
                     (e.currentTarget.style.color = "#616161")
                   }
                 >
-                  <i class="fa-solid fa-xmark fa-xl" />
+                  <i class="fa-solid fa-eraser fa-xl" />
                 </button>
                 <button
                   style={{
@@ -373,6 +443,7 @@ u { text-decoration: underline; }
                   onMouseLeave={(e) =>
                     (e.currentTarget.style.color = "#616161")
                   }
+                  onClick={handleCopy}
                 >
                   <i className="fa-regular fa-clipboard fa-xl" />
                 </button>
@@ -386,7 +457,9 @@ u { text-decoration: underline; }
                     color: "#808080",
                     cursor: "pointer",
                   }}
-                  onClick={() => insertFormula("\\textbf{}", 1, 9, 0, true)}
+                  onClick={() =>
+                    insertFormula("\\textbf{}", 1, 9, 0, true, false)
+                  }
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.color = "#1f1f1f")
                   }
@@ -403,7 +476,9 @@ u { text-decoration: underline; }
                     color: "#808080",
                     cursor: "pointer",
                   }}
-                  onClick={() => insertFormula("\\underline{}", 1, 12, 0, true)}
+                  onClick={() =>
+                    insertFormula("\\underline{}", 1, 12, 0, true, false)
+                  }
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.color = "#1f1f1f")
                   }
@@ -420,7 +495,9 @@ u { text-decoration: underline; }
                     color: "#808080",
                     cursor: "pointer",
                   }}
-                  onClick={() => insertFormula("\\textit{}", 1, 9, 0, true)}
+                  onClick={() =>
+                    insertFormula("\\textit{}", 1, 9, 0, true, false)
+                  }
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.color = "#1f1f1f")
                   }
@@ -468,7 +545,8 @@ u { text-decoration: underline; }
                       0,
                       16,
                       0,
-                      true
+                      true,
+                      false
                     )
                   }
                   onMouseEnter={(e) =>
@@ -499,7 +577,8 @@ u { text-decoration: underline; }
                       0,
                       20,
                       0,
-                      true
+                      true,
+                      false
                     )
                   }
                 >
@@ -508,7 +587,13 @@ u { text-decoration: underline; }
               </div>
             </div>
 
-            <div style={{ height: "calc(100vh - 20px)", overflow: "auto" }}>
+            <div
+              style={{
+                height: "calc(100vh - 20px)",
+                overflow: "auto",
+                zIndex: 0,
+              }}
+            >
               <AceEditor
                 ref={inputRef}
                 mode="latex"
@@ -525,7 +610,11 @@ u { text-decoration: underline; }
                 enableSnippets={true}
                 wrapEnabled={true}
                 softWrap={true}
-                style={{ paddingBottom: "40px" }}
+                style={{
+                  paddingBottom: "40px",
+                  zIndex: 0,
+                  position: "relative",
+                }}
               />
             </div>
           </div>
@@ -570,6 +659,7 @@ u { text-decoration: underline; }
             </div>
           </div>
         </div>
+        <ToastContainer />
       </div>
     </>
   );
