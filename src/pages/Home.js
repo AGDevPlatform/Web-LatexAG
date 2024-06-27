@@ -13,10 +13,16 @@ import "ace-builds/src-noconflict/theme-dracula";
 import Footer from "../components/Footer";
 // import "./customFont.css";
 function Home() {
-  const [inputText, setInputText] = useState(`Ví dụ:
-        Cho ba số thực $a, b, c$  không âm thỏa mãn: $a^2 + b^2+c^2+3=2 \\left(ab+bc+ca\\right)$. Chứng minh:  
-        
-        $3\\leq a+b+c\\leq \\dfrac{2\\left(ab+bc+ca\\right)+3}{3}$`);
+  const [stringInit, setStrinhInit] = useState(`\\begin{center}
+\\textbf{Công cụ hỗ trợ gõ nhanh Latex}\\\\
+\\textit{2024 Nguyen Duong The Vi. All right reserved.}
+\\end{center}
+\\\\
+\\textbf{Ví dụ:} \\textit{(5 điểm)} Giải phương trình: \\\\
+\\begin{center}
+$x^{2}-x+2\\sqrt{x^{3}+1}=2\\sqrt{x+1}$
+\\end{center}`);
+  const [inputText, setInputText] = useState(stringInit);
   const inputRef = useRef(null);
   const iframeRef = useRef(null);
   const [basicFormulas, setBasicFormulas] = useState([]);
@@ -112,8 +118,8 @@ u { text-decoration: underline; }
     }
   };
 
-  const insertFormula = (formula, pos, x, y) => {
-    const editor = inputRef.current.editor;
+  const insertFormula = (formula, pos, x, y, check) => {
+    const editor = inputRef?.current?.editor;
     const position = editor.getCursorPosition();
     const selection = editor.getSelection();
     const range = selection.getRange();
@@ -131,15 +137,20 @@ u { text-decoration: underline; }
       const afterDollarCount = (textAfterSelection.match(/\$/g) || []).length;
 
       let newFormula = formula;
-      if (formula !== "$$") {
-        if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
-          newFormula = `${formula}`;
-          x = x - 1;
-        } else {
-          newFormula = `$${formula}$`;
-        }
-      } else {
+      if (check === true) {
         newFormula = `${formula}`;
+        x = x - 1;
+      } else {
+        if (formula !== "$$") {
+          if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
+            newFormula = `${formula}`;
+            x = x - 1;
+          } else {
+            newFormula = `$${formula}$`;
+          }
+        } else {
+          newFormula = `${formula}`;
+        }
       }
 
       const insertionPoint = startPos + x;
@@ -174,18 +185,22 @@ u { text-decoration: underline; }
 
       const beforeDollarCount = (textBeforeCursor.match(/\$/g) || []).length;
       const afterDollarCount = (textAfterCursor.match(/\$/g) || []).length;
-
-      if (formula !== "$$") {
-        if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
-          newFormula = formula;
-          newCursorPos = newCursorPos - pos;
-        } else {
-          newFormula = `$${formula}$`;
-          newCursorPos += 2;
-          newCursorPos = newCursorPos - pos - 1;
-        }
-      } else {
+      if (check === true) {
+        newFormula = formula;
         newCursorPos = newCursorPos - pos;
+      } else {
+        if (formula !== "$$") {
+          if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
+            newFormula = formula;
+            newCursorPos = newCursorPos - pos;
+          } else {
+            newFormula = `$${formula}$`;
+            newCursorPos += 2;
+            newCursorPos = newCursorPos - pos - 1;
+          }
+        } else {
+          newCursorPos = newCursorPos - pos;
+        }
       }
 
       const newText = textBeforeCursor + newFormula + textAfterCursor;
@@ -361,6 +376,7 @@ u { text-decoration: underline; }
                     color: "#808080",
                     cursor: "pointer",
                   }}
+                  onClick={() => insertFormula("\\textbf{}", 1, 9, 0, true)}
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.color = "#1f1f1f")
                   }
@@ -377,6 +393,7 @@ u { text-decoration: underline; }
                     color: "#808080",
                     cursor: "pointer",
                   }}
+                  onClick={() => insertFormula("\\underline{}", 1, 12, 0, true)}
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.color = "#1f1f1f")
                   }
@@ -393,6 +410,7 @@ u { text-decoration: underline; }
                     color: "#808080",
                     cursor: "pointer",
                   }}
+                  onClick={() => insertFormula("\\textit{}", 1, 9, 0, true)}
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.color = "#1f1f1f")
                   }
@@ -409,6 +427,15 @@ u { text-decoration: underline; }
                     color: "#808080",
                     cursor: "pointer",
                   }}
+                  onClick={() =>
+                    insertFormula(
+                      "\\begin{flushleft}\n\n\\end{flushleft}",
+                      0,
+                      19,
+                      0,
+                      true
+                    )
+                  }
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.color = "#1f1f1f")
                   }
@@ -425,6 +452,15 @@ u { text-decoration: underline; }
                     color: "#808080",
                     cursor: "pointer",
                   }}
+                  onClick={() =>
+                    insertFormula(
+                      "\\begin{center}\n\n\\end{center}",
+                      0,
+                      16,
+                      0,
+                      true
+                    )
+                  }
                   onMouseEnter={(e) =>
                     (e.currentTarget.style.color = "#1f1f1f")
                   }
@@ -446,6 +482,15 @@ u { text-decoration: underline; }
                   }
                   onMouseLeave={(e) =>
                     (e.currentTarget.style.color = "#616161")
+                  }
+                  onClick={() =>
+                    insertFormula(
+                      "\\begin{flushright}\n\n\\end{flushright}",
+                      0,
+                      20,
+                      0,
+                      true
+                    )
                   }
                 >
                   <i class="fa-solid fa-align-right fa-xl"></i>{" "}
