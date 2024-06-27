@@ -11,6 +11,7 @@ import "ace-builds/src-noconflict/theme-dracula";
 import "ace-builds/src-noconflict/theme-dracula";
 
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 // import "./customFont.css";
 function Home() {
   const [stringInit, setStrinhInit] = useState(`\\begin{center}
@@ -223,32 +224,6 @@ u { text-decoration: underline; }
           backgroundColor: "#F3F3F3",
         }}
       >
-        <div
-          style={{
-            backgroundColor: "#E5E5E5",
-            padding: "2px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div
-            style={{
-              marginTop: "5px",
-              marginBottom: "5px",
-              borderWidth: "2px",
-              borderColor: "#CCCCCC",
-              borderStyle: "solid",
-              borderRadius: "5px",
-              width: "600px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            Latex AG
-          </div>
-        </div>
         <div className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray h-full">
           <div
             className="overflow-y-auto pr-1"
@@ -559,18 +534,6 @@ u { text-decoration: underline; }
               />
             </div>
           </div>
-        </div>
-        <div
-          style={{
-            backgroundColor: "#007ACC",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            display: "flex",
-            color: "white",
-          }}
-        >
-          2024 Nguyen Duong The Vi. All right reserved.
         </div>
       </div>
     </>

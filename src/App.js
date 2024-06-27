@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Contact from "./pages/Contact";
 
 const App = () => {
   const appContainerStyle = {
@@ -43,17 +44,14 @@ const App = () => {
       />
 
       <main style={mainContentStyle}>
-        {/* <div style={headerStyle}>
-          <Header />
-        </div> */}
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
-      </main>
-      {/* <div style={footerStyle}>
         <Footer />
-      </div> */}
+      </main>
     </div>
   );
 };
