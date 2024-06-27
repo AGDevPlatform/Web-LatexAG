@@ -28,6 +28,7 @@ $x^{2}-x+2\\sqrt{x^{3}+1}=2\\sqrt{x+1}$
   const iframeRef = useRef(null);
   const [basicFormulas, setBasicFormulas] = useState([]);
   const [basicFormulas2, setBasicFormulas2] = useState([]);
+  const [basicFormulas3, setBasicFormulas3] = useState([]);
 
   const handleInputChange = (value) => {
     setInputText(value);
@@ -43,19 +44,23 @@ $x^{2}-x+2\\sqrt{x^{3}+1}=2\\sqrt{x+1}$
       .then((response) => response.json())
       .then((data) => setBasicFormulas2(data))
       .catch((error) => console.error("Error fetching data:", error));
+    fetch("/data3.json")
+      .then((response) => response.json())
+      .then((data) => setBasicFormulas3(data))
+      .catch((error) => console.error("Error fetching data:", error));
     updateIframeContent(inputText);
   }, []);
 
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      const message = "Do you want to exit the website or not?";
-      event.returnValue = message;
-      return message;
-    };
+  // useEffect(() => {
+  //   const handleBeforeUnload = (event) => {
+  //     const message = "Do you want to exit the website or not?";
+  //     event.returnValue = message;
+  //     return message;
+  //   };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, []);
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+  //   return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  // }, []);
 
   // const processInputText = (text) => {
   //   return text.replace(/\\\\/g, "\n").trim();
@@ -264,7 +269,7 @@ u { text-decoration: underline; }
                 ))}
               </div>
               <div
-                className="grid grid-rows-4 grid-flow-col gap-1 p-2"
+                className="grid grid-rows-3 grid-flow-col gap-1 p-2"
                 style={{
                   margin: "5px",
                   borderColor: "#D3D3D3",
@@ -273,6 +278,36 @@ u { text-decoration: underline; }
                 }}
               >
                 {basicFormulas2.map((item, itemIndex) => (
+                  <div
+                    key={itemIndex}
+                    className="flex justify-center items-center"
+                  >
+                    <button
+                      onClick={() =>
+                        insertFormula(item.formula, item.pos, item.x, item.y)
+                      }
+                      className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+                    >
+                      <img
+                        src={item?.linkimage}
+                        alt="formula"
+                        className="w-full h-full object-contain"
+                      />
+                    </button>
+                  </div>
+                ))}
+              </div>
+              <div
+                className="grid grid-rows-4 grid-flow-col gap-1 p-2"
+                style={{
+                  margin: "5px",
+
+                  borderColor: "#D3D3D3",
+                  borderRadius: "10px",
+                  // borderWidth: "1px",
+                }}
+              >
+                {basicFormulas3.map((item, itemIndex) => (
                   <div
                     key={itemIndex}
                     className="flex justify-center items-center"

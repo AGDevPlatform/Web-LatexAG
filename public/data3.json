@@ -1,0 +1,101 @@
+[
+    {
+        "name": "MathMode",
+        "formula": "$$",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719322906/mathmode_afnbrw.svg",
+        "pos": 1,
+        "index": 2,
+        "x": 1,
+        "y": 0
+    },
+    {
+        "name": "Mu",
+        "formula": "^{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719288250/canbac_laybgk.svg",
+        "pos": 1,
+        "index": 1,
+        "x": 3,
+        "y": 0
+    },
+    {
+        "name": "MuDuoi",
+        "formula": "_{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719288641/MuDuoi_wzqxqf.svg",
+        "pos": 1,
+        "index": 2,
+        "x": 3,
+        "y": 0
+    },
+    {
+        "name": "MuTrenDuoi",
+        "formula": "_{}^{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719288901/MuTrenDuoi_ntvrnh.svg",
+        "pos": 4,
+        "x": 3,
+        "y": 3
+    },
+    {
+        "name": "CanBacHai",
+        "formula": "\\sqrt{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719324861/IconLatexAG/CanBacHai_aidewu.svg",
+        "pos": 1,
+        "x": 7,
+        "y": 0
+    },
+    {
+        "name": "CanN",
+        "formula": "\\sqrt[]{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719289270/IconLatexAG/CanN_oh0sp4.svg",
+        "pos": 3,
+        "x": 7,
+        "y": 2
+    },
+    {
+        "name": "PhanSo",
+        "formula": "\\dfrac{}{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719287981/t%E1%BA%A3i_xu%E1%BB%91ng_kzeysc.svg",
+        "pos": 3,
+        "x": 8,
+        "y": 2
+    },
+    {
+        "name": "Tong",
+        "formula": "\\sum_{}^{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719325093/IconLatexAG/Tong_pgo164.svg",
+        "pos": 4,
+        "x": 7,
+        "y": 3
+    },
+    {
+        "name": "NguyenHam",
+        "formula": "\\displaystyle\\int{}\\;\\mathrm{d}x",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719323621/IconLatexAG/NguyenHam_kmejyt.svg",
+        "pos": 14,
+        "x": 19,
+        "y": 0
+    },
+    {
+        "name": "TichPhan",
+        "formula": "\\displaystyle\\int\\limits_{ }^{ } { }\\;\\mathrm{d}x",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719323949/IconLatexAG/TichPhan_akmull.svg",
+        "pos": 23,
+        "x": 35,
+        "y": 0
+    },
+    {
+        "name": "GioiHan0",
+        "formula": "\\displaystyle \\lim_{ \\to 0}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719324196/IconLatexAG/GioiHan0_tyjwic.svg",
+        "pos": 7,
+        "x": 21,
+        "y": 1
+    },
+    {
+        "name": "DaoHam",
+        "formula": "\\dfrac{\\mathrm{d} }{\\mathrm{d} x}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719324510/IconLatexAG/DaoHam_smqbil.svg",
+        "pos": 0,
+        "x": 1,
+        "y": 33
+    }
+]
