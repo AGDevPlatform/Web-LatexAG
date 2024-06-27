@@ -18,21 +18,22 @@
         "icon": 99
     },
     {
-        "name": "MuDuoi",
-        "formula": "_{}",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719288641/MuDuoi_wzqxqf.svg",
-        "pos": 1,
-        "index": 2,
-        "x": 3,
-        "y": 0
+        "name": "MuiTenLen",
+        "formula": "\\uparrow ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719498543/IconLatexAG/MuiTenLen_iagzh7.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 33,
+        "icon": 99
     },
     {
-        "name": "MuTrenDuoi",
-        "formula": "_{}^{}",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719288901/MuTrenDuoi_ntvrnh.svg",
-        "pos": 4,
-        "x": 3,
-        "y": 3
+        "name": "MuiTenXuong",
+        "formula": "\\downarrow ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719498694/IconLatexAG/MuiTenXuong_lcyzns.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 33,
+        "icon": 99
     },
     {
         "name": "CanBacHai",

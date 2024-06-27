@@ -53,20 +53,20 @@ $x^{2}-x+2\\sqrt{x^{3}+1}=2\\sqrt{x+1}$
     updateIframeContent(inputText);
   }, []);
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = (event) => {
-  //     const message = "Do you want to exit the website or not?";
-  //     event.returnValue = message;
-  //     return message;
-  //   };
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      const message = "Do you want to exit the website or not?";
+      event.returnValue = message;
+      return message;
+    };
 
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
-  //   return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  // }, []);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
 
-  // const processInputText = (text) => {
-  //   return text.replace(/\\\\/g, "\n").trim();
-  // };
+  const processInputText = (text) => {
+    return text.replace(/\\\\/g, "\n").trim();
+  };
 
   const updateIframeContent = (text) => {
     if (iframeRef.current) {
@@ -302,7 +302,7 @@ u { text-decoration: underline; }
             className="overflow-y-auto p-1 flex flex-col gap-0 flex-shrink-0"
             style={{
               maxHeight: "calc(100vh + 30px)",
-              backgroundColor: "#F3F3F3",
+              backgroundColor: "#F8F8F8",
             }}
           >
             <div className="mb-3" style={{ marginTop: "45px" }}>
@@ -310,9 +310,10 @@ u { text-decoration: underline; }
                 className="grid grid-rows-4 grid-flow-col"
                 style={{
                   borderColor: "#D3D3D3",
-                  borderRadius: "10px",
+                  borderRadius: "5px",
                   borderWidth: "1px",
                   padding: "6px",
+                  backgroundColor: "white",
                 }}
               >
                 {basicFormulas.map((item, itemIndex) => (
@@ -341,9 +342,10 @@ u { text-decoration: underline; }
                 className="grid grid-rows-3 grid-flow-col"
                 style={{
                   borderColor: "#D3D3D3",
-                  borderRadius: "10px",
+                  borderRadius: "5px",
                   borderWidth: "1px",
                   padding: "6px",
+                  backgroundColor: "white",
                 }}
               >
                 {basicFormulas2.map((item, itemIndex) => (
@@ -372,9 +374,10 @@ u { text-decoration: underline; }
                 className="grid grid-rows-4 grid-flow-col"
                 style={{
                   borderColor: "#D3D3D3",
-                  borderRadius: "10px",
+                  borderRadius: "5px",
                   borderWidth: "1px",
                   padding: "6px",
+                  backgroundColor: "white",
                 }}
               >
                 {basicFormulas3.map((item, itemIndex) => (

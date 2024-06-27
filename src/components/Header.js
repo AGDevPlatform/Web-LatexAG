@@ -33,7 +33,7 @@ function Header() {
   return (
     <div
       style={{
-        backgroundColor: "#E5E5E5",
+        backgroundColor: "white",
         padding: "2px",
         display: "flex",
         justifyContent: "center",
@@ -44,8 +44,8 @@ function Header() {
         style={{
           marginTop: "5px",
           marginBottom: "5px",
-          borderWidth: "2px",
-          borderColor: "#CCCCCC",
+          borderWidth: "1.5px",
+          borderColor: "#DDDDDD",
           borderStyle: "solid",
           borderRadius: "5px",
           width: "600px",
