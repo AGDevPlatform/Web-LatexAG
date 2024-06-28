@@ -64,11 +64,12 @@
         "y": 0
     },
     {
-        "name": "DauNgocDung_Tren",
-        "formula": "\\binom{}{}",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719479138/IconLatexAG/Ngoac2Dong_gxlja6.svg",
-        "pos": 3,
-        "x": 8,
-        "y": 0
+        "name": "Do",
+        "formula": "^{\\circ}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719576685/IconLatexAG/Do_wpd3ex.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
     }
 ]

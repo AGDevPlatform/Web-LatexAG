@@ -3,28 +3,20 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-latex";
 import "ace-builds/src-noconflict/theme-dracula";
 import "ace-builds/src-noconflict/theme-dreamweaver";
-import { Tooltip } from "react-tooltip";
+
 import "ace-builds/src-noconflict/theme-tomorrow";
 
 import "ace-builds/src-noconflict/theme-dracula";
 
 import "ace-builds/src-noconflict/theme-dracula";
 import html2pdf from "html2pdf.js";
-import Footer from "../components/Footer";
-import Header from "../components/Header";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import FormulaGrid from "../components/FormulaGrid";
+import IconButton from "../components/IconButton";
+
 // import "./customFont.css";
 function Home() {
-  //   const [stringInit, setStrinhInit] = useState(`\\begin{center}
-  // \\textbf{Công cụ hỗ trợ gõ nhanh Latex}\\\\
-  // \\textit{2024 Nguyen Duong The Vi. All right reserved.}
-  // \\end{center}
-  // \\\\
-  // \\textbf{Ví dụ:} \\textit{(5 điểm)} Giải phương trình: \\\\
-  // \\begin{center}
-  // $x^{2}-x+2\\sqrt{x^{3}+1}=2\\sqrt{x+1}$
-  // \\end{center}`);
   const handleDownload = () => {
     if (iframeRef.current) {
       const iframe = iframeRef.current;
@@ -65,33 +57,36 @@ function Home() {
   const [basicFormulas3, setBasicFormulas3] = useState([]);
   const [basicFormulas4, setBasicFormulas4] = useState([]);
   const [basicFormulas5, setBasicFormulas5] = useState([]);
+  const [basicFormulas6, setBasicFormulas6] = useState([]);
 
   const handleInputChange = (value) => {
     setInputText(value);
     updateIframeContent(value);
   };
 
+  const fetchData = async (url, setterFunction) => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setterFunction(data);
+    } catch (error) {
+      console.error(`Error fetching data from ${url}:`, error);
+      setterFunction([]);
+    }
+  };
+
   useEffect(() => {
-    fetch("/data.json")
-      .then((response) => response.json())
-      .then((data) => setBasicFormulas(data))
-      .catch((error) => console.error("Error fetching data:", error));
-    fetch("/data2.json")
-      .then((response) => response.json())
-      .then((data) => setBasicFormulas2(data))
-      .catch((error) => console.error("Error fetching data:", error));
-    fetch("/data3.json")
-      .then((response) => response.json())
-      .then((data) => setBasicFormulas3(data))
-      .catch((error) => console.error("Error fetching data:", error));
-    fetch("/data4.json")
-      .then((response) => response.json())
-      .then((data) => setBasicFormulas4(data))
-      .catch((error) => console.error("Error fetching data:", error));
-    fetch("/data5.json")
-      .then((response) => response.json())
-      .then((data) => setBasicFormulas5(data))
-      .catch((error) => console.error("Error fetching data:", error));
+    const dataUrls = [
+      { url: "/data.json", setter: setBasicFormulas },
+      { url: "/data2.json", setter: setBasicFormulas2 },
+      { url: "/data3.json", setter: setBasicFormulas3 },
+      { url: "/data4.json", setter: setBasicFormulas4 },
+      { url: "/data5.json", setter: setBasicFormulas5 },
+      { url: "/data6.json", setter: setBasicFormulas6 },
+    ];
+
+    dataUrls.forEach(({ url, setter }) => fetchData(url, setter));
+
     updateIframeContent(inputText);
   }, []);
 
@@ -130,42 +125,41 @@ function Home() {
           /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
           '<div style="text-align: right;">$1</div>'
         ); // Replace \\ followed by any whitespace with <br>
-
       const iframeContent = `
-                <!DOCTYPE html>
-                <html>
-                <head>
-                  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
-                  <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
-                  <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
-                  <style>
-                    body { font-family: Times New Roman, sans-serif;
-                     white-space: normal;
-              word-wrap: break-word;
-              padding: 10px;
-              font-size: 17px; /* Increased base font size */
-        line-height: 1.6; /* Adjusted line height for better readability */ }
-                    .katex { font-size: 1.1em; }
-                    strong { font-weight: bold; }
-                    em { font-style: italic; }
-u { text-decoration: underline; }
-                  </style>
-                </head>
-                <body>
-                  <div id="latex-content">${processedText}</div>
-                  <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                      renderMathInElement(document.body, {
-                        delimiters: [
-                          {left: "$$", right: "$$", display: true},
-                          {left: "$", right: "$", display: false}
-                        ]
-                      });
-                    });
-                  </script>
-                </body>
-                </html>
-              `;
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+                      <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
+                      <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
+                      <style>
+                        body { font-family: Times New Roman, sans-serif;
+                         white-space: normal;
+                  word-wrap: break-word;
+                  padding: 10px;
+                  font-size: 17.5px; /* Increased base font size */
+            line-height: 1.6; /* Adjusted line height for better readability */ }
+                        .katex { font-size: 1.1em; }
+                        strong { font-weight: bold; }
+                        em { font-style: italic; }
+    u { text-decoration: underline; }
+                      </style>
+                    </head>
+                    <body>
+                      <div id="latex-content">${processedText}</div>
+                      <script>
+                        document.addEventListener("DOMContentLoaded", function() {
+                          renderMathInElement(document.body, {
+                            delimiters: [
+                              {left: "$$", right: "$$", display: true},
+                              {left: "$", right: "$", display: false}
+                            ]
+                          });
+                        });
+                      </script>
+                    </body>
+                    </html>
+                  `;
       iframeRef.current.srcdoc = iframeContent;
     }
   };
@@ -350,201 +344,36 @@ u { text-decoration: underline; }
               backgroundColor: "#F8F8F8",
             }}
           >
-            <div className="mb-3">
-              <div
-                className="grid grid-rows-4 grid-flow-col"
-                style={{
-                  borderColor: "#D3D3D3",
-                  borderRadius: "5px",
-                  borderWidth: "1px",
-                  padding: "6px",
-                  backgroundColor: "white",
-                }}
-              >
-                {basicFormulas.map((item, itemIndex) => (
-                  <div
-                    key={itemIndex}
-                    className="flex justify-center items-center"
-                  >
-                    <button
-                      onClick={() =>
-                        insertFormula(
-                          item.formula,
-                          item.pos,
-                          item.x,
-                          item.y,
-                          false,
-                          item.icon
-                        )
-                      }
-                      className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
-                    >
-                      <img
-                        src={item?.linkimage}
-                        alt="formula"
-                        className="w-full h-full object-contain"
-                      />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="mb-3">
-              <div
-                className="grid grid-rows-3 grid-flow-col"
-                style={{
-                  borderColor: "#D3D3D3",
-                  borderRadius: "5px",
-                  borderWidth: "1px",
-                  padding: "6px",
-                  backgroundColor: "white",
-                }}
-              >
-                {basicFormulas2.map((item, itemIndex) => (
-                  <div
-                    key={itemIndex}
-                    className="flex justify-center items-center"
-                  >
-                    <button
-                      onClick={() =>
-                        insertFormula(
-                          item.formula,
-                          item.pos,
-                          item.x,
-                          item.y,
-                          false,
-                          item.icon
-                        )
-                      }
-                      className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
-                    >
-                      <img
-                        src={item?.linkimage}
-                        alt="formula"
-                        className="w-full h-full object-contain"
-                      />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="mb-3">
-              <div
-                className="grid grid-rows-4 grid-flow-col"
-                style={{
-                  borderColor: "#D3D3D3",
-                  borderRadius: "5px",
-                  borderWidth: "1px",
-                  padding: "6px",
-                  backgroundColor: "white",
-                }}
-              >
-                {basicFormulas5.map((item, itemIndex) => (
-                  <div
-                    key={itemIndex}
-                    className="flex justify-center items-center"
-                  >
-                    <button
-                      onClick={() =>
-                        insertFormula(
-                          item.formula,
-                          item.pos,
-                          item.x,
-                          item.y,
-                          false,
-                          item.icon
-                        )
-                      }
-                      className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
-                    >
-                      <img
-                        src={item?.linkimage}
-                        alt="formula"
-                        className="w-full h-full object-contain"
-                      />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="mb-3">
-              <div
-                className="grid grid-rows-6 grid-flow-col"
-                style={{
-                  borderColor: "#D3D3D3",
-                  borderRadius: "5px",
-                  borderWidth: "1px",
-                  padding: "6px",
-                  backgroundColor: "white",
-                }}
-              >
-                {basicFormulas3.map((item, itemIndex) => (
-                  <div
-                    key={itemIndex}
-                    className="flex justify-center items-center"
-                  >
-                    <button
-                      onClick={() =>
-                        insertFormula(
-                          item.formula,
-                          item.pos,
-                          item.x,
-                          item.y,
-                          false,
-                          item.icon
-                        )
-                      }
-                      className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
-                    >
-                      <img
-                        src={item?.linkimage}
-                        alt="formula"
-                        className="w-full h-full object-contain"
-                      />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="mb-3">
-              <div
-                className="grid grid-rows-6 grid-flow-col"
-                style={{
-                  borderColor: "#D3D3D3",
-                  borderRadius: "5px",
-                  borderWidth: "1px",
-                  padding: "6px",
-                  backgroundColor: "white",
-                }}
-              >
-                {basicFormulas4.map((item, itemIndex) => (
-                  <div
-                    key={itemIndex}
-                    className="flex justify-center items-center"
-                  >
-                    <button
-                      onClick={() =>
-                        insertFormula(
-                          item.formula,
-                          item.pos,
-                          item.x,
-                          item.y,
-                          false,
-                          item.icon
-                        )
-                      }
-                      className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
-                    >
-                      <img
-                        src={item?.linkimage}
-                        alt="formula"
-                        className="w-full h-full object-contain"
-                      />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <FormulaGrid
+              formulas={basicFormulas}
+              rows={4}
+              insertFormula={insertFormula}
+            />
+            <FormulaGrid
+              formulas={basicFormulas2}
+              rows={3}
+              insertFormula={insertFormula}
+            />
+            <FormulaGrid
+              formulas={basicFormulas5}
+              rows={3}
+              insertFormula={insertFormula}
+            />
+            <FormulaGrid
+              formulas={basicFormulas3}
+              rows={6}
+              insertFormula={insertFormula}
+            />
+            <FormulaGrid
+              formulas={basicFormulas4}
+              rows={6}
+              insertFormula={insertFormula}
+            />
+            <FormulaGrid
+              formulas={basicFormulas6}
+              rows={4}
+              insertFormula={insertFormula}
+            />
           </div>
 
           <div class="grid grid-cols-1 gap-0">
@@ -560,107 +389,41 @@ u { text-decoration: underline; }
               }}
             >
               <div className="flex-1">
-                <button
-                  style={{
-                    margin: "4px",
-                    padding: "4px",
-                    color: "#808080",
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "#1f1f1f")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "#616161")
-                  }
-                >
-                  <i class="fa-solid fa-eraser fa-xl" />
-                </button>
-                <button
-                  style={{
-                    margin: "8px",
-                    padding: "4px",
-                    color: "#808080",
-
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "#1f1f1f")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "#616161")
-                  }
+                <IconButton
+                  icon="fa-solid fa-eraser"
+                  // onClick={()}
+                />
+                <IconButton
+                  icon="fa-regular fa-clipboard"
                   onClick={handleCopy}
-                >
-                  <i className="fa-regular fa-clipboard fa-xl" />
-                </button>
+                  margin="8px"
+                />
               </div>
 
               <div className="flex space-x-2">
-                <button
-                  style={{
-                    margin: "8px",
-                    padding: "4px",
-                    color: "#808080",
-                    cursor: "pointer",
-                  }}
+                <IconButton
+                  icon="fa-solid fa-bold"
                   onClick={() =>
                     insertFormula("\\textbf{}", 1, 9, 0, true, false)
                   }
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "#1f1f1f")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "#616161")
-                  }
-                >
-                  <i class="fa-solid fa-bold fa-xl"></i>
-                </button>
-                <button
-                  style={{
-                    margin: "8px",
-                    padding: "4px",
-                    color: "#808080",
-                    cursor: "pointer",
-                  }}
+                  margin="8px"
+                />
+                <IconButton
+                  icon="fa-solid fa-underline"
                   onClick={() =>
                     insertFormula("\\underline{}", 1, 12, 0, true, false)
                   }
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "#1f1f1f")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "#616161")
-                  }
-                >
-                  <i class="fa-solid fa-underline fa-xl"></i>
-                </button>
-                <button
-                  style={{
-                    margin: "8px",
-                    padding: "4px",
-                    color: "#808080",
-                    cursor: "pointer",
-                  }}
+                  margin="8px"
+                />
+                <IconButton
+                  icon="fa-solid fa-italic"
                   onClick={() =>
                     insertFormula("\\textit{}", 1, 9, 0, true, false)
                   }
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "#1f1f1f")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "#616161")
-                  }
-                >
-                  <i class="fa-solid fa-italic fa-xl" />{" "}
-                </button>
-                <button
-                  style={{
-                    margin: "8px",
-                    padding: "4px",
-                    color: "#808080",
-                    cursor: "pointer",
-                  }}
+                  margin="8px"
+                />
+                <IconButton
+                  icon="fa-solid fa-align-left"
                   onClick={() =>
                     insertFormula(
                       "\\begin{flushleft}\n\n\\end{flushleft}",
@@ -670,22 +433,10 @@ u { text-decoration: underline; }
                       true
                     )
                   }
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "#1f1f1f")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "#616161")
-                  }
-                >
-                  <i class="fa-solid fa-align-left fa-xl"></i>
-                </button>
-                <button
-                  style={{
-                    margin: "8px",
-                    padding: "4px",
-                    color: "#808080",
-                    cursor: "pointer",
-                  }}
+                  margin="8px"
+                />
+                <IconButton
+                  icon="fa-solid fa-align-center"
                   onClick={() =>
                     insertFormula(
                       "\\begin{center}\n\n\\end{center}",
@@ -696,28 +447,10 @@ u { text-decoration: underline; }
                       false
                     )
                   }
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "#1f1f1f")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "#616161")
-                  }
-                >
-                  <i class="fa-solid fa-align-center fa-xl"></i>{" "}
-                </button>
-                <button
-                  style={{
-                    margin: "8px",
-                    padding: "4px",
-                    color: "#808080",
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = "#1f1f1f")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = "#616161")
-                  }
+                  margin="8px"
+                />
+                <IconButton
+                  icon="fa-solid fa-align-right"
                   onClick={() =>
                     insertFormula(
                       "\\begin{flushright}\n\n\\end{flushright}",
@@ -728,9 +461,8 @@ u { text-decoration: underline; }
                       false
                     )
                   }
-                >
-                  <i class="fa-solid fa-align-right fa-xl"></i>{" "}
-                </button>
+                  margin="8px"
+                />
               </div>
             </div>
 

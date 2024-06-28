@@ -1,0 +1,110 @@
+[
+    {
+        "name": "TapConPhai",
+        "formula": "\\subset ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719577264/IconLatexAG/ThuocTronPhai_ei4mzc.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "TCP3",
+        "formula": "\\supset ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719580385/IconLatexAG/TCP3_gwfpt2.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "TapConHai",
+        "formula": "\\subseteq ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719577501/IconLatexAG/ThuocTron2_cmrjlm.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "TCP3_2",
+        "formula": "\\supseteq ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719580445/IconLatexAG/TCP3_2_ndq3zp.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "CP3",
+        "formula": "\\nsubseteq ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719577698/IconLatexAG/ThuocTron2Gach_vv5uk2.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "TCP3_#",
+        "formula": "\\nsupseteq ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719580607/IconLatexAG/TCP3_3_zpsdbj.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "TCD",
+        "formula": "\\supseteqq ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719580799/IconLatexAG/TCD_phupjz.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "TCP_P",
+        "formula": "\\subseteqq ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719580908/IconLatexAG/TCDP_h2xvsz.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "TCD_GACH",
+        "formula": "\\nsupseteqq ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719581001/IconLatexAG/TCD_GACH_ufvi9f.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "ThuocPhai",
+        "formula": "\\in ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719581104/IconLatexAG/ThuocPhai_sroxut.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "ThuocTrai",
+        "formula": "\\ni ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719581217/IconLatexAG/ThuocTrai_gjtgef.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "KhongThuoc",
+        "formula": "\\notin ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719581285/IconLatexAG/KhongThuoc_qqpblo.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    }
+]
