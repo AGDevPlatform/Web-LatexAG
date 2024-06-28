@@ -9,7 +9,7 @@ import "ace-builds/src-noconflict/theme-tomorrow";
 import "ace-builds/src-noconflict/theme-dracula";
 
 import "ace-builds/src-noconflict/theme-dracula";
-
+import html2pdf from "html2pdf.js";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { ToastContainer, toast } from "react-toastify";
@@ -25,6 +25,37 @@ function Home() {
   // \\begin{center}
   // $x^{2}-x+2\\sqrt{x^{3}+1}=2\\sqrt{x+1}$
   // \\end{center}`);
+  const handleDownload = () => {
+    if (iframeRef.current) {
+      const iframe = iframeRef.current;
+      const iframeWindow = iframe.contentWindow;
+
+      // Create a promise that resolves when KaTeX rendering is complete
+      const renderPromise = new Promise((resolve) => {
+        iframeWindow.postMessage("render-math", "*");
+        window.addEventListener("message", function onMessage(event) {
+          if (event.data === "math-rendered") {
+            window.removeEventListener("message", onMessage);
+            resolve();
+          }
+        });
+      });
+
+      renderPromise.then(() => {
+        const element = iframeWindow.document.body;
+
+        const opt = {
+          margin: 10,
+          filename: "latex_content.pdf",
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        };
+
+        html2pdf().set(opt).from(element).save();
+      });
+    }
+  };
   const [stringInit, setStrinhInit] = useState("");
   const [inputText, setInputText] = useState(stringInit);
   const inputRef = useRef(null);
@@ -105,7 +136,9 @@ function Home() {
                     body { font-family: Times New Roman, sans-serif;
                      white-space: normal;
               word-wrap: break-word;
-              padding: 10px; }
+              padding: 10px;
+              font-size: 17px; /* Increased base font size */
+        line-height: 1.6; /* Adjusted line height for better readability */ }
                     .katex { font-size: 1.1em; }
                     strong { font-weight: bold; }
                     em { font-style: italic; }
@@ -710,6 +743,7 @@ u { text-decoration: underline; }
 
                   cursor: "pointer",
                 }}
+                onClick={handleDownload}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "#1f1f1f")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "#616161")}
               >
