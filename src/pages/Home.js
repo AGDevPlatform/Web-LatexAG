@@ -16,15 +16,16 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import "./customFont.css";
 function Home() {
-  const [stringInit, setStrinhInit] = useState(`\\begin{center}
-\\textbf{Công cụ hỗ trợ gõ nhanh Latex}\\\\
-\\textit{2024 Nguyen Duong The Vi. All right reserved.}
-\\end{center}
-\\\\
-\\textbf{Ví dụ:} \\textit{(5 điểm)} Giải phương trình: \\\\
-\\begin{center}
-$x^{2}-x+2\\sqrt{x^{3}+1}=2\\sqrt{x+1}$
-\\end{center}`);
+  //   const [stringInit, setStrinhInit] = useState(`\\begin{center}
+  // \\textbf{Công cụ hỗ trợ gõ nhanh Latex}\\\\
+  // \\textit{2024 Nguyen Duong The Vi. All right reserved.}
+  // \\end{center}
+  // \\\\
+  // \\textbf{Ví dụ:} \\textit{(5 điểm)} Giải phương trình: \\\\
+  // \\begin{center}
+  // $x^{2}-x+2\\sqrt{x^{3}+1}=2\\sqrt{x+1}$
+  // \\end{center}`);
+  const [stringInit, setStrinhInit] = useState("");
   const [inputText, setInputText] = useState(stringInit);
   const inputRef = useRef(null);
   const iframeRef = useRef(null);
@@ -53,16 +54,16 @@ $x^{2}-x+2\\sqrt{x^{3}+1}=2\\sqrt{x+1}$
     updateIframeContent(inputText);
   }, []);
 
-  useEffect(() => {
-    const handleBeforeUnload = (event) => {
-      const message = "Do you want to exit the website or not?";
-      event.returnValue = message;
-      return message;
-    };
+  // useEffect(() => {
+  //   const handleBeforeUnload = (event) => {
+  //     const message = "Do you want to exit the website or not?";
+  //     event.returnValue = message;
+  //     return message;
+  //   };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  }, []);
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+  //   return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  // }, []);
 
   const processInputText = (text) => {
     return text.replace(/\\\\/g, "\n").trim();
@@ -138,6 +139,7 @@ u { text-decoration: underline; }
     const selectionRange = editor.getSelection().getRange();
     const isTextSelected = !selectionRange.isEmpty();
     if (icon === 99) {
+      toast.success("99");
       const textBeforeCursor = inputText.substring(
         0,
         editor.session.doc.positionToIndex(position)
@@ -301,7 +303,7 @@ u { text-decoration: underline; }
           <div
             className="overflow-y-auto p-1 flex flex-col gap-0 flex-shrink-0"
             style={{
-              maxHeight: "calc(100vh + 30px)",
+              maxHeight: "calc(100vh + 80px)",
               backgroundColor: "#F8F8F8",
             }}
           >
@@ -323,7 +325,14 @@ u { text-decoration: underline; }
                   >
                     <button
                       onClick={() =>
-                        insertFormula(item.formula, item.pos, item.x, item.y)
+                        insertFormula(
+                          item.formula,
+                          item.pos,
+                          item.x,
+                          item.y,
+                          false,
+                          item.icon
+                        )
                       }
                       className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
                     >
@@ -355,7 +364,14 @@ u { text-decoration: underline; }
                   >
                     <button
                       onClick={() =>
-                        insertFormula(item.formula, item.pos, item.x, item.y)
+                        insertFormula(
+                          item.formula,
+                          item.pos,
+                          item.x,
+                          item.y,
+                          false,
+                          item.icon
+                        )
                       }
                       className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
                     >
@@ -371,7 +387,7 @@ u { text-decoration: underline; }
             </div>
             <div className="mb-1">
               <div
-                className="grid grid-rows-4 grid-flow-col"
+                className="grid grid-rows-6 grid-flow-col"
                 style={{
                   borderColor: "#D3D3D3",
                   borderRadius: "5px",
@@ -387,7 +403,53 @@ u { text-decoration: underline; }
                   >
                     <button
                       onClick={() =>
-                        insertFormula(item.formula, item.pos, item.x, item.y)
+                        insertFormula(
+                          item.formula,
+                          item.pos,
+                          item.x,
+                          item.y,
+                          false,
+                          item.icon
+                        )
+                      }
+                      className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+                    >
+                      <img
+                        src={item?.linkimage}
+                        alt="formula"
+                        className="w-full h-full object-contain"
+                      />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mb-1">
+              <div
+                className="grid grid-rows-6 grid-flow-col"
+                style={{
+                  borderColor: "#D3D3D3",
+                  borderRadius: "5px",
+                  borderWidth: "1px",
+                  padding: "6px",
+                  backgroundColor: "white",
+                }}
+              >
+                {basicFormulas3.map((item, itemIndex) => (
+                  <div
+                    key={itemIndex}
+                    className="flex justify-center items-center"
+                  >
+                    <button
+                      onClick={() =>
+                        insertFormula(
+                          item.formula,
+                          item.pos,
+                          item.x,
+                          item.y,
+                          false,
+                          item.icon
+                        )
                       }
                       className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
                     >
