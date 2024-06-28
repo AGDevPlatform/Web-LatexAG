@@ -32,7 +32,7 @@ function Home() {
   const [basicFormulas, setBasicFormulas] = useState([]);
   const [basicFormulas2, setBasicFormulas2] = useState([]);
   const [basicFormulas3, setBasicFormulas3] = useState([]);
-
+  const [basicFormulas4, setBasicFormulas4] = useState([]);
   const handleInputChange = (value) => {
     setInputText(value);
     updateIframeContent(value);
@@ -50,6 +50,10 @@ function Home() {
     fetch("/data3.json")
       .then((response) => response.json())
       .then((data) => setBasicFormulas3(data))
+      .catch((error) => console.error("Error fetching data:", error));
+    fetch("/data4.json")
+      .then((response) => response.json())
+      .then((data) => setBasicFormulas4(data))
       .catch((error) => console.error("Error fetching data:", error));
     updateIframeContent(inputText);
   }, []);
@@ -299,15 +303,15 @@ u { text-decoration: underline; }
           backgroundColor: "#F3F3F3",
         }}
       >
-        <div className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray h-full">
+        <div className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray">
           <div
             className="overflow-y-auto p-1 flex flex-col gap-0 flex-shrink-0"
             style={{
-              maxHeight: "calc(100vh + 80px)",
+              maxHeight: "calc(85vh + 48px)",
               backgroundColor: "#F8F8F8",
             }}
           >
-            <div className="mb-3" style={{ marginTop: "45px" }}>
+            <div className="mb-3">
               <div
                 className="grid grid-rows-4 grid-flow-col"
                 style={{
@@ -424,7 +428,7 @@ u { text-decoration: underline; }
                 ))}
               </div>
             </div>
-            <div className="mb-1">
+            <div style={{ marginBottom: "0px" }}>
               <div
                 className="grid grid-rows-6 grid-flow-col"
                 style={{
@@ -435,7 +439,7 @@ u { text-decoration: underline; }
                   backgroundColor: "white",
                 }}
               >
-                {basicFormulas3.map((item, itemIndex) => (
+                {basicFormulas4.map((item, itemIndex) => (
                   <div
                     key={itemIndex}
                     className="flex justify-center items-center"
@@ -480,7 +484,7 @@ u { text-decoration: underline; }
               <div className="flex-1">
                 <button
                   style={{
-                    margin: "8px",
+                    margin: "4px",
                     padding: "4px",
                     color: "#808080",
                     cursor: "pointer",
@@ -654,9 +658,10 @@ u { text-decoration: underline; }
 
             <div
               style={{
-                height: "calc(100vh - 20px)",
+                height: "calc(100vh - 0px)",
                 overflow: "auto",
                 zIndex: 0,
+                position: "relative",
               }}
             >
               <AceEditor
@@ -668,17 +673,20 @@ u { text-decoration: underline; }
                 name="latex-editor"
                 editorProps={{ $blockScrolling: Infinity }}
                 width="100%"
-                height="100%"
+                height="85vh"
                 fontSize="14px"
                 enableBasicAutocompletion={true}
                 enableLiveAutocompletion={true}
                 enableSnippets={true}
                 wrapEnabled={true}
-                softWrap={true}
+                setOptions={{
+                  useWorker: false,
+                }}
                 style={{
-                  paddingBottom: "40px",
                   zIndex: 0,
                   position: "relative",
+                  borderBottomWidth: "1px",
+                  borderColor: "#DCDCDC",
                 }}
               />
             </div>
@@ -709,16 +717,25 @@ u { text-decoration: underline; }
               </button>
             </div>
 
-            <div style={{ height: "calc(100vh - 20px)", overflow: "hidden" }}>
+            <div
+              style={{
+                height: "calc(100vh - 0px)",
+                overflow: "auto",
+                zIndex: 0,
+                position: "relative",
+              }}
+            >
               <iframe
                 ref={iframeRef}
                 title="LaTeX Output"
                 style={{
                   width: "100%",
-                  height: "100%",
-                  border: "none",
-                  paddingBottom: "0px",
+                  height: "85vh",
                   backgroundColor: "white",
+                  zIndex: 0,
+                  position: "relative",
+                  borderBottomWidth: "1px",
+                  borderColor: "#DCDCDC",
                 }}
               />
             </div>

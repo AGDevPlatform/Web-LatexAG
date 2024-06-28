@@ -1,0 +1,146 @@
+[
+    {
+        "name": "MuiTenPhai",
+        "formula": "\\rightarrow ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719490020/IconLatexAG/TED_bsnbbn.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTenTrai",
+        "formula": "\\leftarrow ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719489842/IconLatexAG/MuiTenTrai_zrrsdo.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTenLen",
+        "formula": "\\uparrow ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719498543/IconLatexAG/MuiTenLen_iagzh7.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTenXuong",
+        "formula": "\\downarrow ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719498694/IconLatexAG/MuiTenXuong_lcyzns.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTenLongTextTrai",
+        "formula": "\\xleftarrow[]{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719545614/IconLatexAG/MuiTenLongTextTrai_fjtelb.svg",
+        "pos": 3,
+        "x": 13,
+        "y": 2,
+        "icon": 0
+    },
+    {
+        "name": "MuiTenLongTextPhai",
+        "formula": "\\xrightarrow[]{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719545849/IconLatexAG/MuiTenLongTextPhai_kulra9.svg",
+        "pos": 3,
+        "x": 14,
+        "y": 2,
+        "icon": 0
+    },
+    {
+        "name": "MuiTen2Chieu",
+        "formula": "\\leftrightarrow ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719546287/IconLatexAG/MuiTen2Chieu_phnzgg.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTenTrai_2Gach",
+        "formula": "\\Leftarrow ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719547660/IconLatexAG/MuiTenTrai_2Gach_hdyjxl.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTenPhai_2Gach",
+        "formula": "\\Rightarrow ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719547786/IconLatexAG/MuiTenPhai_2Gach_lhmskj.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTen2Chieu_2Gach",
+        "formula": "\\Leftrightarrow ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719547905/IconLatexAG/MuiTen2Chieu_2Gach_ifgtlw.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTen2Chieu_3",
+        "formula": "\\leftrightharpoons ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719548410/IconLatexAG/MuTen2Chieu_3_fuo7eb.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTen2Chieu_4",
+        "formula": "\\rightleftharpoons ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719548533/IconLatexAG/MuiTen2Chieu_4_utum6r.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTraiNuaTren",
+        "formula": "\\leftharpoonup ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719548753/IconLatexAG/MuiTenTraiNuaTren_tzw5ks.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTenPhaiNuaTren",
+        "formula": "\\rightharpoonup ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719548869/IconLatexAG/MuiTenPhaiNuaTren_umjufk.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTenTraiNuaDuoi",
+        "formula": "\\leftharpoondown  ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719548982/IconLatexAG/MuiTenTraiNuaDuoi_bbi25t.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MuiTenPhaiNuaDuoi",
+        "formula": "\\rightharpoondown  ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719549069/IconLatexAG/MuiTenPhaiNuaDuoi_ra3f5q.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    }
+]

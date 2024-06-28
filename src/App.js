@@ -43,7 +43,14 @@ const App = () => {
         referrerPolicy="no-referrer"
       />
 
-      <main style={mainContentStyle}>
+      <main
+        style={{
+          height: "100dvh",
+          minHeight: "100%",
+          position: "relative",
+          overflowY: "hidden",
+        }}
+      >
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
