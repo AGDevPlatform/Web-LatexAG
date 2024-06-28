@@ -4,7 +4,7 @@ import React from "react";
 const FormulaGrid = ({ formulas, rows, insertFormula }) => (
   <div className="mb-3">
     <div
-      className={`grid grid-rows-${rows} grid-flow-col`}
+      className={`grid grid-rows-3 grid-flow-col`}
       style={{
         borderColor: "#D3D3D3",
         borderRadius: "5px",
