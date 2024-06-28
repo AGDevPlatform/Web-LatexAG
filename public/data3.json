@@ -142,5 +142,23 @@
         "x": 0,
         "y": 0,
         "icon": 99
+    },
+    {
+        "name": "MuiTenTrai_a",
+        "formula": "\\overset{}{\\leftarrow}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719564380/IconLatexAG/MuiTenTrai_a_duh7ot.svg",
+        "pos": 13,
+        "x": 10,
+        "y": 0,
+        "icon": 44
+    },
+    {
+        "name": "MuiTenPhai_a",
+        "formula": "\\overset{}{\\rightarrow} ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719564569/IconLatexAG/MuiTenPhai_a_ibut7r.svg",
+        "pos": 15,
+        "x": 10,
+        "y": 0,
+        "icon": 44
     }
 ]

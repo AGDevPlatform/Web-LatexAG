@@ -176,7 +176,7 @@ u { text-decoration: underline; }
     const selectionRange = editor.getSelection().getRange();
     const isTextSelected = !selectionRange.isEmpty();
     if (icon === 99) {
-      toast.success("99");
+      // toast.success("99");
       const textBeforeCursor = inputText.substring(
         0,
         editor.session.doc.positionToIndex(position)
