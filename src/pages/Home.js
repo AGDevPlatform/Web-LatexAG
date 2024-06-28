@@ -64,6 +64,8 @@ function Home() {
   const [basicFormulas2, setBasicFormulas2] = useState([]);
   const [basicFormulas3, setBasicFormulas3] = useState([]);
   const [basicFormulas4, setBasicFormulas4] = useState([]);
+  const [basicFormulas5, setBasicFormulas5] = useState([]);
+
   const handleInputChange = (value) => {
     setInputText(value);
     updateIframeContent(value);
@@ -85,6 +87,10 @@ function Home() {
     fetch("/data4.json")
       .then((response) => response.json())
       .then((data) => setBasicFormulas4(data))
+      .catch((error) => console.error("Error fetching data:", error));
+    fetch("/data5.json")
+      .then((response) => response.json())
+      .then((data) => setBasicFormulas5(data))
       .catch((error) => console.error("Error fetching data:", error));
     updateIframeContent(inputText);
   }, []);
@@ -111,7 +117,7 @@ function Home() {
         .replace(/\\\\(\s*)/g, "<br>")
         .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
         .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
-        .replace(/\\underline\{([^}]+)\}/g, "<u>$1</u>")
+        // .replace(/\\underline\{([^}]+)\}/g, "<u>$1</u>")
         .replace(
           /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
           '<div style="text-align: center;">$1</div>'
@@ -422,7 +428,46 @@ u { text-decoration: underline; }
                 ))}
               </div>
             </div>
-            <div className="mb-1">
+            <div className="mb-3">
+              <div
+                className="grid grid-rows-4 grid-flow-col"
+                style={{
+                  borderColor: "#D3D3D3",
+                  borderRadius: "5px",
+                  borderWidth: "1px",
+                  padding: "6px",
+                  backgroundColor: "white",
+                }}
+              >
+                {basicFormulas5.map((item, itemIndex) => (
+                  <div
+                    key={itemIndex}
+                    className="flex justify-center items-center"
+                  >
+                    <button
+                      onClick={() =>
+                        insertFormula(
+                          item.formula,
+                          item.pos,
+                          item.x,
+                          item.y,
+                          false,
+                          item.icon
+                        )
+                      }
+                      className="w-9 h-9  border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+                    >
+                      <img
+                        src={item?.linkimage}
+                        alt="formula"
+                        className="w-full h-full object-contain"
+                      />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="mb-3">
               <div
                 className="grid grid-rows-6 grid-flow-col"
                 style={{
@@ -461,7 +506,7 @@ u { text-decoration: underline; }
                 ))}
               </div>
             </div>
-            <div style={{ marginBottom: "0px" }}>
+            <div className="mb-3">
               <div
                 className="grid grid-rows-6 grid-flow-col"
                 style={{

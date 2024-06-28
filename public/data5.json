@@ -1,0 +1,74 @@
+[
+    {
+        "name": "DauNga",
+        "formula": "\\widetilde{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719570941/IconLatexAG/DauNga_rnw95b.svg",
+        "pos": 1,
+        "x": 12,
+        "y": 0
+    },
+    {
+        "name": "DauNhon",
+        "formula": "\\widehat{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719571124/IconLatexAG/DauNhon_apdtld.svg",
+        "pos": 1,
+        "x": 10,
+        "y": 0
+    },
+    {
+        "name": "DauMuiTenTrai",
+        "formula": "\\overleftarrow{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719571314/IconLatexAG/DauMuiTenTrai_yulsdc.svg",
+        "pos": 1,
+        "x": 16,
+        "y": 0
+    },
+    {
+        "name": "DauMuiTenPhai",
+        "formula": "\\overrightarrow{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719571578/IconLatexAG/DauMuiTenPhai_pwwunn.svg",
+        "pos": 1,
+        "x": 17,
+        "y": 0
+    },
+    {
+        "name": "GachTren",
+        "formula": "\\overline{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719571789/IconLatexAG/GachTren_mtf8km.svg",
+        "pos": 1,
+        "x": 11,
+        "y": 0
+    },
+    {
+        "name": "GachDuoi",
+        "formula": "\\underline{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719571954/IconLatexAG/GachDuoi_rtivsd.svg",
+        "pos": 1,
+        "x": 12,
+        "y": 0
+    },
+    {
+        "name": "NgoacNhonTren",
+        "formula": "\\overbrace{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719572298/IconLatexAG/NgoacNhonTren_qy83wd.svg",
+        "pos": 1,
+        "x": 12,
+        "y": 0
+    },
+    {
+        "name": "NgoacNhonDuoi",
+        "formula": "\\underbrace{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719572423/IconLatexAG/NgoacNhonDuoi_wplwrb.svg",
+        "pos": 1,
+        "x": 13,
+        "y": 0
+    },
+    {
+        "name": "DauNgocDung_Tren",
+        "formula": "\\binom{}{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719479138/IconLatexAG/Ngoac2Dong_gxlja6.svg",
+        "pos": 3,
+        "x": 8,
+        "y": 0
+    }
+]

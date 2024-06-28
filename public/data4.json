@@ -126,6 +126,15 @@
         "icon": 99
     },
     {
+        "name": "SongSong",
+        "formula": "\\parallel ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719567152/IconLatexAG/SongSong_d0sqyg.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
         "name": "VuongGoc",
         "formula": "\\perp ",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719567064/IconLatexAG/VuongGoc_oxcwcj.svg",
@@ -135,9 +144,18 @@
         "icon": 99
     },
     {
-        "name": "SongSong",
-        "formula": "\\parallel ",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719567152/IconLatexAG/SongSong_d0sqyg.svg",
+        "name": "VuongTrai",
+        "formula": "\\vdash ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719570168/IconLatexAG/VuongTrai_ld7ubg.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "VuongPhai",
+        "formula": "\\dashv ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719570268/IconLatexAG/VuongPhai_rqg9pg.svg",
         "pos": 0,
         "x": 0,
         "y": 0,
