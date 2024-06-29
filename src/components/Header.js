@@ -40,6 +40,8 @@ function Header() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        borderBottomWidth: "2px",
+        borderColor: "#EFEFEF",
       }}
     >
       <div
