@@ -128,16 +128,16 @@ function Home() {
     updateIframeContent(inputText);
   }, []);
 
-  // useEffect(() => {
-  //   const handleBeforeUnload = (event) => {
-  //     const message = "Do you want to exit the website or not?";
-  //     event.returnValue = message;
-  //     return message;
-  //   };
+  useEffect(() => {
+    const handleBeforeUnload = (event) => {
+      const message = "Do you want to exit the website or not?";
+      event.returnValue = message;
+      return message;
+    };
 
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
-  //   return () => window.removeEventListener("beforeunload", handleBeforeUnload);
-  // }, []);
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
 
   const processInputText = (text) => {
     return text.replace(/\\\\/g, "\n").trim();
