@@ -1,0 +1,164 @@
+[
+    {
+        "name": "CongTru",
+        "formula": "\\pm ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719641973/IconLatexAG/CongTru_qcdp2y.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "TruCong",
+        "formula": "\\mp ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642074/IconLatexAG/TruCong_hzx6ov.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "T1",
+        "formula": "\\cap ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642150/IconLatexAG/T1_s7rxnt.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "T2",
+        "formula": "\\cup ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642222/IconLatexAG/T2_tahecl.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "X",
+        "formula": "\\times ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642264/IconLatexAG/x_luce8g.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "Dot",
+        "formula": "\\odot ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642354/IconLatexAG/Dot_ufwnv8.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MT",
+        "formula": "\\wedge ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642492/IconLatexAG/MT_ton7ex.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "MD",
+        "formula": "\\vee ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642547/IconLatexAG/MD_k4mpq5.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "Vuong",
+        "formula": "\\square ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642633/IconLatexAG/Vuong_jihysx.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "DT",
+        "formula": "\\Delta ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642716/IconLatexAG/DT_prcv0x.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "TT",
+        "formula": "\\Theta ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642778/IconLatexAG/TT_i1vjrs.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "NR",
+        "formula": "\\Lambda ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642938/IconLatexAG/NR_vc7ulq.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "TR",
+        "formula": "\\Xi ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719643001/IconLatexAG/TR_h7h33b.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "N",
+        "formula": "\\Pi ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719643077/IconLatexAG/N_pxhikg.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "M",
+        "formula": "\\Sigma ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719643131/IconLatexAG/m_ml9vye.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "Y",
+        "formula": "\\Upsilon ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719643177/IconLatexAG/Y_erw0i2.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "Phi",
+        "formula": "\\Phi ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719643245/IconLatexAG/Phi_wztotj.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "y2",
+        "formula": "\\Psi ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719643298/IconLatexAG/Y2_rjhiu3.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    }
+]
