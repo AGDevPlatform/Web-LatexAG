@@ -9,13 +9,18 @@ import "ace-builds/src-noconflict/theme-tomorrow";
 import "ace-builds/src-noconflict/theme-dracula";
 
 import "ace-builds/src-noconflict/theme-dracula";
+import "ace-builds/src-noconflict/ext-keybinding_menu";
+import "ace-builds/src-noconflict/keybinding-vscode";
 import html2pdf from "html2pdf.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FormulaGrid from "../components/FormulaGrid";
 import IconButton from "../components/IconButton";
+import { useHotkeys } from "react-hotkeys-hook";
 
-// import "./customFont.css";
+// import "./customFont.css";import useKeyboardShortcut from 'use-keyboard-shortcut'
+import Hotkeys from "react-hot-keys";
+
 function Home() {
   const handleDownload = () => {
     if (iframeRef.current) {
@@ -168,8 +173,14 @@ function Home() {
   //y: Vị trí con trỏ sau khi chèn phần tô đen (So với vị trí kết thúc phần tô đen vừa chèn)
   //check: kiểm tra có phải là các công thức khác không (Căn lề, in đậm, in nghiên,....)
   //icon: kiểm tra phải chèn một kí tự dạng icon
+
   const insertFormula = (formula, pos, x, y, check, icon) => {
     const editor = inputRef?.current?.editor;
+    if (!editor) {
+      console.error("Editor instance not found");
+      return;
+    }
+
     const position = editor.getCursorPosition();
     const selection = editor.getSelection();
     const range = selection.getRange();
@@ -310,6 +321,51 @@ function Home() {
   };
 
   //Copy
+  const insertFormulaShortcut = (formula, pos, x, y, check, icon) => {
+    const editor = inputRef?.current?.editor;
+    if (!editor) {
+      console.error("Editor instance not found");
+      return;
+    }
+
+    const position = editor.getCursorPosition();
+    const currentContent = editor.getValue();
+    const cursorIndex = editor.session.doc.positionToIndex(position);
+
+    let newFormula = formula;
+    let newCursorPos = cursorIndex + formula.length - pos;
+
+    const textBeforeCursor = currentContent.substring(0, cursorIndex);
+    const textAfterCursor = currentContent.substring(cursorIndex);
+
+    const beforeDollarCount = (textBeforeCursor.match(/\$/g) || []).length;
+    const afterDollarCount = (textAfterCursor.match(/\$/g) || []).length;
+
+    if (!check && formula !== "$$") {
+      if (beforeDollarCount % 2 === 1 && afterDollarCount % 2 === 1) {
+        newFormula = formula;
+      } else {
+        newFormula = `$${formula}$`;
+        newCursorPos += 1;
+      }
+    }
+
+    const newContent = textBeforeCursor + newFormula + textAfterCursor;
+
+    // Update the editor content
+    editor.setValue(newContent, 1);
+
+    // Move the cursor to the new position
+    editor.moveCursorToPosition(
+      editor.session.doc.indexToPosition(newCursorPos)
+    );
+    editor.focus();
+
+    // Update the state and iframe content
+    setInputText(newContent);
+    updateIframeContent(newContent);
+  };
+
   const copyTextToClipboard = async (text) => {
     if ("clipboard" in navigator) {
       return await navigator.clipboard.writeText(text);
@@ -326,7 +382,57 @@ function Home() {
         console.error("Failed to copy text: ", err);
       });
   };
-
+  // const handleKeyDown = (event) => {
+  //   if (event.ctrlKey && event.shiftKey && event.key === "M") {
+  //     event.preventDefault();
+  //     insertFormula("$$");
+  //     console.log("clicked");
+  //   }
+  // };
+  const MathShortcuts = {
+    insertMathMode: {
+      name: "insertMathMode",
+      bindKey: { win: "Ctrl-Shift-M", mac: "Command-Shift-M" },
+      formula: "$$",
+      pos: 1,
+      x: 1,
+      y: 0,
+      check: false,
+      icon: false,
+    },
+    insertFraction: {
+      name: "insertFraction",
+      bindKey: { win: "Ctrl-Shift-F", mac: "Command-Shift-F" },
+      formula: "\\dfrac{}{}",
+      pos: 3,
+      x: 8,
+      y: 2,
+    },
+    insertSquareRoot: {
+      name: "insertSquareRoot",
+      bindKey: { win: "Ctrl-Shift-Q", mac: "Command-Shift-Q" },
+      formula: "\\sqrt{}",
+      pos: 1,
+      x: 7,
+      y: 0,
+    },
+    insertNewShortcut1: {
+      name: "insertNewShortcut1",
+      bindKey: { win: "Ctrl-Shift-D", mac: "Command-Shift-D" },
+      formula: "_{}",
+      pos: 1,
+      x: 3,
+      y: 0,
+    },
+    insertNewShortcut2: {
+      name: "fđfh",
+      bindKey: { win: "Ctrl-Shift-U", mac: "Command-Shift-U" },
+      formula: "^{}",
+      pos: 1,
+      x: 3,
+      y: 0,
+    },
+  };
   return (
     <>
       <div
@@ -475,7 +581,27 @@ function Home() {
               }}
             >
               <AceEditor
+                // ref={inputRef}
                 ref={inputRef}
+                onLoad={(editorInstance) => {
+                  Object.values(MathShortcuts).forEach((shortcut) => {
+                    editorInstance.commands.addCommand({
+                      name: shortcut.name,
+                      bindKey: shortcut.bindKey,
+                      exec: () => {
+                        console.log(`Shortcut ${shortcut.name} executed`);
+                        insertFormulaShortcut(
+                          shortcut.formula,
+                          shortcut.pos,
+                          shortcut.x,
+                          shortcut.y,
+                          shortcut.check,
+                          shortcut.icon
+                        );
+                      },
+                    });
+                  });
+                }}
                 mode="latex"
                 theme="tomorrow"
                 onChange={handleInputChange}
@@ -488,9 +614,13 @@ function Home() {
                 enableBasicAutocompletion={true}
                 enableLiveAutocompletion={true}
                 enableSnippets={true}
+                // onKeyDown={handleKeyDown}
                 wrapEnabled={true}
                 setOptions={{
                   useWorker: false,
+                  enableBasicAutocompletion: true,
+                  enableLiveAutocompletion: true,
+                  enableSnippets: true,
                 }}
                 style={{
                   zIndex: 0,

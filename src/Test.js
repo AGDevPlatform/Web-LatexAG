@@ -1,9 +1,22 @@
-{
-        "name": "TCP3_2",
-        "formula": "\\supseteq ",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719580445/IconLatexAG/TCP3_2_ndq3zp.svg",
-        "pos": 0,
-        "x": 0,
-        "y": 0,
-        "icon": 99
-    },
+<AceEditor
+  // ... other props ...
+  ref={inputRef}
+  onLoad={(editorInstance) => {
+    Object.values(MathShortcuts).forEach((shortcut) => {
+      editorInstance.commands.addCommand({
+        name: shortcut.name,
+        bindKey: shortcut.bindKey,
+        exec: () => {
+          insertFormulaShortcut(
+            shortcut.formula,
+            shortcut.pos,
+            shortcut.x,
+            shortcut.y,
+            shortcut.check,
+            shortcut.icon
+          );
+        },
+      });
+    });
+  }}
+/>;

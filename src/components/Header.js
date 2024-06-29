@@ -5,9 +5,11 @@ function Header() {
   const shortcutsRef = useRef(null);
 
   const shortcuts = [
-    { name: "Shortcut 1", key: "Ctrl + A" },
-    { name: "Shortcut 2", key: "Ctrl + B" },
-    { name: "Shortcut 3", key: "Ctrl + C" },
+    { name: "$$", key: "Ctrl + Shift + M" },
+    { name: "\\dfrac{}{}", key: "Ctrl + Shift + F" },
+    { name: "_{}", key: "Ctrl + Shift + D" },
+    { name: "^{}", key: "Ctrl + Shift + U" },
+    { name: "\\sqrt{}", key: "Ctrl + Shift + Q" },
   ];
 
   // Close the shortcuts menu when clicking outside
@@ -89,7 +91,6 @@ function Header() {
                   borderRadius: "5px",
                   boxShadow: "0px 8px 16px rgba(0,0,0,0.1)",
                   zIndex: 10,
-                  minWidth: "200px",
                 }}
               >
                 <ul
@@ -100,10 +101,18 @@ function Header() {
                       <a
                         href="/"
                         className="hover:bg-gray-200 block py-2 px-4"
-                        style={{ textDecoration: "none", display: "block" }}
+                        style={{
+                          textDecoration: "none",
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          whiteSpace: "nowrap",
+                        }}
                       >
-                        <span>{shortcut.name}</span> -{" "}
-                        <span>{shortcut.key}</span>
+                        <span style={{ color: "green" }}>{shortcut.name}</span>
+                        <span style={{ marginLeft: "20px" }}>
+                          {shortcut.key}
+                        </span>
                       </a>
                     </li>
                   ))}

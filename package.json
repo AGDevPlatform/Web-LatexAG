@@ -6,6 +6,7 @@
   "dependencies": {
     "@fileforge/react-print": "^0.1.141",
     "@react-pdf/renderer": "^3.4.4",
+    "@reecelucas/react-use-hotkeys": "^2.0.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -23,6 +24,8 @@
     "react-ace": "^11.0.1",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
+    "react-hot-keys": "^2.7.3",
+    "react-hotkeys-hook": "^4.5.0",
     "react-katex": "^3.0.1",
     "react-latex": "^2.0.0",
     "react-latex-next": "^3.0.0",
@@ -32,7 +35,8 @@
     "react-split": "^2.0.14",
     "react-toastify": "^10.0.5",
     "react-tooltip": "^5.27.0",
-    "react-zoom-pan-pinch": "^3.5.1"
+    "react-zoom-pan-pinch": "^3.5.1",
+    "use-keyboard-shortcut": "^1.1.6"
   },
   "scripts": {
     "start": "react-scripts start",
