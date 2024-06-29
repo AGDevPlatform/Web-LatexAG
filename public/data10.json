@@ -1,0 +1,75 @@
+[
+    {
+        "name": "Sin",
+        "formula": "\\sin{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719647879/IconLatexAG/CodeCogsEqn_2_yxqjqc.svg",
+        "pos": 1,
+        "x": 6,
+        "y": 0
+    },
+    {
+        "name": "Cos",
+        "formula": "\\cos{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719648016/IconLatexAG/CodeCogsEqn_3_lpat0t.svg",
+        "pos": 1,
+        "x": 6,
+        "y": 0
+    },
+    {
+        "name": "Tan",
+        "formula": "\\tan{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719648073/IconLatexAG/CodeCogsEqn_4_x2t8p7.svg",
+        "pos": 1,
+        "x": 6,
+        "y": 0
+    },
+    {
+        "name": "Cot",
+        "formula": "\\cot{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719648186/IconLatexAG/CodeCogsEqn_5_q5bg2l.svg",
+        "pos": 1,
+        "x": 6,
+        "y": 0
+    },
+    {
+        "name": "Sec",
+        "formula": "\\sec{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719648258/IconLatexAG/CodeCogsEqn_6_blc9lq.svg",
+        "pos": 1,
+        "x": 6,
+        "y": 0
+    },
+    {
+        "name": "LGA",
+        "formula": "\\log{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719648681/IconLatexAG/CodeCogsEqn_8_md2bnv.svg",
+        "pos": 1,
+        "x": 6,
+        "y": 0
+    },
+    {
+        "name": "LGAB",
+        "formula": "\\log_{}{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719648829/IconLatexAG/CodeCogsEqn_9_byogwi.svg",
+        "pos": 3,
+        "x": 7,
+        "y": 2
+    },
+    {
+        "name": "Ln",
+        "formula": "\\ln{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719648948/IconLatexAG/CodeCogsEqn_10_dsya3o.svg",
+        "pos": 1,
+        "x": 5,
+        "y": 0
+    },
+    {
+        "name": "Ell",
+        "formula": "\\ell ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719648502/IconLatexAG/CodeCogsEqn_7_ucdmj7.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    }
+]

@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Contact from "./pages/Contact";
+import Guid from "./pages/Guid";
 
 const App = () => {
   const appContainerStyle = {
@@ -54,10 +55,12 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route path="/gioithieu" element={<About />} />
+          <Route path="/huongdan" element={<Guid />} />
+
+          <Route path="/lienhe" element={<Contact />} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </main>
     </div>
   );

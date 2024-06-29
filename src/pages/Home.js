@@ -22,6 +22,26 @@ import { useHotkeys } from "react-hotkeys-hook";
 import Hotkeys from "react-hot-keys";
 
 function Home() {
+  const [isChecked, setIsChecked] = useState(true);
+  useEffect(() => {
+    const savedValue = localStorage.getItem("checkboxState");
+    if (savedValue !== null) {
+      setIsChecked(JSON.parse(savedValue));
+    }
+  }, []);
+
+  const handleChange = (event) => {
+    const newValue = event.target.checked;
+    setIsChecked(newValue);
+    localStorage.setItem("checkboxState", JSON.stringify(newValue));
+
+    if (newValue) {
+      toast.success("Bật tự động copy thành công !");
+    } else {
+      toast.warning("Đã tắt tự động copy !");
+    }
+  };
+
   const handleDownload = () => {
     if (iframeRef.current) {
       const iframe = iframeRef.current;
@@ -66,6 +86,12 @@ function Home() {
   const [basicFormulas7, setBasicFormulas7] = useState([]);
   const [basicFormulas8, setBasicFormulas8] = useState([]);
   const [basicFormulas9, setBasicFormulas9] = useState([]);
+  const [basicFormulas10, setBasicFormulas10] = useState([]);
+  useEffect(() => {
+    if (isChecked) {
+      handleCopy2();
+    }
+  }, [inputText, isChecked]);
 
   const handleInputChange = (value) => {
     setInputText(value);
@@ -94,6 +120,7 @@ function Home() {
       { url: "/data7.json", setter: setBasicFormulas7 },
       { url: "/data8.json", setter: setBasicFormulas8 },
       { url: "/data9.json", setter: setBasicFormulas9 },
+      { url: "/data10.json", setter: setBasicFormulas10 },
     ];
 
     dataUrls.forEach(({ url, setter }) => fetchData(url, setter));
@@ -388,6 +415,11 @@ function Home() {
         console.error("Failed to copy text: ", err);
       });
   };
+  const handleCopy2 = () => {
+    copyTextToClipboard(inputText)
+      .then(() => {})
+      .catch((err) => {});
+  };
   // const handleKeyDown = (event) => {
   //   if (event.ctrlKey && event.shiftKey && event.key === "M") {
   //     event.preventDefault();
@@ -472,6 +504,11 @@ function Home() {
               insertFormula={insertFormula}
             />
             <FormulaGrid
+              formulas={basicFormulas10}
+              rows={3}
+              insertFormula={insertFormula}
+            />
+            <FormulaGrid
               formulas={basicFormulas3}
               rows={6}
               insertFormula={insertFormula}
@@ -505,7 +542,7 @@ function Home() {
 
           <div class="grid grid-cols-1 gap-0">
             <div
-              className="flex items-center"
+              className="flex items-center justify-between"
               style={{
                 backgroundColor: "#F8F8F8",
                 display: "flex",
@@ -515,30 +552,37 @@ function Home() {
                 borderBottomWidth: "1px",
               }}
             >
-              <div className="flex-1">
-                <IconButton
-                  icon="fa-solid fa-eraser"
-                  // onClick={()}
-                />
-                <IconButton
-                  icon="fa-regular fa-clipboard"
-                  onClick={handleCopy}
-                  margin="8px"
-                />
+              <div className="flex ml-3">
+                <label className="inline-flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={handleChange}
+                    className="form-checkbox h-5 w-5 text-blue-600 transition duration-150 ease-in-out"
+                  />
+                  <span className="ml-2 text-gray-700">Tự động Copy</span>
+                </label>
               </div>
 
               <div className="flex space-x-2">
                 <IconButton
+                  icon="fa-solid fa-eraser"
+                  onClick={() => {
+                    setInputText("");
+                    updateIframeContent("");
+                    if (isChecked) {
+                      copyTextToClipboard("");
+                    }
+                  }}
+                />
+                <IconButton
+                  icon="fa-regular fa-clipboard"
+                  onClick={handleCopy}
+                />
+                <IconButton
                   icon="fa-solid fa-bold"
                   onClick={() =>
                     insertFormula("\\textbf{}", 1, 9, 0, true, false)
-                  }
-                  margin="8px"
-                />
-                <IconButton
-                  icon="fa-solid fa-underline"
-                  onClick={() =>
-                    insertFormula("\\underline{}", 1, 12, 0, true, false)
                   }
                   margin="8px"
                 />
@@ -671,11 +715,11 @@ function Home() {
 
                   cursor: "pointer",
                 }}
-                onClick={handleDownload}
+                // onClick={handleDownload}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "#1f1f1f")}
                 onMouseLeave={(e) => (e.currentTarget.style.color = "#616161")}
               >
-                <i class="fa-solid fa-circle-down fa-xl"></i>{" "}
+                <i class="fa-solid fa-check fa-xl"></i> {inputText.length} kí tự
               </button>
             </div>
 

@@ -68,7 +68,7 @@ function Header() {
               borderRadius: "5px",
             }}
           >
-            Latex AG 1.0.0
+            Latex AG
           </a>
           <a href="/" className="hover:underline" style={{ margin: "0 10px" }}>
             Trang chủ
@@ -120,23 +120,27 @@ function Header() {
               </div>
             )}
           </div>
-          <a href="/" className="hover:underline" style={{ margin: "0 10px" }}>
+          <a
+            href="/huongdan"
+            className="hover:underline"
+            style={{ margin: "0 10px" }}
+          >
             Hướng Dẫn
           </a>
           <a
-            href="/about"
+            href="/gioithieu"
             className="hover:underline"
             style={{ margin: "0 10px" }}
           >
             Giới thiệu
           </a>
-          <a
+          {/* <a
             href="/contact"
             className="hover:underline"
             style={{ margin: "0 10px" }}
           >
             Liên hệ
-          </a>
+          </a> */}
         </div>
       </div>
     </div>
