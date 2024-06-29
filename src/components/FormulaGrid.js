@@ -9,7 +9,7 @@ const FormulaGrid = ({ formulas, rows, insertFormula }) => (
         borderColor: "#D3D3D3",
         borderRadius: "5px",
         borderWidth: "1px",
-        padding: "6px",
+        padding: "7px",
         backgroundColor: "white",
       }}
     >
@@ -26,7 +26,7 @@ const FormulaGrid = ({ formulas, rows, insertFormula }) => (
                 item.icon
               )
             }
-            className="w-9 h-9 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-0.5 rounded"
+            className="w-9 h-9 border border-transparent hover:bg-blue-100 hover:border-blue-200 transition-colors duration-300 p-1 rounded"
           >
             <img
               src={item?.linkimage}

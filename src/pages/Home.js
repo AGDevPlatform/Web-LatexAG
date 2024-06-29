@@ -63,7 +63,7 @@ function Home() {
   const [basicFormulas4, setBasicFormulas4] = useState([]);
   const [basicFormulas5, setBasicFormulas5] = useState([]);
   const [basicFormulas6, setBasicFormulas6] = useState([]);
-
+  const [basicFormulas7, setBasicFormulas7] = useState([]);
   const handleInputChange = (value) => {
     setInputText(value);
     updateIframeContent(value);
@@ -88,6 +88,7 @@ function Home() {
       { url: "/data4.json", setter: setBasicFormulas4 },
       { url: "/data5.json", setter: setBasicFormulas5 },
       { url: "/data6.json", setter: setBasicFormulas6 },
+      { url: "/data7.json", setter: setBasicFormulas7 },
     ];
 
     dataUrls.forEach(({ url, setter }) => fetchData(url, setter));
@@ -478,6 +479,11 @@ function Home() {
             <FormulaGrid
               formulas={basicFormulas6}
               rows={4}
+              insertFormula={insertFormula}
+            />
+            <FormulaGrid
+              formulas={basicFormulas7}
+              rows={10}
               insertFormula={insertFormula}
             />
           </div>

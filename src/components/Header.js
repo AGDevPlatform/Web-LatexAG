@@ -98,8 +98,8 @@ function Header() {
                 >
                   {shortcuts.map((shortcut, index) => (
                     <li key={index}>
-                      <a
-                        href="/"
+                      <div
+                        // href="/"
                         className="hover:bg-gray-200 block py-2 px-4"
                         style={{
                           textDecoration: "none",
@@ -113,7 +113,7 @@ function Header() {
                         <span style={{ marginLeft: "20px" }}>
                           {shortcut.key}
                         </span>
-                      </a>
+                      </div>
                     </li>
                   ))}
                 </ul>
