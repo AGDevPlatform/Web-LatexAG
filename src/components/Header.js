@@ -68,7 +68,7 @@ function Header() {
               borderRadius: "5px",
             }}
           >
-            Latex AG
+            Latex AG 1.0.0
           </a>
           <a href="/" className="hover:underline" style={{ margin: "0 10px" }}>
             Trang chủ

@@ -1,0 +1,263 @@
+[
+    {
+        "name": "1",
+        "formula": "\\alpha ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719632333/IconLatexAG/1_ie92on.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "2",
+        "formula": "\\beta ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719632402/IconLatexAG/2_fve4x9.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "3",
+        "formula": "\\zeta ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719632558/IconLatexAG/3_j5x8li.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "4",
+        "formula": "\\kappa ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719632610/IconLatexAG/4_kxxgbl.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "5",
+        "formula": "\\epsilon ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719632682/IconLatexAG/5_ecrwfn.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "6",
+        "formula": "\\varepsilon ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719632751/IconLatexAG/6_bw5wxq.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "7",
+        "formula": "\\iota ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719632809/IconLatexAG/7_f2mrdi.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "8",
+        "formula": "\\xi ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719632872/IconLatexAG/8_g0qyzc.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "9",
+        "formula": "\\theta ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719632925/IconLatexAG/9_wvqk14.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "10",
+        "formula": "\\vartheta ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719632988/IconLatexAG/10_ohanfv.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "11",
+        "formula": "\\nu ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719633048/IconLatexAG/11_aqfwfo.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "12",
+        "formula": "\\varrho ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719633117/IconLatexAG/12_pzbreg.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "13",
+        "formula": "\\lambda ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719633253/IconLatexAG/13_jbkpfw.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "14",
+        "formula": "\\mu ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719633285/IconLatexAG/14_edhffh.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "15",
+        "formula": "\\rho ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719633356/IconLatexAG/15_lpzy9e.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "16",
+        "formula": "\\upsilon ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719633442/IconLatexAG/16_uzifve.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "17",
+        "formula": "\\pi ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719633503/IconLatexAG/17_dohqyx.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "18",
+        "formula": "\\varpi ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719633587/IconLatexAG/18_opbn9g.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "19",
+        "formula": "\\tau ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719633773/IconLatexAG/19_a7ykjn.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "20",
+        "formula": "\\psi ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719633853/IconLatexAG/20_b5dil9.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "21",
+        "formula": "\\sigma ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719633980/IconLatexAG/21_sgou8h.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "22",
+        "formula": "\\varsigma ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719634039/IconLatexAG/22_evqane.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "23",
+        "formula": "\\chi ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719634087/IconLatexAG/23_siok28.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "24",
+        "formula": "\\phi ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719634193/IconLatexAG/24_anbenf.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "25",
+        "formula": "\\varphi ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719634277/IconLatexAG/25_gxvds1.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "26",
+        "formula": "\\delta ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719634332/IconLatexAG/26_cawg4h.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "27",
+        "formula": "\\omega ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719634383/IconLatexAG/27_kvlf3y.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "28",
+        "formula": "\\gamma ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719634469/IconLatexAG/28_gshoob.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "29",
+        "formula": "\\eta ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719634526/IconLatexAG/29_okkyzn.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    }
+]
