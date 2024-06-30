@@ -576,28 +576,31 @@ function Home() {
                   />
                   <span className="ml-2 text-gray-700">Tự động Copy</span>
                 </label>
-              </div>
-              <div
-                className="flex items-center justify-between"
-                style={{
-                  backgroundColor: "#F8F8F8",
-                  borderColor: "#E5E5E5",
-                  borderBottomWidth: "1px",
-                }}
-              >
-                <select
-                  value={theme}
-                  onChange={handleThemeChange}
+                <div
+                  className="flex items-center"
                   style={{
-                    margin: "10px",
-                    padding: "5px",
-                    borderRadius: "4px",
+                    backgroundColor: "#F8F8F8",
+                    borderColor: "#E5E5E5",
+                    borderBottomWidth: "1px",
                   }}
                 >
-                  <option value="tomorrow">Light (Tomorrow)</option>
-                  <option value="dracula">Dark (Dracula)</option>
-                </select>
+                  <select
+                    value={theme}
+                    onChange={handleThemeChange}
+                    style={{
+                      margin: "10px",
+                      padding: "5px",
+                      paddingLeft: "15px",
+                      paddingRight: "15px",
+                      borderRadius: "4px",
+                    }}
+                  >
+                    <option value="tomorrow">Light</option>
+                    <option value="dracula">Dark</option>
+                  </select>
+                </div>
               </div>
+
               <div className="flex space-x-2">
                 <IconButton
                   icon="fa-solid fa-eraser"
