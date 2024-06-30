@@ -279,21 +279,17 @@ const Editor = ({
   inputText,
 }) => {
   const editorRef = useRef(null);
-
   useEffect(() => {
     if (editorRef.current) {
       const editor = editorRef.current.editor;
       editor.completers = [customCompleter];
 
-      editor.commands.on("afterExec", (e) => {
-        if (e.command.name === "insertstring") {
-          const pos = editor.getCursorPosition();
-          const line = editor.session.getLine(pos.row);
-          const prefix = line.substring(0, pos.column);
+      editor.getSession().on("change", function (e) {
+        const cursor = editor.getCursorPosition();
+        const line = editor.session.getLine(cursor.row);
 
-          if (prefix.endsWith("\\")) {
-            editor.execCommand("startAutocomplete");
-          }
+        if (cursor.column > 0 && line.charAt(cursor.column - 1) === "\\") {
+          editor.execCommand("startAutocomplete");
         }
       });
     }
