@@ -1,8 +1,8 @@
 [
     {
         "name": "NhoHonHocBang",
-        "formula": "\\leqslant ",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719564922/IconLatexAG/NhoHonHoacBang_ktityg.svg",
+        "formula": "\\leq ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719706245/F1_faht8d.svg",
         "pos": 0,
         "x": 0,
         "y": 0,
@@ -10,8 +10,8 @@
     },
     {
         "name": "LonHonHocBang",
-        "formula": "\\geqslant ",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719565063/IconLatexAG/LonHonHoacBang_dvyiej.svg",
+        "formula": "\\geq ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719706281/F2_qqsr1y.svg",
         "pos": 0,
         "x": 0,
         "y": 0,
