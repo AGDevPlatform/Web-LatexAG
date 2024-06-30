@@ -23,6 +23,20 @@ import Hotkeys from "react-hot-keys";
 
 function Home() {
   const [isChecked, setIsChecked] = useState(true);
+  const [theme, setTheme] = useState("tomorrow");
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("editorTheme");
+    if (savedTheme && (savedTheme === "tomorrow" || savedTheme === "dracula")) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  const handleThemeChange = (e) => {
+    const newTheme = e.target.value;
+    setTheme(newTheme);
+    localStorage.setItem("editorTheme", newTheme);
+  };
+
   useEffect(() => {
     const savedValue = localStorage.getItem("checkboxState");
     if (savedValue !== null) {
@@ -563,7 +577,27 @@ function Home() {
                   <span className="ml-2 text-gray-700">Tự động Copy</span>
                 </label>
               </div>
-
+              <div
+                className="flex items-center justify-between"
+                style={{
+                  backgroundColor: "#F8F8F8",
+                  borderColor: "#E5E5E5",
+                  borderBottomWidth: "1px",
+                }}
+              >
+                <select
+                  value={theme}
+                  onChange={handleThemeChange}
+                  style={{
+                    margin: "10px",
+                    padding: "5px",
+                    borderRadius: "4px",
+                  }}
+                >
+                  <option value="tomorrow">Light (Tomorrow)</option>
+                  <option value="dracula">Dark (Dracula)</option>
+                </select>
+              </div>
               <div className="flex space-x-2">
                 <IconButton
                   icon="fa-solid fa-eraser"
@@ -668,7 +702,7 @@ function Home() {
                   });
                 }}
                 mode="latex"
-                theme="tomorrow"
+                theme={theme}
                 onChange={handleInputChange}
                 value={inputText}
                 name="latex-editor"
