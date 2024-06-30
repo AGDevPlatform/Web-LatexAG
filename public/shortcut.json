@@ -1,0 +1,59 @@
+{
+    "insertMathMode": {
+        "name": "insertMathMode",
+        "bindKey": {
+            "win": "Ctrl-Shift-M",
+            "mac": "Command-Shift-M"
+        },
+        "formula": "$$",
+        "pos": 1,
+        "x": 1,
+        "y": 0,
+        "check": false,
+        "icon": false
+    },
+    "insertFraction": {
+        "name": "insertFraction",
+        "bindKey": {
+            "win": "Ctrl-Shift-F",
+            "mac": "Command-Shift-F"
+        },
+        "formula": "\\dfrac{}{}",
+        "pos": 3,
+        "x": 8,
+        "y": 2
+    },
+    "insertSquareRoot": {
+        "name": "insertSquareRoot",
+        "bindKey": {
+            "win": "Ctrl-Shift-Q",
+            "mac": "Command-Shift-Q"
+        },
+        "formula": "\\sqrt{}",
+        "pos": 1,
+        "x": 7,
+        "y": 0
+    },
+    "insertNewShortcut1": {
+        "name": "insertNewShortcut1",
+        "bindKey": {
+            "win": "Ctrl-Shift-D",
+            "mac": "Command-Shift-D"
+        },
+        "formula": "_{}",
+        "pos": 1,
+        "x": 3,
+        "y": 0
+    },
+    "insertNewShortcut2": {
+        "name": "fđfh",
+        "bindKey": {
+            "win": "Ctrl-Shift-U",
+            "mac": "Command-Shift-U"
+        },
+        "formula": "^{}",
+        "pos": 1,
+        "x": 3,
+        "y": 0
+    }
+}

@@ -1,93 +1,57 @@
 import React, { useState, useRef, useEffect } from "react";
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-latex";
-import "ace-builds/src-noconflict/theme-dracula";
-import "ace-builds/src-noconflict/theme-dreamweaver";
-
-import "ace-builds/src-noconflict/theme-tomorrow";
-
-import "ace-builds/src-noconflict/theme-dracula";
-
-import "ace-builds/src-noconflict/theme-dracula";
-import "ace-builds/src-noconflict/ext-keybinding_menu";
-import "ace-builds/src-noconflict/keybinding-vscode";
-import html2pdf from "html2pdf.js";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FormulaGrid from "../components/FormulaGrid";
-import IconButton from "../components/IconButton";
-import { useHotkeys } from "react-hotkeys-hook";
-
-// import "./customFont.css";import useKeyboardShortcut from 'use-keyboard-shortcut'
-import Hotkeys from "react-hot-keys";
-
+import MenuInput from "../components/menuInput";
+import MenuOutput from "../components/menuOutput";
+import Editor from "../components/Editor";
+import Preview from "../components/Preview";
+const MathShortcuts = {
+  insertMathMode: {
+    name: "insertMathMode",
+    bindKey: { win: "Ctrl-Shift-M", mac: "Command-Shift-M" },
+    formula: "$$",
+    pos: 1,
+    x: 1,
+    y: 0,
+    check: false,
+    icon: false,
+  },
+  insertFraction: {
+    name: "insertFraction",
+    bindKey: { win: "Ctrl-Shift-F", mac: "Command-Shift-F" },
+    formula: "\\dfrac{}{}",
+    pos: 3,
+    x: 8,
+    y: 2,
+  },
+  insertSquareRoot: {
+    name: "insertSquareRoot",
+    bindKey: { win: "Ctrl-Shift-Q", mac: "Command-Shift-Q" },
+    formula: "\\sqrt{}",
+    pos: 1,
+    x: 7,
+    y: 0,
+  },
+  insertNewShortcut1: {
+    name: "insertNewShortcut1",
+    bindKey: { win: "Ctrl-Shift-D", mac: "Command-Shift-D" },
+    formula: "_{}",
+    pos: 1,
+    x: 3,
+    y: 0,
+  },
+  insertNewShortcut2: {
+    name: "fđfh",
+    bindKey: { win: "Ctrl-Shift-U", mac: "Command-Shift-U" },
+    formula: "^{}",
+    pos: 1,
+    x: 3,
+    y: 0,
+  },
+};
 function Home() {
-  const [isChecked, setIsChecked] = useState(true);
-  const [theme, setTheme] = useState("tomorrow");
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("editorTheme");
-    if (savedTheme && (savedTheme === "tomorrow" || savedTheme === "dracula")) {
-      setTheme(savedTheme);
-    }
-  }, []);
-
-  const handleThemeChange = (e) => {
-    const newTheme = e.target.value;
-    setTheme(newTheme);
-    localStorage.setItem("editorTheme", newTheme);
-  };
-
-  useEffect(() => {
-    const savedValue = localStorage.getItem("checkboxState");
-    if (savedValue !== null) {
-      setIsChecked(JSON.parse(savedValue));
-    }
-  }, []);
-
-  const handleChange = (event) => {
-    const newValue = event.target.checked;
-    setIsChecked(newValue);
-    localStorage.setItem("checkboxState", JSON.stringify(newValue));
-
-    if (newValue) {
-      toast.success("Bật tự động copy thành công !");
-    } else {
-      toast.warning("Đã tắt tự động copy !");
-    }
-  };
-
-  const handleDownload = () => {
-    if (iframeRef.current) {
-      const iframe = iframeRef.current;
-      const iframeWindow = iframe.contentWindow;
-
-      // Create a promise that resolves when KaTeX rendering is complete
-      const renderPromise = new Promise((resolve) => {
-        iframeWindow.postMessage("render-math", "*");
-        window.addEventListener("message", function onMessage(event) {
-          if (event.data === "math-rendered") {
-            window.removeEventListener("message", onMessage);
-            resolve();
-          }
-        });
-      });
-
-      renderPromise.then(() => {
-        const element = iframeWindow.document.body;
-
-        const opt = {
-          margin: 10,
-          filename: "latex_content.pdf",
-          image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-        };
-
-        html2pdf().set(opt).from(element).save();
-      });
-    }
-  };
-  const [stringInit, setStrinhInit] = useState("");
+  const [stringInit, setStringInit] = useState("");
   const [inputText, setInputText] = useState(stringInit);
   const inputRef = useRef(null);
   const iframeRef = useRef(null);
@@ -101,28 +65,21 @@ function Home() {
   const [basicFormulas8, setBasicFormulas8] = useState([]);
   const [basicFormulas9, setBasicFormulas9] = useState([]);
   const [basicFormulas10, setBasicFormulas10] = useState([]);
+  const [scale, setScale] = useState(1);
+  const [isChecked, setIsChecked] = useState(true);
+  const [theme, setTheme] = useState("tomorrow");
   useEffect(() => {
-    if (isChecked) {
-      handleCopy2();
+    const savedTheme = localStorage.getItem("editorTheme");
+    if (savedTheme && (savedTheme === "tomorrow" || savedTheme === "dracula")) {
+      setTheme(savedTheme);
     }
-  }, [inputText, isChecked]);
-
-  const handleInputChange = (value) => {
-    setInputText(value);
-    updateIframeContent(value);
-  };
-
-  const fetchData = async (url, setterFunction) => {
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      setterFunction(data);
-    } catch (error) {
-      console.error(`Error fetching data from ${url}:`, error);
-      setterFunction([]);
+  }, []);
+  useEffect(() => {
+    const savedValue = localStorage.getItem("checkboxState");
+    if (savedValue !== null) {
+      setIsChecked(JSON.parse(savedValue));
     }
-  };
-
+  }, []);
   useEffect(() => {
     const dataUrls = [
       { url: "/data.json", setter: setBasicFormulas },
@@ -153,13 +110,48 @@ function Home() {
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, []);
 
-  const processInputText = (text) => {
-    return text.replace(/\\\\/g, "\n").trim();
+  const handleThemeChange = (e) => {
+    const newTheme = e.target.value;
+    setTheme(newTheme);
+    localStorage.setItem("editorTheme", newTheme);
+  };
+
+  const handleChange = (event) => {
+    const newValue = event.target.checked;
+    setIsChecked(newValue);
+    localStorage.setItem("checkboxState", JSON.stringify(newValue));
+
+    if (newValue) {
+      toast.success("Bật tự động copy thành công !");
+    } else {
+      toast.warning("Đã tắt tự động copy !");
+    }
+  };
+
+  useEffect(() => {
+    if (isChecked) {
+      handleCopy2();
+    }
+  }, [inputText, isChecked]);
+
+  const handleInputChange = (value) => {
+    setInputText(value);
+    updateIframeContent(value);
+  };
+
+  const fetchData = async (url, setterFunction) => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setterFunction(data);
+    } catch (error) {
+      console.error(`Error fetching data from ${url}:`, error);
+      setterFunction([]);
+    }
   };
 
   const updateIframeContent = (text) => {
     if (iframeRef.current) {
-      // const processedText = text;
       const processedText = text
         .replace(/\\\\(\s*)/g, "<br>")
         .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
@@ -268,7 +260,6 @@ function Home() {
       const newText = textBeforeCursor + newFormula + textAfterCursor;
       setInputText(newText);
       updateIframeContent(newText);
-
       setTimeout(() => {
         editor.focus();
         editor.moveCursorTo(range.start.row, newCursorPos);
@@ -399,16 +390,12 @@ function Home() {
 
     const newContent = textBeforeCursor + newFormula + textAfterCursor;
 
-    // Update the editor content
     editor.setValue(newContent, 1);
 
-    // Move the cursor to the new position
     editor.moveCursorToPosition(
       editor.session.doc.indexToPosition(newCursorPos)
     );
     editor.focus();
-
-    // Update the state and iframe content
     setInputText(newContent);
     updateIframeContent(newContent);
   };
@@ -434,57 +421,11 @@ function Home() {
       .then(() => {})
       .catch((err) => {});
   };
-  // const handleKeyDown = (event) => {
-  //   if (event.ctrlKey && event.shiftKey && event.key === "M") {
-  //     event.preventDefault();
-  //     insertFormula("$$");
-  //     console.log("clicked");
-  //   }
-  // };
-  const MathShortcuts = {
-    insertMathMode: {
-      name: "insertMathMode",
-      bindKey: { win: "Ctrl-Shift-M", mac: "Command-Shift-M" },
-      formula: "$$",
-      pos: 1,
-      x: 1,
-      y: 0,
-      check: false,
-      icon: false,
-    },
-    insertFraction: {
-      name: "insertFraction",
-      bindKey: { win: "Ctrl-Shift-F", mac: "Command-Shift-F" },
-      formula: "\\dfrac{}{}",
-      pos: 3,
-      x: 8,
-      y: 2,
-    },
-    insertSquareRoot: {
-      name: "insertSquareRoot",
-      bindKey: { win: "Ctrl-Shift-Q", mac: "Command-Shift-Q" },
-      formula: "\\sqrt{}",
-      pos: 1,
-      x: 7,
-      y: 0,
-    },
-    insertNewShortcut1: {
-      name: "insertNewShortcut1",
-      bindKey: { win: "Ctrl-Shift-D", mac: "Command-Shift-D" },
-      formula: "_{}",
-      pos: 1,
-      x: 3,
-      y: 0,
-    },
-    insertNewShortcut2: {
-      name: "fđfh",
-      bindKey: { win: "Ctrl-Shift-U", mac: "Command-Shift-U" },
-      formula: "^{}",
-      pos: 1,
-      x: 3,
-      y: 0,
-    },
-  };
+
+  const zoomIn = () => setScale((prev) => prev + 0.1);
+  const zoomOut = () => setScale((prev) => (prev > 0.1 ? prev - 0.1 : prev));
+  const reset = () => setScale(1);
+
   return (
     <>
       <div
@@ -492,14 +433,19 @@ function Home() {
           justifyContent: "center",
           alignItems: "center",
           backgroundColor: "#F3F3F3",
+          borderRadius: "10px",
         }}
       >
-        <div className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray">
+        <div
+          className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray"
+          style={{ borderRadius: "10px" }}
+        >
           <div
             className="overflow-y-auto p-1 flex flex-col gap-0 flex-shrink-0"
             style={{
               maxHeight: "calc(85vh + 48px)",
               backgroundColor: "#F8F8F8",
+              borderRadius: "10px",
             }}
           >
             <FormulaGrid
@@ -555,233 +501,34 @@ function Home() {
           </div>
 
           <div class="grid grid-cols-1 gap-0">
-            <div
-              className="flex items-center justify-between"
-              style={{
-                backgroundColor: "#F8F8F8",
-                display: "flex",
-                alignItems: "center",
-                borderColor: "#E5E5E5",
-
-                borderBottomWidth: "1px",
-              }}
-            >
-              <div className="flex ml-3">
-                <label className="inline-flex items-center">
-                  <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={handleChange}
-                    className="form-checkbox h-5 w-5 text-blue-600 transition duration-150 ease-in-out"
-                  />
-                  <span className="ml-2 text-gray-700">Tự động Copy</span>
-                </label>
-                <div
-                  className="flex items-center"
-                  style={{
-                    backgroundColor: "#F8F8F8",
-                    borderColor: "#E5E5E5",
-                    borderBottomWidth: "1px",
-                  }}
-                >
-                  <select
-                    value={theme}
-                    onChange={handleThemeChange}
-                    style={{
-                      margin: "10px",
-                      padding: "5px",
-                      paddingLeft: "15px",
-                      paddingRight: "15px",
-                      borderRadius: "4px",
-                    }}
-                  >
-                    <option value="tomorrow">Light</option>
-                    <option value="dracula">Dark</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="flex space-x-2">
-                <IconButton
-                  icon="fa-solid fa-eraser"
-                  onClick={() => {
-                    setInputText("");
-                    updateIframeContent("");
-                    if (isChecked) {
-                      copyTextToClipboard("");
-                    }
-                  }}
-                />
-                <IconButton
-                  icon="fa-regular fa-clipboard"
-                  onClick={handleCopy}
-                />
-                <IconButton
-                  icon="fa-solid fa-bold"
-                  onClick={() =>
-                    insertFormula("\\textbf{}", 1, 9, 0, true, false)
-                  }
-                  margin="8px"
-                />
-                <IconButton
-                  icon="fa-solid fa-italic"
-                  onClick={() =>
-                    insertFormula("\\textit{}", 1, 9, 0, true, false)
-                  }
-                  margin="8px"
-                />
-                <IconButton
-                  icon="fa-solid fa-align-left"
-                  onClick={() =>
-                    insertFormula(
-                      "\\begin{flushleft}\n\n\\end{flushleft}",
-                      0,
-                      19,
-                      0,
-                      true
-                    )
-                  }
-                  margin="8px"
-                />
-                <IconButton
-                  icon="fa-solid fa-align-center"
-                  onClick={() =>
-                    insertFormula(
-                      "\\begin{center}\n\n\\end{center}",
-                      0,
-                      16,
-                      0,
-                      true,
-                      false
-                    )
-                  }
-                  margin="8px"
-                />
-                <IconButton
-                  icon="fa-solid fa-align-right"
-                  onClick={() =>
-                    insertFormula(
-                      "\\begin{flushright}\n\n\\end{flushright}",
-                      0,
-                      20,
-                      0,
-                      true,
-                      false
-                    )
-                  }
-                  margin="8px"
-                />
-              </div>
-            </div>
-
-            <div
-              style={{
-                height: "calc(100vh - 0px)",
-                overflow: "auto",
-                zIndex: 0,
-                position: "relative",
-              }}
-            >
-              <AceEditor
-                // ref={inputRef}
-                ref={inputRef}
-                onLoad={(editorInstance) => {
-                  Object.values(MathShortcuts).forEach((shortcut) => {
-                    editorInstance.commands.addCommand({
-                      name: shortcut.name,
-                      bindKey: shortcut.bindKey,
-                      exec: () => {
-                        console.log(`Shortcut ${shortcut.name} executed`);
-                        insertFormulaShortcut(
-                          shortcut.formula,
-                          shortcut.pos,
-                          shortcut.x,
-                          shortcut.y,
-                          shortcut.check,
-                          shortcut.icon
-                        );
-                      },
-                    });
-                  });
-                }}
-                mode="latex"
-                theme={theme}
-                onChange={handleInputChange}
-                value={inputText}
-                name="latex-editor"
-                editorProps={{ $blockScrolling: Infinity }}
-                width="100%"
-                height="85vh"
-                fontSize="14px"
-                enableBasicAutocompletion={true}
-                enableLiveAutocompletion={true}
-                enableSnippets={true}
-                // onKeyDown={handleKeyDown}
-                wrapEnabled={true}
-                setOptions={{
-                  useWorker: false,
-                  enableBasicAutocompletion: true,
-                  enableLiveAutocompletion: true,
-                  enableSnippets: true,
-                }}
-                style={{
-                  zIndex: 0,
-                  position: "relative",
-                  borderBottomWidth: "1px",
-                  borderColor: "#DCDCDC",
-                }}
-              />
-            </div>
+            <MenuInput
+              isChecked={isChecked}
+              handleChange={handleChange}
+              theme={theme}
+              handleThemeChange={handleThemeChange}
+              setInputText={setInputText}
+              updateIframeContent={updateIframeContent}
+              copyTextToClipboard={copyTextToClipboard}
+              handleCopy={handleCopy}
+              insertFormula={insertFormula}
+            />
+            <Editor
+              inputRef={inputRef}
+              MathShortcuts={MathShortcuts}
+              insertFormulaShortcut={insertFormulaShortcut}
+              theme={theme}
+              handleInputChange={handleInputChange}
+              inputText={inputText}
+            />
           </div>
           <div class="grid grid-cols-1 gap-0">
-            <div
-              style={{
-                backgroundColor: "#F8F8F8",
-                display: "flex",
-                alignItems: "center",
-                borderColor: "#E5E5E5",
-
-                borderBottomWidth: "1px",
-              }}
-            >
-              <button
-                style={{
-                  margin: "8px",
-                  padding: "4px",
-                  color: "#808080",
-
-                  cursor: "pointer",
-                }}
-                // onClick={handleDownload}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#1f1f1f")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#616161")}
-              >
-                <i class="fa-solid fa-check fa-xl"></i> {inputText.length} kí tự
-              </button>
-            </div>
-
-            <div
-              style={{
-                height: "calc(100vh - 0px)",
-                overflow: "auto",
-                zIndex: 0,
-                position: "relative",
-              }}
-            >
-              <iframe
-                ref={iframeRef}
-                title="LaTeX Output"
-                style={{
-                  width: "100%",
-                  height: "85vh",
-                  backgroundColor: "white",
-                  zIndex: 0,
-                  position: "relative",
-                  borderBottomWidth: "1px",
-                  borderColor: "#DCDCDC",
-                }}
-              />
-            </div>
+            <MenuOutput
+              inputTextLength={inputText.length}
+              zoomIn={zoomIn}
+              zoomOut={zoomOut}
+              reset={reset}
+            />
+            <Preview ref={iframeRef} scale={scale} />
           </div>
         </div>
         <ToastContainer />
