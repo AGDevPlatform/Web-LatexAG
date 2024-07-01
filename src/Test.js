@@ -1,96 +1,123 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-latex";
-import "ace-builds/src-noconflict/theme-dracula";
 import "ace-builds/src-noconflict/theme-tomorrow";
 import "ace-builds/src-noconflict/theme-dracula";
-import "ace-builds/src-noconflict/ext-keybinding_menu";
-import "ace-builds/src-noconflict/keybinding-vscode";
-import html2pdf from "html2pdf.js";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import FormulaGrid from "../components/FormulaGrid";
-import IconButton from "../components/IconButton";
+import "ace-builds/src-noconflict/ext-language_tools";
+const customCompleter = {
+  getCompletions: (editor, session, pos, prefix, callback) => {
+    const completions = [
+      {
+        value: "alpha ",
+        index: 1,
+      },
+      {
+        value: "beta ",
+        index: 2,
+      },
+      {
+        value: "zeta ",
+        index: 3,
+      },
+      {
+        value: "kappa ",
+        index: 4,
+      },
+      {
+        value: "epsilon ",
+        index: 5,
+      },
+    ];
+    callback(null, completions);
+  },
+};
+const Editor = ({
+  inputRef,
+  MathShortcuts,
+  insertFormulaShortcut,
+  theme,
+  handleInputChange,
+  inputText,
+}) => {
+  const editorRef = useRef(null);
+  useEffect(() => {
+    if (editorRef.current) {
+      const editor = editorRef.current.editor;
+      editor.completers = [customCompleter];
 
-function Home() {
-  const [stringInit, setStrinhInit] = useState("");
-  const [inputText, setInputText] = useState(stringInit);
-  const inputRef = useRef(null);
-  const iframeRef = useRef(null);
+      editor.getSession().on("change", function (e) {
+        const cursor = editor.getCursorPosition();
+        const line = editor.session.getLine(cursor.row);
 
-  const handleInputChange = (value) => {
-    setInputText(value);
-  };
-
-  //Copy
+        if (cursor.column > 0 && line.charAt(cursor.column - 1) === "\\") {
+          editor.execCommand("startAutocomplete");
+        }
+      });
+    }
+  }, []);
 
   return (
-    <>
-      <div
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#F3F3F3",
+    <div
+      style={{
+        height: "calc(100vh - 0px)",
+        overflow: "auto",
+        zIndex: 0,
+        position: "relative",
+      }}
+    >
+      <AceEditor
+        ref={(el) => {
+          editorRef.current = el;
+          if (inputRef) inputRef.current = el;
         }}
-      >
-        <div className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray">
-          <div class="grid grid-cols-1 gap-0">
-            <div
-              className="flex items-center justify-between"
-              style={{
-                backgroundColor: "#F8F8F8",
-                display: "flex",
-                alignItems: "center",
-                borderColor: "#E5E5E5",
-
-                borderBottomWidth: "1px",
-              }}
-            ></div>
-
-            <div
-              style={{
-                height: "calc(100vh - 0px)",
-                overflow: "auto",
-                zIndex: 0,
-                position: "relative",
-              }}
-            >
-              <AceEditor
-                // ref={inputRef}
-                ref={inputRef}
-                mode="latex"
-                theme="tomorrow"
-                onChange={handleInputChange}
-                value={inputText}
-                name="latex-editor"
-                editorProps={{ $blockScrolling: Infinity }}
-                width="100%"
-                height="85vh"
-                fontSize="14px"
-                enableBasicAutocompletion={true}
-                enableLiveAutocompletion={true}
-                enableSnippets={true}
-                // onKeyDown={handleKeyDown}
-                wrapEnabled={true}
-                setOptions={{
-                  useWorker: false,
-                  enableBasicAutocompletion: true,
-                  enableLiveAutocompletion: true,
-                  enableSnippets: true,
-                }}
-                style={{
-                  zIndex: 0,
-                  position: "relative",
-                  borderBottomWidth: "1px",
-                  borderColor: "#DCDCDC",
-                }}
-              />
-            </div>
-          </div>
-        </div>
-        <ToastContainer />
-      </div>
-    </>
+        onLoad={(editorInstance) => {
+          // editorInstance.completers = [customCompleter];
+          Object.values(MathShortcuts).forEach((shortcut) => {
+            editorInstance.commands.addCommand({
+              name: shortcut.name,
+              bindKey: shortcut.bindKey,
+              exec: () => {
+                console.log(`Shortcut ${shortcut.name} executed`);
+                insertFormulaShortcut(
+                  shortcut.formula,
+                  shortcut.pos,
+                  shortcut.x,
+                  shortcut.y,
+                  shortcut.check,
+                  shortcut.icon
+                );
+              },
+            });
+          });
+        }}
+        mode="latex"
+        theme={theme}
+        onChange={handleInputChange}
+        value={inputText}
+        name="latex-editor"
+        editorProps={{ $blockScrolling: Infinity }}
+        width="100%"
+        height="85vh"
+        fontSize="14px"
+        enableBasicAutocompletion={true}
+        enableLiveAutocompletion={true}
+        enableSnippets={true}
+        wrapEnabled={true}
+        setOptions={{
+          useWorker: false,
+          enableBasicAutocompletion: true,
+          enableLiveAutocompletion: true,
+          enableSnippets: true,
+        }}
+        style={{
+          zIndex: 0,
+          position: "relative",
+          borderBottomWidth: "1px",
+          borderColor: "#DCDCDC",
+        }}
+      />
+    </div>
   );
-}
-export default Home;
+};
+
+export default Editor;
