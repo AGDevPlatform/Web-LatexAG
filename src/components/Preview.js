@@ -16,6 +16,7 @@ const Preview = forwardRef(({ scale }, ref) => {
         style={{
           width: "100%",
           height: "100%",
+          paddingBottom: "100px",
           backgroundColor: "white",
           zIndex: 0,
           position: "relative",

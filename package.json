@@ -4,7 +4,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@fileforge/react-print": "^0.1.141",
+    "@mui/material": "^5.15.21",
     "@react-pdf/renderer": "^3.4.4",
     "@reecelucas/react-use-hotkeys": "^2.0.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -45,7 +48,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
+    "build": "react-scripts build",
+    "postbuild": "rimraf build/static/**/*.map",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

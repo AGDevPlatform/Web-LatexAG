@@ -5,6 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { HashRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -12,9 +13,12 @@ root.render(
     <Helmet>
       <title>Latex AG</title>
     </Helmet>
-    <BrowserRouter>
+    {/* <BrowserRouter>
       <App />
-    </BrowserRouter>
+    </BrowserRouter> */}
+    <HashRouter>
+      <App />
+    </HashRouter>
   </React.StrictMode>
 );
 
