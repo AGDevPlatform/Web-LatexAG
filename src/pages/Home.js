@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FormulaGrid from "../components/FormulaGrid";
@@ -10,6 +10,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import debounce from "lodash/debounce";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -154,10 +156,10 @@ function Home() {
     }
   }, [inputText, isChecked]);
 
-  const handleInputChange = (value) => {
-    setInputText(value);
-    updateIframeContent(value);
-  };
+  // const handleInputChange = (value) => {
+  //   setInputText(value);
+  //   updateIframeContent(value);
+  // };
 
   const fetchData = async (url, setterFunction) => {
     try {
@@ -169,64 +171,140 @@ function Home() {
       setterFunction([]);
     }
   };
+  const processText = useCallback((text) => {
+    return text
+      .replace(/\\\\(\s*)/g, "<br>")
+      .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
+      .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
+      .replace(
+        /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
+        '<div style="text-align: center;">$1</div>'
+      )
+      .replace(
+        /\\begin\{flushleft\}([\s\S]*?)\\end\{flushleft\}/g,
+        '<div style="text-align: left;">$1</div>'
+      )
+      .replace(
+        /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
+        '<div style="text-align: right;">$1</div>'
+      );
+  }, []);
+  const updateIframeContent = useCallback(
+    (text) => {
+      if (iframeRef.current) {
+        const processedText = processText(text);
+        const iframeContent = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+          <link rel="stylesheet" href="https://unpkg.com/latex.css/style.min.css" />
+          <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
+          <style>
+            body { 
+              white-space: normal;
+              word-wrap: break-word;
+              padding: 10px;
+              font-size: 17.5px;
+              line-height: 1.6;
+            }
+            .katex { font-size: 1.1em; }
+            strong { font-weight: bold; }
+            em { font-style: italic; }
+            u { text-decoration: underline; }
+          </style>
+        </head>
+        <body>
+          <div id="latex-content">${processedText}</div>
+          <script>
+            document.addEventListener("DOMContentLoaded", function() {
+              renderMathInElement(document.body, {
+                delimiters: [
+                  {left: "$$", right: "$$", display: true},
+                  {left: "$", right: "$", display: false}
+                ]
+              });
+            });
+          </script>
+        </body>
+        </html>
+      `;
+        iframeRef.current.srcdoc = iframeContent;
+      }
+    },
+    [processText]
+  );
 
-  const updateIframeContent = (text) => {
-    if (iframeRef.current) {
-      const processedText = text
-        .replace(/\\\\(\s*)/g, "<br>")
-        .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
-        .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
-        // .replace(/\\underline\{([^}]+)\}/g, "<u>$1</u>")
-        .replace(
-          /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
-          '<div style="text-align: center;">$1</div>'
-        )
-        .replace(
-          /\\begin\{flushleft\}([\s\S]*?)\\end\{flushleft\}/g,
-          '<div style="text-align: left;">$1</div>'
-        )
-        .replace(
-          /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
-          '<div style="text-align: right;">$1</div>'
-        ); // Replace \\ followed by any whitespace with <br>
-      const iframeContent = `
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
-                      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
-                      <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
-                      <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
-                      <style>
-                        body { font-family: Times New Roman, sans-serif;
-                         white-space: normal;
-                  word-wrap: break-word;
-                  padding: 10px;
-                  font-size: 17.5px; /* Increased base font size */
-            line-height: 1.6; /* Adjusted line height for better readability */ }
-                        .katex { font-size: 1.1em; }
-                        strong { font-weight: bold; }
-                        em { font-style: italic; }
-    u { text-decoration: underline; }
-                      </style>
-                    </head>
-                    <body>
-                      <div id="latex-content">${processedText}</div>
-                      <script>
-                        document.addEventListener("DOMContentLoaded", function() {
-                          renderMathInElement(document.body, {
-                            delimiters: [
-                              {left: "$$", right: "$$", display: true},
-                              {left: "$", right: "$", display: false}
-                            ]
-                          });
-                        });
-                      </script>
-                    </body>
-                    </html>
-                  `;
-      iframeRef.current.srcdoc = iframeContent;
-    }
-  };
+  const debouncedUpdateIframe = useCallback(
+    debounce(updateIframeContent, 300),
+    [updateIframeContent]
+  );
+  const handleInputChange = useCallback(
+    (value) => {
+      setInputText(value);
+      debouncedUpdateIframe(value);
+    },
+    [debouncedUpdateIframe]
+  );
+  // const updateIframeContent = (text) => {
+  //   if (iframeRef.current) {
+  //     const processedText = text
+  //       .replace(/\\\\(\s*)/g, "<br>")
+  //       .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
+  //       .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
+  //       // .replace(/\\underline\{([^}]+)\}/g, "<u>$1</u>")
+  //       .replace(
+  //         /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
+  //         '<div style="text-align: center;">$1</div>'
+  //       )
+  //       .replace(
+  //         /\\begin\{flushleft\}([\s\S]*?)\\end\{flushleft\}/g,
+  //         '<div style="text-align: left;">$1</div>'
+  //       )
+  //       .replace(
+  //         /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
+  //         '<div style="text-align: right;">$1</div>'
+  //       ); // Replace \\ followed by any whitespace with <br>
+  //     const iframeContent = `
+  //                   <!DOCTYPE html>
+  //                   <html>
+  //                   <head>
+  //                     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
+  //                     <link rel="stylesheet" href="https://unpkg.com/latex.css/style.min.css" />
+  //                     <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
+  //                     <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
+  //                     <style>
+  //                       body {
+  //                        white-space: normal;
+  //                 word-wrap: break-word;
+  //                 padding: 10px;
+  //                 font-size: 17.5px; /* Increased base font size */
+  //           line-height: 1.6; /* Adjusted line height for better readability */ }
+  //                       .katex { font-size: 1.1em; }
+  //                       strong { font-weight: bold; }
+  //                       em { font-style: italic; }
+  //   u { text-decoration: underline; }
+  //                     </style>
+  //                   </head>
+  //                   <body>
+  //                     <div id="latex-content">${processedText}</div>
+  //                     <script>
+  //                       document.addEventListener("DOMContentLoaded", function() {
+  //                         renderMathInElement(document.body, {
+  //                           delimiters: [
+  //                             {left: "$$", right: "$$", display: true},
+  //                             {left: "$", right: "$", display: false}
+  //                           ]
+  //                         });
+  //                       });
+  //                     </script>
+  //                   </body>
+  //                   </html>
+  //                 `;
+  //     iframeRef.current.srcdoc = iframeContent;
+  //   }
+  // };
   //pos:Vị trí con trỏ sau khi chèn (Không tô đen)
   //x: Vị trí chèn phần tử tô đen (So với công thức)
   //y: Vị trí con trỏ sau khi chèn phần tô đen (So với vị trí kết thúc phần tô đen vừa chèn)
