@@ -509,299 +509,39 @@
             "index": 0
         },
         {
-            "value": "Omega ",
-            "index": 0
+            "value": "sin{}",
+            "index": 1
         },
         {
-            "value": "cdots ",
-            "index": 0
+            "value": "cos{}",
+            "index": 1
         },
         {
-            "value": "ddots ",
-            "index": 0
+            "value": "tan{}",
+            "index": 1
         },
         {
-            "value": "vdots ",
-            "index": 0
+            "value": "cot{}",
+            "index": 1
         },
         {
-            "value": "ldots ",
-            "index": 0
+            "value": "sec{}",
+            "index": 1
         },
         {
-            "value": "therefore ",
-            "index": 0
+            "value": "log{}",
+            "index": 1
         },
         {
-            "value": "because ",
-            "index": 0
+            "value": "log_{}{}",
+            "index": 3
         },
         {
-            "value": "times ",
-            "index": 0
-        },
-        {
-            "value": "div ",
-            "index": 0
-        },
-        {
-            "value": "pm ",
-            "index": 0
-        },
-        {
-            "value": "mp ",
-            "index": 0
-        },
-        {
-            "value": "circ ",
-            "index": 0
-        },
-        {
-            "value": "bullet ",
-            "index": 0
-        },
-        {
-            "value": "oplus ",
-            "index": 0
-        },
-        {
-            "value": "ominus ",
-            "index": 0
-        },
-        {
-            "value": "otimes ",
-            "index": 0
-        },
-        {
-            "value": "oslash ",
-            "index": 0
-        },
-        {
-            "value": "odot ",
-            "index": 0
-        },
-        {
-            "value": "star ",
-            "index": 0
-        },
-        {
-            "value": "ast ",
-            "index": 0
-        },
-        {
-            "value": "wedge ",
-            "index": 0
-        },
-        {
-            "value": "vee ",
-            "index": 0
-        },
-        {
-            "value": "cap ",
-            "index": 0
-        },
-        {
-            "value": "cup ",
-            "index": 0
-        },
-        {
-            "value": "sqcap ",
-            "index": 0
-        },
-        {
-            "value": "sqcup ",
-            "index": 0
-        },
-        {
-            "value": "uplus ",
-            "index": 0
-        },
-        {
-            "value": "triangleleft ",
-            "index": 0
-        },
-        {
-            "value": "triangleright ",
-            "index": 0
-        },
-        {
-            "value": "wr ",
-            "index": 0
-        },
-        {
-            "value": "bigcap ",
-            "index": 0
-        },
-        {
-            "value": "bigcup ",
-            "index": 0
-        },
-        {
-            "value": "bigodot ",
-            "index": 0
-        },
-        {
-            "value": "bigoplus ",
-            "index": 0
-        },
-        {
-            "value": "bigotimes ",
-            "index": 0
-        },
-        {
-            "value": "bigsqcup ",
-            "index": 0
-        },
-        {
-            "value": "biguplus ",
-            "index": 0
-        },
-        {
-            "value": "bigvee ",
-            "index": 0
-        },
-        {
-            "value": "bigwedge ",
-            "index": 0
-        },
-        {
-            "value": "coprod ",
-            "index": 0
-        },
-        {
-            "value": "prod ",
-            "index": 0
-        },
-        {
-            "value": "sum ",
-            "index": 0
-        },
-        {
-            "value": "int ",
-            "index": 0
-        },
-        {
-            "value": "oint ",
-            "index": 0
-        },
-        {
-            "value": "iint ",
-            "index": 0
-        },
-        {
-            "value": "iiint ",
-            "index": 0
-        },
-        {
-            "value": "iiiint ",
-            "index": 0
-        },
-        {
-            "value": "idotsint ",
-            "index": 0
-        },
-        {
-            "value": "frac{d}{dx}",
-            "index": 0
-        },
-        {
-            "value": "frac{\\partial}{\\partial x}",
-            "index": 0
-        },
-        {
-            "value": "nabla ",
-            "index": 0
-        },
-        {
-            "value": "aleph ",
-            "index": 0
-        },
-        {
-            "value": "beth ",
-            "index": 0
-        },
-        {
-            "value": "gimel ",
-            "index": 0
-        },
-        {
-            "value": "daleth ",
-            "index": 0
-        },
-        {
-            "value": "hbar ",
-            "index": 0
-        },
-        {
-            "value": "imath ",
-            "index": 0
-        },
-        {
-            "value": "jmath ",
-            "index": 0
+            "value": "ln{}",
+            "index": 1
         },
         {
             "value": "ell ",
-            "index": 0
-        },
-        {
-            "value": "wp ",
-            "index": 0
-        },
-        {
-            "value": "Im ",
-            "index": 0
-        },
-        {
-            "value": "prime ",
-            "index": 0
-        },
-        {
-            "value": "emptyset ",
-            "index": 0
-        },
-        {
-            "value": "top ",
-            "index": 0
-        },
-        {
-            "value": "bot ",
-            "index": 0
-        },
-        {
-            "value": "complement ",
-            "index": 0
-        },
-        {
-            "value": "neg ",
-            "index": 0
-        },
-        {
-            "value": "clubsuit ",
-            "index": 0
-        },
-        {
-            "value": "diamondsuit ",
-            "index": 0
-        },
-        {
-            "value": "heartsuit ",
-            "index": 0
-        },
-        {
-            "value": "spadesuit ",
-            "index": 0
-        },
-        {
-            "value": "flat ",
-            "index": 0
-        },
-        {
-            "value": "natural ",
-            "index": 0
-        },
-        {
-            "value": "sharp ",
             "index": 0
         }
     ]
