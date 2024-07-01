@@ -4,33 +4,30 @@ import "ace-builds/src-noconflict/mode-latex";
 import "ace-builds/src-noconflict/theme-tomorrow";
 import "ace-builds/src-noconflict/theme-dracula";
 import "ace-builds/src-noconflict/ext-language_tools";
+import hintData from "./hint.json";
+
 const customCompleter = {
   getCompletions: (editor, session, pos, prefix, callback) => {
-    const completions = [
-      {
-        value: "alpha ",
-        index: 1,
-      },
-      {
-        value: "beta ",
-        index: 2,
-      },
-      {
-        value: "zeta ",
-        index: 3,
-      },
-      {
-        value: "kappa ",
-        index: 4,
-      },
-      {
-        value: "epsilon ",
-        index: 5,
-      },
-    ];
-    callback(null, completions);
+    const completions = hintData.completions;
+    callback(
+      null,
+      completions.map((completion) => ({
+        caption: completion.value.trim(),
+        value: completion.value,
+        score: 1000 - completion.index,
+        meta: "",
+        completer: {
+          insertMatch: function (editor, data) {
+            editor.completer.insertMatch({ value: data.value });
+            const pos = editor.getCursorPosition();
+            editor.moveCursorTo(pos.row, pos.column - completion.index);
+          },
+        },
+      }))
+    );
   },
 };
+
 const Editor = ({
   inputRef,
   MathShortcuts,
@@ -53,6 +50,12 @@ const Editor = ({
           editor.execCommand("startAutocomplete");
         }
       });
+
+      editor.commands.on("afterExec", function (e) {
+        if (e.command.name === "insertstring" && /^[\w\.]$/.test(e.args)) {
+          editor.execCommand("startAutocomplete");
+        }
+      });
     }
   }, []);
 
@@ -71,7 +74,6 @@ const Editor = ({
           if (inputRef) inputRef.current = el;
         }}
         onLoad={(editorInstance) => {
-          // editorInstance.completers = [customCompleter];
           Object.values(MathShortcuts).forEach((shortcut) => {
             editorInstance.commands.addCommand({
               name: shortcut.name,
