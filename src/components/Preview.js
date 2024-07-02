@@ -1,6 +1,22 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
+import "./font.css";
+const Preview = forwardRef(({ scale, content }, ref) => {
+  const [contentHeight, setContentHeight] = useState("auto");
 
-const Preview = forwardRef(({ scale }, ref) => {
+  useEffect(() => {
+    const updateHeight = () => {
+      if (ref.current) {
+        const scrollHeight = ref.current.scrollHeight;
+        setContentHeight(`${scrollHeight}px`);
+      }
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+
+    return () => window.removeEventListener("resize", updateHeight);
+  }, [content, ref]);
+
   return (
     <div
       style={{
@@ -10,22 +26,31 @@ const Preview = forwardRef(({ scale }, ref) => {
         position: "relative",
       }}
     >
-      <iframe
+      <div
         ref={ref}
-        title="LaTeX Output"
         style={{
           width: "100%",
-          height: "100%",
-          paddingBottom: "100px",
+          minHeight: "100%",
+          height: contentHeight,
           backgroundColor: "white",
           zIndex: 0,
           position: "relative",
-          borderBottomWidth: "1px",
           borderColor: "#DCDCDC",
           transform: `scale(${scale})`,
           transformOrigin: "top left",
+          fontSize: "17px",
+          lineHeight: "1.5",
+          padding: "10px",
+          paddingBottom: "1000px",
+          fontFamily: "'Latin Modern Roman', serif", // Các thuộc tính mới để đảm bảo xuống dòng tự động
+          whiteSpace: "pre-wrap",
+          wordWrap: "break-word",
+          overflowWrap: "break-word",
+          hyphens: "auto",
         }}
-      />
+      >
+        {content}
+      </div>
     </div>
   );
 });

@@ -14,6 +14,7 @@ const Editor = ({
   inputText,
 }) => {
   const editorRef = useRef(null);
+
   const [hintData, setHintData] = useState({ completions: [] });
 
   useEffect(() => {
@@ -68,7 +69,6 @@ const Editor = ({
       });
     }
   }, [hintData]);
-
   return (
     <div
       style={{

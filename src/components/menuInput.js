@@ -64,9 +64,6 @@ const MenuInput = ({
           onClick={() => {
             setInputText("");
             updateIframeContent("");
-            if (isChecked) {
-              copyTextToClipboard("");
-            }
           }}
         />
         <IconButton icon="fa-regular fa-clipboard" onClick={handleCopy} />

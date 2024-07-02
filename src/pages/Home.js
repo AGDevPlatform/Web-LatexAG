@@ -6,12 +6,11 @@ import MenuInput from "../components/menuInput";
 import MenuOutput from "../components/menuOutput";
 import Editor from "../components/Editor";
 import Preview from "../components/Preview";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import debounce from "lodash/debounce";
+import renderMathInElement from "katex/contrib/auto-render";
 
+import debounce from "lodash/debounce";
+import katex from "katex";
+import "katex/dist/katex.min.css";
 const style = {
   position: "absolute",
   top: "50%",
@@ -76,7 +75,7 @@ function Home() {
   const [stringInit, setStringInit] = useState("");
   const [inputText, setInputText] = useState(stringInit);
   const inputRef = useRef(null);
-  const iframeRef = useRef(null);
+  const previewRef = useRef(null);
   const [basicFormulas, setBasicFormulas] = useState([]);
   const [basicFormulas2, setBasicFormulas2] = useState([]);
   const [basicFormulas3, setBasicFormulas3] = useState([]);
@@ -90,6 +89,49 @@ function Home() {
   const [scale, setScale] = useState(1);
   const [isChecked, setIsChecked] = useState(true);
   const [theme, setTheme] = useState("tomorrow");
+
+  const processText = useCallback((text) => {
+    return text
+      .replace(/\\\\(\s*)/g, "<br>")
+      .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
+      .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
+      .replace(
+        /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
+        '<div style="text-align: center;">$1</div>'
+      )
+      .replace(
+        /\\begin\{flushleft\}([\s\S]*?)\\end\{flushleft\}/g,
+        '<div style="text-align: left;">$1</div>'
+      )
+      .replace(
+        /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
+        '<div style="text-align: right;">$1</div>'
+      );
+  }, []);
+
+  const updatePreviewContent = useCallback(
+    (text) => {
+      if (previewRef.current) {
+        const processedText = processText(text);
+        previewRef.current.innerHTML = processedText;
+
+        renderMathInElement(previewRef.current, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+        });
+      }
+    },
+    [inputText]
+  );
+
+  const handleInputChange = useCallback((value) => {
+    setInputText(value);
+    // value = value + "\n".repeat(100);
+    updatePreviewContent(value);
+  });
+
   useEffect(() => {
     const savedTheme = localStorage.getItem("editorTheme");
     if (savedTheme && (savedTheme === "tomorrow" || savedTheme === "dracula")) {
@@ -118,7 +160,7 @@ function Home() {
 
     dataUrls.forEach(({ url, setter }) => fetchData(url, setter));
 
-    updateIframeContent(inputText);
+    // updateIframeContent(inputText);
   }, []);
 
   useEffect(() => {
@@ -151,15 +193,10 @@ function Home() {
   };
 
   useEffect(() => {
-    if (isChecked) {
+    if (isChecked && inputText !== "") {
       handleCopy2();
     }
   }, [inputText, isChecked]);
-
-  // const handleInputChange = (value) => {
-  //   setInputText(value);
-  //   updateIframeContent(value);
-  // };
 
   const fetchData = async (url, setterFunction) => {
     try {
@@ -171,146 +208,11 @@ function Home() {
       setterFunction([]);
     }
   };
-  const processText = useCallback((text) => {
-    return text
-      .replace(/\\\\(\s*)/g, "<br>")
-      .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
-      .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
-      .replace(
-        /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
-        '<div style="text-align: center;">$1</div>'
-      )
-      .replace(
-        /\\begin\{flushleft\}([\s\S]*?)\\end\{flushleft\}/g,
-        '<div style="text-align: left;">$1</div>'
-      )
-      .replace(
-        /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
-        '<div style="text-align: right;">$1</div>'
-      );
-  }, []);
-  const updateIframeContent = useCallback(
-    (text) => {
-      if (iframeRef.current) {
-        const processedText = processText(text);
-        const iframeContent = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
-          <link rel="stylesheet" href="https://unpkg.com/latex.css/style.min.css" />
-          <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
-          <style>
-            body { 
-              white-space: normal;
-              word-wrap: break-word;
-              padding: 10px;
-              font-size: 17.5px;
-              line-height: 1.6;
-            }
-            .katex { font-size: 1.1em; }
-            strong { font-weight: bold; }
-            em { font-style: italic; }
-            u { text-decoration: underline; }
-          </style>
-        </head>
-        <body>
-          <div id="latex-content">${processedText}</div>
-          <script>
-            document.addEventListener("DOMContentLoaded", function() {
-              renderMathInElement(document.body, {
-                delimiters: [
-                  {left: "$$", right: "$$", display: true},
-                  {left: "$", right: "$", display: false}
-                ]
-              });
-            });
-          </script>
-        </body>
-        </html>
-      `;
-        iframeRef.current.srcdoc = iframeContent;
-      }
-    },
-    [processText]
-  );
-
-  const debouncedUpdateIframe = useCallback(
-    debounce(updateIframeContent, 300),
-    [updateIframeContent]
-  );
-  const handleInputChange = useCallback(
-    (value) => {
-      setInputText(value);
-      debouncedUpdateIframe(value);
-    },
-    [debouncedUpdateIframe]
-  );
-  // const updateIframeContent = (text) => {
-  //   if (iframeRef.current) {
-  //     const processedText = text
-  //       .replace(/\\\\(\s*)/g, "<br>")
-  //       .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
-  //       .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
-  //       // .replace(/\\underline\{([^}]+)\}/g, "<u>$1</u>")
-  //       .replace(
-  //         /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
-  //         '<div style="text-align: center;">$1</div>'
-  //       )
-  //       .replace(
-  //         /\\begin\{flushleft\}([\s\S]*?)\\end\{flushleft\}/g,
-  //         '<div style="text-align: left;">$1</div>'
-  //       )
-  //       .replace(
-  //         /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
-  //         '<div style="text-align: right;">$1</div>'
-  //       ); // Replace \\ followed by any whitespace with <br>
-  //     const iframeContent = `
-  //                   <!DOCTYPE html>
-  //                   <html>
-  //                   <head>
-  //                     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.css">
-  //                     <link rel="stylesheet" href="https://unpkg.com/latex.css/style.min.css" />
-  //                     <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
-  //                     <script src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
-  //                     <style>
-  //                       body {
-  //                        white-space: normal;
-  //                 word-wrap: break-word;
-  //                 padding: 10px;
-  //                 font-size: 17.5px; /* Increased base font size */
-  //           line-height: 1.6; /* Adjusted line height for better readability */ }
-  //                       .katex { font-size: 1.1em; }
-  //                       strong { font-weight: bold; }
-  //                       em { font-style: italic; }
-  //   u { text-decoration: underline; }
-  //                     </style>
-  //                   </head>
-  //                   <body>
-  //                     <div id="latex-content">${processedText}</div>
-  //                     <script>
-  //                       document.addEventListener("DOMContentLoaded", function() {
-  //                         renderMathInElement(document.body, {
-  //                           delimiters: [
-  //                             {left: "$$", right: "$$", display: true},
-  //                             {left: "$", right: "$", display: false}
-  //                           ]
-  //                         });
-  //                       });
-  //                     </script>
-  //                   </body>
-  //                   </html>
-  //                 `;
-  //     iframeRef.current.srcdoc = iframeContent;
-  //   }
-  // };
   //pos:Vị trí con trỏ sau khi chèn (Không tô đen)
   //x: Vị trí chèn phần tử tô đen (So với công thức)
   //y: Vị trí con trỏ sau khi chèn phần tô đen (So với vị trí kết thúc phần tô đen vừa chèn)
   //check: kiểm tra có phải là các công thức khác không (Căn lề, in đậm, in nghiên,....)
   //icon: kiểm tra phải chèn một kí tự dạng icon
-
   const insertFormula = (formula, pos, x, y, check, icon) => {
     const editor = inputRef?.current?.editor;
     if (!editor) {
@@ -357,7 +259,10 @@ function Home() {
 
       const newText = textBeforeCursor + newFormula + textAfterCursor;
       setInputText(newText);
-      updateIframeContent(newText);
+      updatePreviewContent(newText);
+      // updateIframeContent(newText);
+      // debouncedUpdateIframe(newText);
+
       setTimeout(() => {
         editor.focus();
         editor.moveCursorTo(range.start.row, newCursorPos);
@@ -405,7 +310,10 @@ function Home() {
 
         const newCursorPos = startPos + x + selectedText.length + y;
         setInputText(newText);
-        updateIframeContent(newText);
+        updatePreviewContent(newText);
+        // updateIframeContent(newText);
+        // debouncedUpdateIframe(newText);
+
         setTimeout(() => {
           editor.focus();
           editor.moveCursorToPosition(
@@ -446,7 +354,10 @@ function Home() {
 
         const newText = textBeforeCursor + newFormula + textAfterCursor;
         setInputText(newText);
-        updateIframeContent(newText);
+        updatePreviewContent(newText);
+
+        // updateIframeContent(newText);
+        // debouncedUpdateIframe(newText);
 
         setTimeout(() => {
           editor.focus();
@@ -495,7 +406,9 @@ function Home() {
     );
     editor.focus();
     setInputText(newContent);
-    updateIframeContent(newContent);
+    updatePreviewContent(newContent);
+
+    // debouncedUpdateIframe(newContent);
   };
 
   const copyTextToClipboard = async (text) => {
@@ -605,7 +518,7 @@ function Home() {
               theme={theme}
               handleThemeChange={handleThemeChange}
               setInputText={setInputText}
-              updateIframeContent={updateIframeContent}
+              updateIframeContent={updatePreviewContent}
               copyTextToClipboard={copyTextToClipboard}
               handleCopy={handleCopy}
               insertFormula={insertFormula}
@@ -619,14 +532,18 @@ function Home() {
               inputText={inputText}
             />
           </div>
-          <div class="grid grid-cols-1 gap-0">
+          <div
+            class="grid grid-cols-1 gap-0"
+            style={{ backgroundColor: "white" }}
+          >
             <MenuOutput
-              inputTextLength={inputText.length}
+              inputTextLength={inputText?.length}
               zoomIn={zoomIn}
               zoomOut={zoomOut}
               reset={reset}
             />
-            <Preview ref={iframeRef} scale={scale} />
+            {/* <Preview ref={iframeRef} scale={scale} /> */}
+            <Preview ref={previewRef} scale={scale} />
           </div>
         </div>
         <ToastContainer />

@@ -1,0 +1,4 @@
+/* Preview.module.css */
+.latexContainer {
+  composes: latex from "https://unpkg.com/latex.css/style.min.css";
+}
