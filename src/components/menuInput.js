@@ -14,9 +14,9 @@ const MenuInput = ({
 }) => {
   return (
     <div
-      className="flex items-center justify-between"
+      className="flex items-center justify-between "
       style={{
-        backgroundColor: "#F8F8F8",
+        backgroundColor: "white",
         display: "flex",
         alignItems: "center",
         borderColor: "#E5E5E5",
@@ -31,16 +31,9 @@ const MenuInput = ({
             onChange={handleChange}
             className="form-checkbox h-5 w-5 text-blue-600 transition duration-150 ease-in-out"
           />
-          <span className="ml-2 text-gray-700">Tự động Copy</span>
+          <span className="ml-2 text-gray-500">Auto-Copy</span>
         </label>
-        <div
-          className="flex items-center"
-          style={{
-            backgroundColor: "#F8F8F8",
-            borderColor: "#E5E5E5",
-            borderBottomWidth: "1px",
-          }}
-        >
+        <div className="flex items-center">
           <select
             value={theme}
             onChange={handleThemeChange}
@@ -50,6 +43,8 @@ const MenuInput = ({
               paddingLeft: "15px",
               paddingRight: "15px",
               borderRadius: "4px",
+              borderColor: "#18B0D8",
+              borderWidth: "1px",
             }}
           >
             <option value="tomorrow">Light</option>

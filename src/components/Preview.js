@@ -38,7 +38,7 @@ const Preview = forwardRef(({ scale, content }, ref) => {
           borderColor: "#DCDCDC",
           transform: `scale(${scale})`,
           transformOrigin: "top left",
-          fontSize: "17px",
+          fontSize: "17.5px",
           lineHeight: "1.5",
           padding: "10px",
           paddingBottom: "1000px",

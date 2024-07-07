@@ -8,6 +8,8 @@ import Editor from "../components/Editor";
 import Preview from "../components/Preview";
 import renderMathInElement from "katex/contrib/auto-render";
 
+import { parse, HtmlGenerator } from "latex.js";
+// import { createHTMLWindow } from "svgdom";
 import debounce from "lodash/debounce";
 import katex from "katex";
 import "katex/dist/katex.min.css";
@@ -72,7 +74,9 @@ function Home() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [stringInit, setStringInit] = useState("");
+  const [stringInit, setStringInit] = useState(
+    "%  Copyright (c) 2024 Nguyen Duong The Vi. All rights reserved. "
+  );
   const [inputText, setInputText] = useState(stringInit);
   const inputRef = useRef(null);
   const previewRef = useRef(null);
@@ -92,6 +96,12 @@ function Home() {
 
   const processText = useCallback((text) => {
     return text
+      .split("\n")
+      .map((line) => {
+        const commentIndex = line.indexOf("%");
+        return commentIndex !== -1 ? line.slice(0, commentIndex) : line;
+      })
+      .join("\n")
       .replace(/\\\\(\s*)/g, "<br>")
       .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
       .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
@@ -106,7 +116,10 @@ function Home() {
       .replace(
         /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
         '<div style="text-align: right;">$1</div>'
-      );
+      )
+      .replace(/\s+/g, " ")
+
+      .trim(); // Xóa khoảng trắng ở đầu và cuối chuỗi;
   }, []);
 
   const updatePreviewContent = useCallback(
@@ -186,9 +199,9 @@ function Home() {
     localStorage.setItem("checkboxState", JSON.stringify(newValue));
 
     if (newValue) {
-      toast.success("Bật tự động copy thành công !");
+      toast.success("Automatic copy enabled successfully!");
     } else {
-      toast.warning("Đã tắt tự động copy !");
+      toast.warning("Automatic copy disabled!");
     }
   };
 
@@ -421,7 +434,7 @@ function Home() {
   const handleCopy = () => {
     copyTextToClipboard(inputText)
       .then(() => {
-        toast.success("Đã copy tất cả nội dung thành công !");
+        toast.success("All content has been copied successfully !");
       })
       .catch((err) => {
         console.error("Failed to copy text: ", err);
@@ -447,6 +460,7 @@ function Home() {
           borderRadius: "10px",
         }}
       >
+        {/* <input type="file" accept=".tex" onChange={handleFileChange} /> */}
         <div
           className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray"
           style={{ borderRadius: "10px" }}
@@ -455,7 +469,7 @@ function Home() {
             className="overflow-y-auto p-1 flex flex-col gap-0 flex-shrink-0"
             style={{
               maxHeight: "calc(85vh + 48px)",
-              backgroundColor: "#F8F8F8",
+              backgroundColor: "white",
               borderRadius: "10px",
             }}
           >
@@ -542,7 +556,6 @@ function Home() {
               zoomOut={zoomOut}
               reset={reset}
             />
-            {/* <Preview ref={iframeRef} scale={scale} /> */}
             <Preview ref={previewRef} scale={scale} />
           </div>
         </div>

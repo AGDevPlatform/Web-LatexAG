@@ -6,7 +6,7 @@ const MenuOutput = ({ inputTextLength, zoomIn, zoomOut, reset }) => {
   return (
     <div
       style={{
-        backgroundColor: "#F8F8F8",
+        backgroundColor: "white",
         display: "flex",
         alignItems: "center",
         borderColor: "#E5E5E5",
@@ -25,7 +25,8 @@ const MenuOutput = ({ inputTextLength, zoomIn, zoomOut, reset }) => {
           onMouseEnter={(e) => (e.currentTarget.style.color = "#1f1f1f")}
           onMouseLeave={(e) => (e.currentTarget.style.color = "#616161")}
         >
-          <i className="fa-solid fa-check fa-xl"></i> {inputTextLength} kí tự
+          <i className="fa-solid fa-check fa-xl"></i> {inputTextLength}{" "}
+          characters
         </button>
       </div>
       <div className="flex space-x-2">

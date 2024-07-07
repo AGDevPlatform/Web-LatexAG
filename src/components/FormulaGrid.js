@@ -3,12 +3,12 @@ import React from "react";
 const FormulaGrid = ({ formulas, rows, insertFormula }) => (
   <div className="mb-3">
     <div
-      className="grid grid-flow-col"
+      className="grid grid-flow-col bg-white shadow-md rounded"
       style={{
         gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
         borderColor: "#D3D3D3",
         borderRadius: "5px",
-        borderWidth: "1px",
+
         padding: "7px",
         backgroundColor: "white",
       }}

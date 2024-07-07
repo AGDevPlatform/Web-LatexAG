@@ -8,7 +8,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 450,
   bgcolor: "background.paper",
   border: "0px solid #000",
   borderRadius: 2,
@@ -57,7 +57,7 @@ function Header() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        borderBottomWidth: "2px",
+        borderBottomWidth: "1px",
         borderColor: "#EFEFEF",
       }}
     >
@@ -73,43 +73,73 @@ function Header() {
               <div className="bg-white  rounded-lg p-3 h-full w-full">
                 <div>
                   <div className="text-center mb-5">
-                    <h1 className="text-6xl font-bold text-blue-500">
+                    <h1
+                      className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-500"
+                      style={{ fontSize: "45px" }}
+                    >
                       Latex AG
                     </h1>
                   </div>
 
-                  <div className="text-center space-y-4">
-                    <p className="text-lg">
-                      Trang Web hỗ trợ soạn thảo công thức Latex.
+                  <div className="text-center">
+                    <p
+                      style={{ fontSize: "15px", marginBottom: "40px" }}
+                      className="text-gray-500"
+                    >
+                      A website that assists in composing LaTeX formulas.
                     </p>
-
-                    <p>
-                      Latex Vật Lý 31415:
+                    <p
+                      className=" text-gray-500 dark:text-gray-400"
+                      style={{ fontSize: "15px" }}
+                    >
+                      Made by{" "}
                       <a
-                        href="https://www.facebook.com/latexvatly31415/"
-                        className="text-blue-600 hover:underline"
+                        href="https://github.com/thevi31415"
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="font-medium hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer"
                       >
-                        {" "}
-                        https://www.facebook.com/latexvatly31415/
+                        @thevi31415
                       </a>
                     </p>
-
-                    <p>
-                      Email:{" "}
-                      <a
-                        href="mailto:latexvatly31415@gmail.com"
-                        className="text-blue-600 hover:underline"
-                      >
-                        latexvatly31415@gmail.com
-                      </a>
-                    </p>
-
-                    <div className="text-center">
-                      <p className="text-sm text-gray-600">
-                        Copyright &copy; 2024 Latex AG. All right reserved.
+                    <div
+                      className="text-center"
+                      style={{ marginBottom: "15px" }}
+                    >
+                      <p className="text-sm text-gray-500">
+                        &copy; 2024 Nguyen Duong The Vi. All right reserved.
                       </p>
+                    </div>
+                    <div className="text-center flex justify-center items-center mb-4">
+                      <a
+                        href="https://www.producthunt.com/posts/latex-ag?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-latex&#0045;ag"
+                        target="_blank"
+                      >
+                        <img
+                          src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=468756&theme=light"
+                          alt="Latex&#0032;AG - The&#0032;website&#0032;helps&#0032;you&#0032;compose&#0032;LaTeX&#0032;formulas&#0032;quickly | Product Hunt"
+                          style={{ width: "250px", height: "54px" }}
+                          width="250"
+                          height="54"
+                        />
+                      </a>
+                    </div>
+                    <div className="text-center">
+                      <button
+                        className="text-sm text-gray-500"
+                        onClick={handleClose}
+                        style={{
+                          backgroundColor: "#f2f4f5",
+                          padding: "10px",
+                          borderRadius: "5px",
+                        }}
+                      >
+                        <i
+                          class="fa-solid fa-x"
+                          style={{ color: "#bcbfc3", marginRight: "7px" }}
+                        ></i>
+                        Close
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -134,29 +164,33 @@ function Header() {
         }}
       >
         <div style={{ display: "flex", justifyContent: "center", flexGrow: 1 }}>
-          <a
+          <button
             href="/"
             style={{
               margin: "0 10px",
-              fontWeight: "bold",
-              color: "#1F9CF0",
-
+              fontSize: "18px",
               borderRadius: "5px",
             }}
+            className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-500"
           >
             Latex AG
-          </a>
-          <a href="/" className="hover:underline" style={{ margin: "0 10px" }}>
-            Trang chủ
-          </a>
-          <div style={{ position: "relative" }} ref={shortcutsRef}>
-            <a
-              className="hover:underline"
-              style={{ margin: "0 10px", cursor: "pointer" }}
+          </button>
+
+          <button
+            className="hover:underline block text-sm font-medium truncate"
+            style={{ margin: "0 10px", fontSize: "16px" }}
+          >
+            <a href="/"> Home</a>
+          </button>
+
+          <button style={{ position: "relative" }} ref={shortcutsRef}>
+            <button
+              className="hover:underline block text-sm font-medium truncate"
+              style={{ margin: "0 10px", cursor: "pointer", fontSize: "16px" }}
               onClick={handleShortcutsClick}
             >
-              Phím tắt
-            </a>
+              Shortcuts
+            </button>
             {showShortcuts && (
               <div
                 style={{
@@ -195,20 +229,20 @@ function Header() {
                 </ul>
               </div>
             )}
-          </div>
-          <a
-            href="/huongdan"
-            className="hover:underline"
-            style={{ margin: "0 10px" }}
-          >
-            Hướng Dẫn
-          </a>
+          </button>
           <button
-            className="hover:underline"
-            style={{ margin: "0 10px" }}
+            href="/huongdan"
+            className="hover:underline block text-sm font-medium truncate"
+            style={{ margin: "0 10px", fontSize: "16px" }}
+          >
+            <a href="/Guide"> Guide</a>
+          </button>
+          <button
+            className="hover:underline block text-sm font-medium truncate"
+            style={{ margin: "0 10px", fontSize: "16px" }}
             onClick={handleOpen}
           >
-            Giới thiệu
+            About
           </button>
           {/* <a
             href="/contact"
