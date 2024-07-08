@@ -29,6 +29,7 @@ const MenuOutput = ({ inputTextLength, zoomIn, zoomOut, reset }) => {
           characters
         </button>
       </div>
+
       <div className="flex space-x-2">
         <IconButton
           icon="fa-solid fa-magnifying-glass-plus"

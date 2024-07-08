@@ -75,7 +75,7 @@ function Home() {
   const handleClose = () => setOpen(false);
 
   const [stringInit, setStringInit] = useState(
-    "%  Copyright (c) 2024 Nguyen Duong The Vi. All rights reserved. "
+    "%  Website developed by Nguyen Duong The Vi "
   );
   const [inputText, setInputText] = useState(stringInit);
   const inputRef = useRef(null);

@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import countapi from "countapi-js";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -18,6 +20,7 @@ const style = {
 function Header() {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const shortcutsRef = useRef(null);
+  const [visits, setVisits] = useState(0);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -31,6 +34,22 @@ function Header() {
 
   // Close the shortcuts menu when clicking outside
   useEffect(() => {
+    const incrementVisits = () => {
+      const storedVisits = localStorage.getItem("visitCount");
+      let currentVisits = storedVisits ? parseInt(storedVisits, 10) : 0;
+
+      // Chỉ tăng số lần truy cập nếu đây là lần đầu tiên trong phiên này
+      if (!sessionStorage.getItem("visitIncremented")) {
+        currentVisits += 1;
+        localStorage.setItem("visitCount", currentVisits.toString());
+        sessionStorage.setItem("visitIncremented", "true");
+      }
+
+      setVisits(currentVisits);
+    };
+
+    incrementVisits();
+
     function handleClickOutside(event) {
       if (
         shortcutsRef.current &&
@@ -75,7 +94,10 @@ function Header() {
                   <div className="text-center mb-5">
                     <h1
                       className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-500"
-                      style={{ fontSize: "45px" }}
+                      style={{
+                        fontSize: "50px",
+                        fontFamily: "Helvetica, Arial, sans-serif",
+                      }}
                     >
                       Latex AG
                     </h1>
@@ -170,6 +192,7 @@ function Header() {
               margin: "0 10px",
               fontSize: "18px",
               borderRadius: "5px",
+              fontFamily: "Helvetica, Arial, sans-serif",
             }}
             className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-500"
           >
@@ -244,13 +267,20 @@ function Header() {
           >
             About
           </button>
-          {/* <a
-            href="/contact"
-            className="hover:underline"
-            style={{ margin: "0 10px" }}
-          >
-            Liên hệ
-          </a> */}
+          <div className="flex ml-3">
+            <div className="text-xs sm:text-sm text-nowrap flex justify-center items-center gap-x-1.5">
+              <div className="relative flex size-2">
+                <span className="relative inline-flex rounded-full size-2 bg-green-500"></span>
+              </div>
+              <span
+                className="font-bold  truncate"
+                style={{ fontSize: "17px" }}
+              >
+                {visits}
+              </span>
+              <span>your visits</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
