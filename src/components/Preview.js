@@ -41,7 +41,7 @@ const Preview = forwardRef(({ scale, content }, ref) => {
           fontSize: "17.5px",
           lineHeight: "1.5",
           padding: "10px",
-          paddingBottom: "1000px",
+          paddingBottom: "100000px",
           fontFamily: "'Latin Modern Roman', serif", // Các thuộc tính mới để đảm bảo xuống dòng tự động
           whiteSpace: "pre-wrap",
           wordWrap: "break-word",

@@ -17,6 +17,19 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+const style2 = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 450,
+  bgcolor: "background.paper",
+
+  borderRadius: 2,
+  boxShadow: 24,
+  p: 2,
+};
 function Header() {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const shortcutsRef = useRef(null);
@@ -25,11 +38,15 @@ function Header() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const shortcuts = [
+    { name: "\\\\", key: "Ctrl + L" },
+
     { name: "$$", key: "Ctrl + Shift + M" },
     { name: "\\dfrac{}{}", key: "Ctrl + Shift + F" },
     { name: "_{}", key: "Ctrl + Shift + D" },
     { name: "^{}", key: "Ctrl + Shift + U" },
     { name: "\\sqrt{}", key: "Ctrl + Shift + Q" },
+    { name: "\\textbf{}", key: "Ctrl + B" },
+    { name: "\\textif{}", key: "Ctrl + I" },
   ];
 
   // Close the shortcuts menu when clicking outside
@@ -67,6 +84,17 @@ function Header() {
   const handleShortcutsClick = () => {
     setShowShortcuts(!showShortcuts);
   };
+  const [open2, setOpen2] = useState(false);
+
+  useEffect(() => {
+    const hasVisited = localStorage.getItem("hasVisited");
+    if (!hasVisited) {
+      setOpen2(true);
+      localStorage.setItem("hasVisited", "true");
+    }
+  }, []);
+
+  const handleClose2 = () => setOpen2(false);
 
   return (
     <div
@@ -80,6 +108,63 @@ function Header() {
         borderColor: "#EFEFEF",
       }}
     >
+      <Modal
+        open={open2}
+        onClose={handleClose2}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style2}>
+          <div
+            style={{
+              width: "100%",
+              height: 150,
+              marginBottom: 20,
+              borderRadius: 8,
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src="/Bg.png"
+              alt="Background"
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          </div>
+          <Typography
+            id="welcome-modal-title"
+            className=" text-sm font-medium truncate"
+            variant="h6"
+            component="h2"
+          >
+            Welcome to Latex AG.👋👋
+          </Typography>
+          <Typography id="welcome-modal-description" sx={{ mt: 2 }}>
+            If you find the website helpful, please give us an upvote on Product
+            Hunt! 👇👇
+          </Typography>
+          <div className="text-center flex justify-center items-center mt-3">
+            <a
+              href="https://www.producthunt.com/posts/latex-ag?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-latex&#0045;ag"
+              target="_blank"
+            >
+              <img
+                src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=468756&theme=light"
+                alt="Latex&#0032;AG - The&#0032;website&#0032;helps&#0032;you&#0032;compose&#0032;LaTeX&#0032;formulas&#0032;quickly | Product Hunt"
+                style={{ width: "250px", height: "54px" }}
+                width="250"
+                height="54"
+              />
+            </a>
+          </div>
+          <Button
+            onClick={handleClose2}
+            sx={{ mt: 1 }}
+            style={{ fontSize: "20px" }}
+          >
+            Ok
+          </Button>
+        </Box>
+      </Modal>
       <Modal
         open={open}
         onClose={handleClose}
@@ -178,7 +263,7 @@ function Header() {
           borderColor: "#DDDDDD",
           borderStyle: "solid",
           borderRadius: "5px",
-          width: "600px",
+          width: "700px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -260,6 +345,12 @@ function Header() {
           >
             <a href="/Guide"> Guide</a>
           </button>
+          {/* <button
+            className="hover:underline block text-sm font-medium truncate"
+            style={{ margin: "0 10px", fontSize: "16px" }}
+          >
+            Setting
+          </button> */}
           <button
             className="hover:underline block text-sm font-medium truncate"
             style={{ margin: "0 10px", fontSize: "16px" }}

@@ -26,6 +26,16 @@ const style = {
 };
 
 const MathShortcuts = {
+  insertNewShortcut0: {
+    name: "XuongDUng46",
+    bindKey: { win: "Ctrl-L", mac: "Command-L" },
+    formula: "\\\\",
+    pos: 0,
+    x: 9,
+    y: 0,
+    check: true,
+    icon: 99,
+  },
   insertMathMode: {
     name: "insertMathMode",
     bindKey: { win: "Ctrl-Shift-M", mac: "Command-Shift-M" },
@@ -67,6 +77,26 @@ const MathShortcuts = {
     pos: 1,
     x: 3,
     y: 0,
+  },
+  insertNewShortcut4: {
+    name: "fđfhF765",
+    bindKey: { win: "Ctrl-B", mac: "Command-Shift-P" },
+    formula: "\\textbf{}",
+    pos: 1,
+    x: 9,
+    y: 0,
+    check: true,
+    icon: false,
+  },
+  insertNewShortcut5: {
+    name: "fđfh676",
+    bindKey: { win: "Ctrl-I", mac: "Command-Shift-I" },
+    formula: "\\textit{}",
+    pos: 1,
+    x: 9,
+    y: 0,
+    check: true,
+    icon: false,
   },
 };
 function Home() {
