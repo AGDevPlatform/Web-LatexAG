@@ -272,11 +272,20 @@ function Header() {
               <div className="relative flex size-2">
                 <span className="relative inline-flex rounded-full size-2 bg-green-500"></span>
               </div>
-              <span
+              {/* <span
                 className="font-bold  truncate"
                 style={{ fontSize: "17px" }}
               >
                 {visits}
+              </span> */}
+              <span className="font-bold truncate" style={{ fontSize: "17px" }}>
+                {(() => {
+                  if (visits < 1000) return visits.toString();
+                  if (visits < 1000000) return (visits / 1000).toFixed(1) + "K";
+                  if (visits < 1000000000)
+                    return (visits / 1000000).toFixed(1) + "M";
+                  return (visits / 1000000000).toFixed(1) + "B";
+                })()}
               </span>
               <span>your visits</span>
             </div>

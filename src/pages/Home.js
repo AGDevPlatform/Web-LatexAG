@@ -7,7 +7,7 @@ import MenuOutput from "../components/menuOutput";
 import Editor from "../components/Editor";
 import Preview from "../components/Preview";
 import renderMathInElement from "katex/contrib/auto-render";
-
+import DraggableBox from "./DraggableBox";
 import { parse, HtmlGenerator } from "latex.js";
 // import { createHTMLWindow } from "svgdom";
 import debounce from "lodash/debounce";
@@ -560,6 +560,7 @@ function Home() {
           </div>
         </div>
         <ToastContainer />
+        {/* <DraggableBox /> */}
       </div>
     </>
   );

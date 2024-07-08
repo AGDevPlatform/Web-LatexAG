@@ -69,6 +69,7 @@ const Editor = ({
       });
     }
   }, [hintData]);
+
   return (
     <div
       style={{

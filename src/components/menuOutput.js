@@ -19,11 +19,11 @@ const MenuOutput = ({ inputTextLength, zoomIn, zoomOut, reset }) => {
           style={{
             margin: "8px",
             padding: "4px",
-            color: "#808080",
+            color: "#000000",
             cursor: "pointer",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "#1f1f1f")}
-          onMouseLeave={(e) => (e.currentTarget.style.color = "#616161")}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "#000000")}
+          onMouseLeave={(e) => (e.currentTarget.style.color = "#000000")}
         >
           <i className="fa-solid fa-check fa-xl"></i> {inputTextLength}{" "}
           characters

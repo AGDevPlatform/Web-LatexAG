@@ -31,7 +31,9 @@ const MenuInput = ({
             onChange={handleChange}
             className="form-checkbox h-5 w-5 text-blue-600 transition duration-150 ease-in-out"
           />
-          <span className="ml-2 text-gray-500">Auto-Copy</span>
+          <span className="ml-2 " style={{ color: "#000000" }}>
+            Auto-Copy
+          </span>
         </label>
         <div className="flex items-center">
           <select
