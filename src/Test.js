@@ -1,72 +1,88 @@
-import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-
-const FormulaGridContainer = ({ insertFormula }) => {
-  const [formulaGrids, setFormulaGrids] = useState([
-    { id: "grid1", formulas: basicFormulas, rows: 4 },
-    { id: "grid2", formulas: basicFormulas2, rows: 3 },
-    { id: "grid3", formulas: basicFormulas5, rows: 3 },
-    { id: "grid4", formulas: basicFormulas10, rows: 3 },
-    { id: "grid5", formulas: basicFormulas3, rows: 6 },
-    { id: "grid6", formulas: basicFormulas4, rows: 6 },
-    { id: "grid7", formulas: basicFormulas6, rows: 4 },
-    { id: "grid8", formulas: basicFormulas7, rows: 6 },
-    { id: "grid9", formulas: basicFormulas9, rows: 6 },
-    { id: "grid10", formulas: basicFormulas8, rows: 10 },
-  ]);
-
-  const onDragEnd = (result) => {
-    if (!result.destination) return;
-
-    const newFormulaGrids = Array.from(formulaGrids);
-    const [reorderedItem] = newFormulaGrids.splice(result.source.index, 1);
-    newFormulaGrids.splice(result.destination.index, 0, reorderedItem);
-
-    setFormulaGrids(newFormulaGrids);
-  };
-
-  return (
-    <div
-      className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray"
-      style={{ borderRadius: "10px" }}
-    >
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="formulaGrids">
-          {(provided) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              className="overflow-y-auto p-1 flex flex-col gap-0 flex-shrink-0"
-              style={{
-                maxHeight: "calc(85vh + 48px)",
-                backgroundColor: "white",
-                borderRadius: "10px",
-              }}
-            >
-              {formulaGrids.map((grid, index) => (
-                <Draggable key={grid.id} draggableId={grid.id} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <FormulaGrid
-                        formulas={grid.formulas}
-                        rows={grid.rows}
-                        insertFormula={insertFormula}
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-    </div>
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import "react-toastify/dist/ReactToastify.css";
+import Editor from "../components/Editor";
+import renderMathInElement from "katex/contrib/auto-render";
+function Home() {
+  const [stringInit, setStringInit] = useState(
+    "%  Website developed by Nguyen Duong The Vi "
   );
-};
+  const [inputText, setInputText] = useState(stringInit);
+  const inputRef = useRef(null);
+  const previewRef = useRef(null);
 
-export default FormulaGridContainer;
+  const processText = useCallback((text) => {
+    return text
+      .split("\n")
+      .map((line) => {
+        const commentIndex = line.indexOf("%");
+        return commentIndex !== -1 ? line.slice(0, commentIndex) : line;
+      })
+      .join("\n")
+      .replace(/\\\\(\s*)/g, "<br>")
+      .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
+      .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
+      .replace(
+        /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
+        '<div style="text-align: center;">$1</div>'
+      )
+      .replace(
+        /\\begin\{flushleft\}([\s\S]*?)\\end\{flushleft\}/g,
+        '<div style="text-align: left;">$1</div>'
+      )
+      .replace(
+        /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
+        '<div style="text-align: right;">$1</div>'
+      )
+      .replace(/\s+/g, " ")
+
+      .trim(); // Xóa khoảng trắng ở đầu và cuối chuỗi;
+  }, []);
+
+  const updatePreviewContent = useCallback(
+    (text) => {
+      if (previewRef.current) {
+        const processedText = processText(text);
+        previewRef.current.innerHTML = processedText;
+
+        renderMathInElement(previewRef.current, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+        });
+      }
+    },
+    [inputText]
+  );
+  const handleInputChange = useCallback((value) => {
+    setInputText(value);
+    // value = value + "\n".repeat(100);
+    updatePreviewContent(value);
+  });
+  return (
+    <>
+      <div
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#F3F3F3",
+          borderRadius: "10px",
+        }}
+      >
+        <div
+          className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray"
+          style={{ borderRadius: "10px" }}
+        >
+          <div class="grid grid-cols-1 gap-0">
+            <Editor
+              inputRef={inputRef}
+              handleInputChange={handleInputChange}
+              inputText={inputText}
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+export default Home;

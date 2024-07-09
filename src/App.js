@@ -47,7 +47,7 @@ const App = () => {
               <i className="svicon-close text-2xl font-bold"></i>
             </button>
           </div> */}
-          <Header />
+          {/* <Header /> */}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/gioithieu" element={<About />} />

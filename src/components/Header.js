@@ -1,4 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
@@ -15,7 +16,7 @@ const style = {
   border: "0px solid #000",
   borderRadius: 2,
   boxShadow: 24,
-  p: 4,
+  p: 2,
 };
 
 const style2 = {
@@ -25,18 +26,20 @@ const style2 = {
   transform: "translate(-50%, -50%)",
   width: 450,
   bgcolor: "background.paper",
-
+  border: "0px solid #000",
   borderRadius: 2,
   boxShadow: 24,
   p: 2,
 };
-function Header() {
+
+function Header({ handleOpen3 }) {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const shortcutsRef = useRef(null);
   const [visits, setVisits] = useState(0);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const shortcuts = [
     { name: "\\\\", key: "Ctrl + L" },
 
@@ -149,10 +152,8 @@ function Header() {
             >
               <img
                 src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=468756&theme=light"
-                alt="Latex&#0032;AG - The&#0032;website&#0032;helps&#0032;you&#0032;compose&#0032;LaTeX&#0032;formulas&#0032;quickly | Product Hunt"
+                alt="upvote"
                 style={{ width: "250px", height: "54px" }}
-                width="250"
-                height="54"
               />
             </a>
           </div>
@@ -173,6 +174,21 @@ function Header() {
       >
         <Box sx={style}>
           <div>
+            <div className="relative h-8 flex items-center justify-between ">
+              <div className="ml-4 flex space-x-2 items-center">
+                <span className="h-3 w-3 rounded-full bg-red-400"></span>
+                <span className="h-3 w-3 rounded-full bg-yellow-400"></span>
+                <span className="h-3 w-3 rounded-full bg-green-400"></span>
+              </div>
+              <div className="mr-4 text-gray-600 flex space-x-2 items-center">
+                <button title="Close" onClick={handleClose}>
+                  <i class="fa-solid fa-x"></i>
+                </button>
+              </div>
+              <div className="absolute inset-0 pointer-events-none flex items-center justify-center text-base font-light block text-sm font-medium truncate">
+                About
+              </div>
+            </div>
             <div className="bg-white flex items-center justify-center w-full">
               <div className="bg-white  rounded-lg p-3 h-full w-full">
                 <div>
@@ -230,23 +246,6 @@ function Header() {
                           height="54"
                         />
                       </a>
-                    </div>
-                    <div className="text-center">
-                      <button
-                        className="text-sm text-gray-500"
-                        onClick={handleClose}
-                        style={{
-                          backgroundColor: "#f2f4f5",
-                          padding: "10px",
-                          borderRadius: "5px",
-                        }}
-                      >
-                        <i
-                          class="fa-solid fa-x"
-                          style={{ color: "#bcbfc3", marginRight: "7px" }}
-                        ></i>
-                        Close
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -337,6 +336,13 @@ function Header() {
                 </ul>
               </div>
             )}
+          </button>
+          <button
+            className="hover:underline block text-sm font-medium truncate"
+            style={{ margin: "0 10px", fontSize: "16px" }}
+            onClick={handleOpen3}
+          >
+            Snippet
           </button>
           <button
             href="/huongdan"

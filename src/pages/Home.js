@@ -13,6 +13,10 @@ import { parse, HtmlGenerator } from "latex.js";
 import debounce from "lodash/debounce";
 import katex from "katex";
 import "katex/dist/katex.min.css";
+import Header from "../components/Header";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+
 const style = {
   position: "absolute",
   top: "50%",
@@ -99,17 +103,37 @@ const MathShortcuts = {
     icon: false,
   },
 };
+const style3 = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 450,
+  bgcolor: "background.paper",
+
+  borderRadius: 2,
+  boxShadow: 24,
+  p: 2,
+};
 function Home() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [stringInit, setStringInit] = useState(
-    "%  Website developed by Nguyen Duong The Vi "
-  );
+  const [stringInit, setStringInit] = useState("");
+
   const [inputText, setInputText] = useState(stringInit);
   const inputRef = useRef(null);
   const previewRef = useRef(null);
+  const [snippets, setSnippets] = useState(() => {
+    // Khởi tạo state từ localStorage
+    const savedSnippets = localStorage.getItem("snippets");
+    return savedSnippets ? JSON.parse(savedSnippets) : [];
+  });
+  useEffect(() => {
+    localStorage.setItem("snippets", JSON.stringify(snippets));
+  }, [snippets]);
+
   const [basicFormulas, setBasicFormulas] = useState([]);
   const [basicFormulas2, setBasicFormulas2] = useState([]);
   const [basicFormulas3, setBasicFormulas3] = useState([]);
@@ -123,6 +147,22 @@ function Home() {
   const [scale, setScale] = useState(1);
   const [isChecked, setIsChecked] = useState(true);
   const [theme, setTheme] = useState("tomorrow");
+  const updatePreviewContent = useCallback(
+    (text) => {
+      if (previewRef.current) {
+        const processedText = processText(text);
+        previewRef.current.innerHTML = processedText;
+
+        renderMathInElement(previewRef.current, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
+          ],
+        });
+      }
+    },
+    [inputText]
+  );
 
   const processText = useCallback((text) => {
     return text
@@ -151,23 +191,6 @@ function Home() {
 
       .trim(); // Xóa khoảng trắng ở đầu và cuối chuỗi;
   }, []);
-
-  const updatePreviewContent = useCallback(
-    (text) => {
-      if (previewRef.current) {
-        const processedText = processText(text);
-        previewRef.current.innerHTML = processedText;
-
-        renderMathInElement(previewRef.current, {
-          delimiters: [
-            { left: "$$", right: "$$", display: true },
-            { left: "$", right: "$", display: false },
-          ],
-        });
-      }
-    },
-    [inputText]
-  );
 
   const handleInputChange = useCallback((value) => {
     setInputText(value);
@@ -251,6 +274,7 @@ function Home() {
       setterFunction([]);
     }
   };
+
   //pos:Vị trí con trỏ sau khi chèn (Không tô đen)
   //x: Vị trí chèn phần tử tô đen (So với công thức)
   //y: Vị trí con trỏ sau khi chèn phần tô đen (So với vị trí kết thúc phần tô đen vừa chèn)
@@ -479,9 +503,44 @@ function Home() {
   const zoomIn = () => setScale((prev) => prev + 0.1);
   const zoomOut = () => setScale((prev) => (prev > 0.1 ? prev - 0.1 : prev));
   const reset = () => setScale(1);
+  const [open3, setOpen3] = useState(false);
+  const handleClose3 = () => setOpen3(false);
+  const handleOpen3 = () => setOpen3(true);
+  useEffect(() => {
+    // Lưu snippets vào localStorage mỗi khi nó thay đổi
+    localStorage.setItem("snippets", JSON.stringify(snippets));
+  }, [snippets]);
+  useEffect(() => {
+    // Load snippets from localStorage when component mounts
+    const storedSnippets = JSON.parse(localStorage.getItem("snippets") || "[]");
+    setSnippets(storedSnippets);
+  }, []);
+  useEffect(() => {
+    // Save snippets to localStorage whenever they change
+    localStorage.setItem("snippets", JSON.stringify(snippets));
+  }, [snippets]);
+  const addSnippet = useCallback((keyword, content) => {
+    setSnippets((prevSnippets) => [...prevSnippets, { keyword, content }]);
+  }, []);
 
+  const removeSnippet = useCallback((keyword) => {
+    setSnippets((prevSnippets) =>
+      prevSnippets.filter((snippet) => snippet.keyword !== keyword)
+    );
+  }, []);
+
+  const editSnippet = useCallback((oldKeyword, newKeyword, newContent) => {
+    setSnippets((prevSnippets) =>
+      prevSnippets.map((snippet) =>
+        snippet.keyword === oldKeyword
+          ? { keyword: newKeyword, content: newContent }
+          : snippet
+      )
+    );
+  }, []);
   return (
     <>
+      <Header handleOpen3={handleOpen3} />
       <div
         style={{
           justifyContent: "center",
@@ -490,6 +549,114 @@ function Home() {
           borderRadius: "10px",
         }}
       >
+        <Modal
+          open={open3}
+          onClose={handleClose3}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box
+            sx={{
+              ...style3,
+              width: "600px",
+              maxWidth: "90%",
+              maxHeight: "90vh",
+              overflowY: "auto",
+              borderRadius: "12px",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+            }}
+          >
+            <div className=" bg-white rounded-lg ">
+              <div className="relative h-8 flex items-center justify-between ">
+                <div className="ml-4 flex space-x-2 items-center">
+                  <span className="h-3 w-3 rounded-full bg-red-400"></span>
+                  <span className="h-3 w-3 rounded-full bg-yellow-400"></span>
+                  <span className="h-3 w-3 rounded-full bg-green-400"></span>
+                </div>
+                <div className="mr-4 text-gray-600 flex space-x-2 items-center">
+                  <button title="Close" onClick={handleClose3}>
+                    <i class="fa-solid fa-x"></i>
+                  </button>
+                </div>
+                <div className="absolute inset-0 pointer-events-none flex items-center justify-center text-base font-light block text-sm font-medium truncate">
+                  Snippet
+                </div>
+              </div>
+              <div className="mb-1  rounded-xl p-6 ">
+                <div className="space-y-4">
+                  <input
+                    type="text"
+                    placeholder="Keyword"
+                    className="w-full border-2 border-blue-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-300"
+                    id="newSnippetKeyword"
+                  />
+                  <textarea
+                    placeholder="Content"
+                    className="w-full h-32 border-2 border-blue-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-300 resize-none text-green-600"
+                    id="newSnippetContent"
+                  />
+                  <div className="flex justify-center">
+                    <button
+                      onClick={() => {
+                        const keyword = document
+                          .getElementById("newSnippetKeyword")
+                          .value.trim();
+                        const content = document
+                          .getElementById("newSnippetContent")
+                          .value.trim();
+
+                        if (!keyword || !content) {
+                          // Thông báo khi thiếu thông tin
+                          toast.error("Please fill in all required fields.");
+                        } else {
+                          // Thêm snippet và thông báo thành công
+                          addSnippet(keyword, content);
+                          document.getElementById("newSnippetKeyword").value =
+                            "";
+                          document.getElementById("newSnippetContent").value =
+                            "";
+
+                          toast.success("Snippet added successfully!");
+                        }
+                      }}
+                      className="w-auto bg-gradient-to-r from-blue-400 to-blue-600 text-white px-6 py-3 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-md"
+                    >
+                      <i className="fas fa-plus mr-2"></i> Add Snippet
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className=" rounded-xl p-3">
+                <ul className="space-y-4">
+                  {snippets.map((snippet) => (
+                    <li
+                      key={snippet.keyword}
+                      className="bg-blue-50 p-4 rounded-lg flex items-center justify-between transition duration-300 hover:bg-blue-100"
+                    >
+                      <div className="flex-grow mr-4">
+                        <span className="font-semibold text-blue-700">
+                          {snippet.keyword}:
+                        </span>
+                        <span className="ml-2 text-green-600">
+                          {snippet.content.length > 140
+                            ? snippet.content.substring(0, 140) + "..."
+                            : snippet.content}
+                        </span>
+                      </div>
+                      <button
+                        onClick={() => removeSnippet(snippet.keyword)}
+                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-300 transform hover:scale-105"
+                      >
+                        <i class="fa-solid fa-trash-can"></i>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </Box>
+        </Modal>
         {/* <input type="file" accept=".tex" onChange={handleFileChange} /> */}
         <div
           className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray"
@@ -567,6 +734,54 @@ function Home() {
               handleCopy={handleCopy}
               insertFormula={insertFormula}
             />
+            {/* <div className="p-4">
+              <h2 className="text-xl font-bold mb-4">Snippets</h2>
+              <ul>
+                {snippets.map((snippet) => (
+                  <li key={snippet.keyword} className="mb-2">
+                    <span className="mr-2">
+                      {snippet.keyword}: {snippet.content}
+                    </span>
+                    <button
+                      onClick={() => removeSnippet(snippet.keyword)}
+                      className="bg-red-500 text-white px-2 py-1 rounded"
+                    >
+                      Remove
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4">
+                <input
+                  type="text"
+                  placeholder="Keyword"
+                  className="border p-2 mr-2"
+                  id="newSnippetKeyword"
+                />
+                <input
+                  type="text"
+                  placeholder="Content"
+                  className="border p-2 mr-2"
+                  id="newSnippetContent"
+                />
+                <button
+                  onClick={() => {
+                    const keyword =
+                      document.getElementById("newSnippetKeyword").value;
+                    const content =
+                      document.getElementById("newSnippetContent").value;
+                    if (keyword && content) {
+                      addSnippet(keyword, content);
+                      document.getElementById("newSnippetKeyword").value = "";
+                      document.getElementById("newSnippetContent").value = "";
+                    }
+                  }}
+                  className="bg-green-500 text-white px-2 py-1 rounded"
+                >
+                  Add Snippet
+                </button>
+              </div>
+            </div> */}
             <Editor
               inputRef={inputRef}
               MathShortcuts={MathShortcuts}
@@ -574,6 +789,7 @@ function Home() {
               theme={theme}
               handleInputChange={handleInputChange}
               inputText={inputText}
+              snippets={snippets}
             />
           </div>
           <div
