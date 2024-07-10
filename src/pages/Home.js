@@ -687,7 +687,7 @@ function Home() {
           >
             <FormulaGrid
               formulas={basicFormulas}
-              rows={4}
+              rows={6}
               insertFormula={insertFormula}
             />
             <FormulaGrid

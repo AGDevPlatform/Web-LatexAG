@@ -36,6 +36,22 @@
         "y": 3
     },
     {
+        "name": "MuNguoc",
+        "formula": "_{}^{}\\textrm{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1720612895/IconLatexAG/MuNguoc_pmamyw.svg",
+        "pos": 13,
+        "x": 3,
+        "y": 3
+    },
+    {
+        "name": "PhanSo",
+        "formula": "\\dfrac{}{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719287981/t%E1%BA%A3i_xu%E1%BB%91ng_kzeysc.svg",
+        "pos": 3,
+        "x": 8,
+        "y": 2
+    },
+    {
         "name": "CanBacHai",
         "formula": "\\sqrt{}",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719324861/IconLatexAG/CanBacHai_aidewu.svg",
@@ -52,19 +68,19 @@
         "y": 2
     },
     {
-        "name": "PhanSo",
-        "formula": "\\dfrac{}{}",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719287981/t%E1%BA%A3i_xu%E1%BB%91ng_kzeysc.svg",
-        "pos": 3,
-        "x": 8,
-        "y": 2
-    },
-    {
         "name": "Tong",
-        "formula": "\\sum_{}^{}",
+        "formula": "\\displaystyle\\sum_{}^{}",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719325093/IconLatexAG/Tong_pgo164.svg",
         "pos": 4,
-        "x": 7,
+        "x": 20,
+        "y": 3
+    },
+    {
+        "name": "Tru",
+        "formula": "\\displaystyle\\prod_{}^{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1720611905/IconLatexAG/Tru_fhi3tj.svg",
+        "pos": 4,
+        "x": 21,
         "y": 3
     },
     {
@@ -84,6 +100,30 @@
         "y": 0
     },
     {
+        "name": "NguyenHamTron",
+        "formula": "\\displaystyle\\oint{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1720612171/IconLatexAG/NguyenHamTRon_vodfyo.svg",
+        "pos": 1,
+        "x": 20,
+        "y": 0
+    },
+    {
+        "name": "TichPhanTron",
+        "formula": "\\displaystyle\\oint_{}^{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1720612594/IconLatexAG/TichPhanTron_vqy09w.svg",
+        "pos": 4,
+        "x": 21,
+        "y": 0
+    },
+    {
+        "name": "TichPhanHaiLop",
+        "formula": "\\displaystyle\\iint_{}^{}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1720612768/IconLatexAG/TichPhanHaiLop_eccx5v.svg",
+        "pos": 4,
+        "x": 21,
+        "y": 0
+    },
+    {
         "name": "GioiHan0",
         "formula": "\\displaystyle \\lim_{ \\to 0}",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719324196/IconLatexAG/GioiHan0_tyjwic.svg",
@@ -95,6 +135,15 @@
         "name": "DaoHam",
         "formula": "\\dfrac{\\mathrm{d} }{\\mathrm{d} x}",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719324510/IconLatexAG/DaoHam_smqbil.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 33,
+        "icon": 99
+    },
+    {
+        "name": "DaoHam2",
+        "formula": "\\dfrac{\\partial }{\\partial x}",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1720613449/IconLatexAG/DaoHam2_wtzzvf.svg",
         "pos": 0,
         "x": 0,
         "y": 33,
