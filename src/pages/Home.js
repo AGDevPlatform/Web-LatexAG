@@ -538,6 +538,7 @@ function Home() {
       )
     );
   }, []);
+
   return (
     <>
       <Header handleOpen3={handleOpen3} />
@@ -637,16 +638,6 @@ function Home() {
                         index % 2 === 0 ? "bg-gray-100" : "bg-white"
                       } hover:bg-blue-100`}
                     >
-                      {/* <div className="flex-grow mr-4 overflow-hidden">
-                        <span className="font-semibold text-blue-700">
-                          {snippet.keyword}:
-                        </span>
-                        <span className="ml-2 text-green-600 break-words">
-                          {snippet.content.length > 50
-                            ? snippet.content.substring(0, 50) + "..."
-                            : snippet.content}
-                        </span>
-                      </div> */}
                       <div className="flex-grow mr-4 overflow-hidden flex flex-col">
                         <span
                           className="font-semibold  mb-1"
@@ -736,7 +727,7 @@ function Home() {
             />
             <FormulaGrid
               formulas={basicFormulas9}
-              rows={6}
+              rows={7}
               insertFormula={insertFormula}
             />
             <FormulaGrid
@@ -758,54 +749,6 @@ function Home() {
               handleCopy={handleCopy}
               insertFormula={insertFormula}
             />
-            {/* <div className="p-4">
-              <h2 className="text-xl font-bold mb-4">Snippets</h2>
-              <ul>
-                {snippets.map((snippet) => (
-                  <li key={snippet.keyword} className="mb-2">
-                    <span className="mr-2">
-                      {snippet.keyword}: {snippet.content}
-                    </span>
-                    <button
-                      onClick={() => removeSnippet(snippet.keyword)}
-                      className="bg-red-500 text-white px-2 py-1 rounded"
-                    >
-                      Remove
-                    </button>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4">
-                <input
-                  type="text"
-                  placeholder="Keyword"
-                  className="border p-2 mr-2"
-                  id="newSnippetKeyword"
-                />
-                <input
-                  type="text"
-                  placeholder="Content"
-                  className="border p-2 mr-2"
-                  id="newSnippetContent"
-                />
-                <button
-                  onClick={() => {
-                    const keyword =
-                      document.getElementById("newSnippetKeyword").value;
-                    const content =
-                      document.getElementById("newSnippetContent").value;
-                    if (keyword && content) {
-                      addSnippet(keyword, content);
-                      document.getElementById("newSnippetKeyword").value = "";
-                      document.getElementById("newSnippetContent").value = "";
-                    }
-                  }}
-                  className="bg-green-500 text-white px-2 py-1 rounded"
-                >
-                  Add Snippet
-                </button>
-              </div>
-            </div> */}
             <Editor
               inputRef={inputRef}
               MathShortcuts={MathShortcuts}

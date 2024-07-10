@@ -1,88 +1,112 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import "react-toastify/dist/ReactToastify.css";
-import Editor from "../components/Editor";
-import renderMathInElement from "katex/contrib/auto-render";
-function Home() {
-  const [stringInit, setStringInit] = useState(
-    "%  Website developed by Nguyen Duong The Vi "
-  );
-  const [inputText, setInputText] = useState(stringInit);
+import React, { useState, useRef } from "react";
+import { FaBars, FaTimes } from "react-icons/fa"; // Import icons từ react-icons
+
+const Home = () => {
+  const [isChecked, setIsChecked] = useState(false);
+  const [theme, setTheme] = useState("light");
+  const [inputText, setInputText] = useState("");
+  const [isMenuExpanded, setIsMenuExpanded] = useState(false);
   const inputRef = useRef(null);
-  const previewRef = useRef(null);
 
-  const processText = useCallback((text) => {
-    return text
-      .split("\n")
-      .map((line) => {
-        const commentIndex = line.indexOf("%");
-        return commentIndex !== -1 ? line.slice(0, commentIndex) : line;
-      })
-      .join("\n")
-      .replace(/\\\\(\s*)/g, "<br>")
-      .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
-      .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
-      .replace(
-        /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
-        '<div style="text-align: center;">$1</div>'
-      )
-      .replace(
-        /\\begin\{flushleft\}([\s\S]*?)\\end\{flushleft\}/g,
-        '<div style="text-align: left;">$1</div>'
-      )
-      .replace(
-        /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
-        '<div style="text-align: right;">$1</div>'
-      )
-      .replace(/\s+/g, " ")
+  const handleChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
 
-      .trim(); // Xóa khoảng trắng ở đầu và cuối chuỗi;
-  }, []);
+  const handleThemeChange = (newTheme) => {
+    setTheme(newTheme);
+  };
 
-  const updatePreviewContent = useCallback(
-    (text) => {
-      if (previewRef.current) {
-        const processedText = processText(text);
-        previewRef.current.innerHTML = processedText;
+  const updatePreviewContent = () => {
+    // Logic cập nhật nội dung preview
+  };
 
-        renderMathInElement(previewRef.current, {
-          delimiters: [
-            { left: "$$", right: "$$", display: true },
-            { left: "$", right: "$", display: false },
-          ],
-        });
-      }
-    },
-    [inputText]
-  );
-  const handleInputChange = useCallback((value) => {
-    setInputText(value);
-    // value = value + "\n".repeat(100);
-    updatePreviewContent(value);
-  });
+  const copyTextToClipboard = (text) => {
+    // Logic copy vào clipboard
+  };
+
+  const handleCopy = () => {
+    // Logic xử lý sao chép
+  };
+
+  const insertFormula = (formula) => {
+    // Logic chèn công thức
+  };
+
+  const handleInputChange = (event) => {
+    setInputText(event.target.value);
+  };
+
+  const insertFormulaShortcut = (event) => {
+    // Logic xử lý phím tắt chèn công thức
+  };
+
+  const toggleMenu = () => {
+    setIsMenuExpanded(!isMenuExpanded);
+  };
+
   return (
-    <>
-      <div
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#F3F3F3",
-          borderRadius: "10px",
-        }}
-      >
-        <div
-          className="grid grid-cols-[155px,1fr,1fr] gap-0 divide-x divide-solid divide-gray"
-          style={{ borderRadius: "10px" }}
-        >
-          <div class="grid grid-cols-1 gap-0">
-            <Editor
-              inputRef={inputRef}
-              handleInputChange={handleInputChange}
-              inputText={inputText}
-            />
-          </div>
-        </div>
+    <div className="relative">
+      <div className="absolute top-0 left-0 z-10">
+        <button onClick={toggleMenu} className="p-2 bg-gray-200 rounded">
+          {isMenuExpanded ? <FaTimes /> : <FaBars />}
+        </button>
       </div>
-    </>
+      <div
+        className={`grid grid-cols-1 gap-0 ${
+          isMenuExpanded ? "menu-expanded" : "menu-collapsed"
+        }`}
+      >
+        <MenuInput
+          isChecked={isChecked}
+          handleChange={handleChange}
+          theme={theme}
+          handleThemeChange={handleThemeChange}
+          setInputText={setInputText}
+          updateIframeContent={updatePreviewContent}
+          copyTextToClipboard={copyTextToClipboard}
+          handleCopy={handleCopy}
+          insertFormula={insertFormula}
+        />
+        <Editor
+          inputRef={inputRef}
+          MathShortcuts={MathShortcuts}
+          insertFormulaShortcut={insertFormulaShortcut}
+          theme={theme}
+          handleInputChange={handleInputChange}
+          inputText={inputText}
+          snippets={snippets}
+        />
+      </div>
+    </div>
   );
-}
+};
+
+const MenuInput = ({
+  isChecked,
+  handleChange,
+  theme,
+  handleThemeChange,
+  setInputText,
+  updateIframeContent,
+  copyTextToClipboard,
+  handleCopy,
+  insertFormula,
+}) => {
+  // Nội dung của component MenuInput
+  return <div className="menu-content">{/* Các phần tử của menu */}</div>;
+};
+
+const Editor = ({
+  inputRef,
+  MathShortcuts,
+  insertFormulaShortcut,
+  theme,
+  handleInputChange,
+  inputText,
+  snippets,
+}) => {
+  // Nội dung của component Editor
+  return <div>{/* Phần tử editor */}</div>;
+};
+
 export default Home;

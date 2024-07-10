@@ -55,7 +55,7 @@ const MenuInput = ({
         </div>
       </div>
 
-      <div className="flex space-x-2">
+      <div className="flex space-x-1">
         <IconButton
           icon="fa-solid fa-eraser"
           onClick={() => {

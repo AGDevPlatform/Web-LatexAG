@@ -36,24 +36,6 @@
         "icon": 99
     },
     {
-        "name": "X",
-        "formula": "\\times ",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642264/IconLatexAG/x_luce8g.svg",
-        "pos": 0,
-        "x": 0,
-        "y": 0,
-        "icon": 99
-    },
-    {
-        "name": "Dot",
-        "formula": "\\odot ",
-        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642354/IconLatexAG/Dot_ufwnv8.svg",
-        "pos": 0,
-        "x": 0,
-        "y": 0,
-        "icon": 99
-    },
-    {
         "name": "MT",
         "formula": "\\wedge ",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642492/IconLatexAG/MT_ton7ex.svg",
@@ -66,6 +48,24 @@
         "name": "MD",
         "formula": "\\vee ",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642547/IconLatexAG/MD_k4mpq5.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "X",
+        "formula": "\\times ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642264/IconLatexAG/x_luce8g.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "Dot",
+        "formula": "\\odot ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719642354/IconLatexAG/Dot_ufwnv8.svg",
         "pos": 0,
         "x": 0,
         "y": 0,
@@ -156,6 +156,33 @@
         "name": "y2",
         "formula": "\\Psi ",
         "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1719643298/IconLatexAG/Y2_rjhiu3.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "Cham1",
+        "formula": "\\therefore ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1720603569/IconLatexAG/Cham1_zfwhao.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "Cham2",
+        "formula": "\\because ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1720603667/IconLatexAG/Cham2_nzi3eu.svg",
+        "pos": 0,
+        "x": 0,
+        "y": 0,
+        "icon": 99
+    },
+    {
+        "name": "Cham3",
+        "formula": "\\cdots ",
+        "linkimage": "https://res.cloudinary.com/dhs93uix6/image/upload/v1720603758/IconLatexAG/Cham3_dorttt.svg",
         "pos": 0,
         "x": 0,
         "y": 0,

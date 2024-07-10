@@ -253,15 +253,16 @@ function Header({ handleOpen3 }) {
           </div>
         </Box>
       </Modal>
+
       <div
         style={{
-          marginTop: "5px",
-          marginBottom: "5px",
+          marginTop: "1px",
+          marginBottom: "1px",
           borderWidth: "1.5px",
           borderColor: "#DDDDDD",
           borderStyle: "solid",
-          borderRadius: "5px",
-          width: "700px",
+          borderRadius: "8px",
+          width: "650px",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -273,7 +274,7 @@ function Header({ handleOpen3 }) {
             href="/"
             style={{
               margin: "0 10px",
-              fontSize: "18px",
+              fontSize: "16px",
               borderRadius: "5px",
               fontFamily: "Helvetica, Arial, sans-serif",
             }}
@@ -297,44 +298,7 @@ function Header({ handleOpen3 }) {
             >
               Shortcuts
             </button>
-            {/* {showShortcuts && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: "100%",
-                  left: 0,
-                  backgroundColor: "#ffffff",
-                  borderRadius: "5px",
-                  boxShadow: "0px 8px 16px rgba(0,0,0,0.1)",
-                  zIndex: 10,
-                }}
-              >
-                <ul
-                  style={{ listStyleType: "none", padding: "0", margin: "0" }}
-                >
-                  {shortcuts.map((shortcut, index) => (
-                    <li key={index}>
-                      <div
-                        // href="/"
-                        className="hover:bg-gray-200 block py-2 px-4"
-                        style={{
-                          textDecoration: "none",
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          whiteSpace: "nowrap",
-                        }}
-                      >
-                        <span style={{ color: "green" }}>{shortcut.name}</span>
-                        <span style={{ marginLeft: "20px" }}>
-                          {shortcut.key}
-                        </span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )} */}
+
             {showShortcuts && (
               <div className="absolute top-full left-0 bg-white/100  rounded-lg shadow-lg z-10 border border-white/30">
                 <ul className="list-none p-0 m-0">
@@ -377,12 +341,7 @@ function Header({ handleOpen3 }) {
           >
             <a href="/Guide"> Guide</a>
           </button>
-          {/* <button
-            className="hover:underline block text-sm font-medium truncate"
-            style={{ margin: "0 10px", fontSize: "16px" }}
-          >
-            Setting
-          </button> */}
+
           <button
             className="hover:underline block text-sm font-medium truncate"
             style={{ margin: "0 10px", fontSize: "16px" }}
@@ -395,13 +354,8 @@ function Header({ handleOpen3 }) {
               <div className="relative flex size-2">
                 <span className="relative inline-flex rounded-full size-2 bg-green-500"></span>
               </div>
-              {/* <span
-                className="font-bold  truncate"
-                style={{ fontSize: "17px" }}
-              >
-                {visits}
-              </span> */}
-              <span className="font-bold truncate" style={{ fontSize: "17px" }}>
+
+              <span className="font-bold truncate" style={{ fontSize: "15px" }}>
                 {(() => {
                   if (visits < 1000) return visits.toString();
                   if (visits < 1000000) return (visits / 1000).toFixed(1) + "K";

@@ -30,7 +30,7 @@ const MenuOutput = ({ inputTextLength, zoomIn, zoomOut, reset }) => {
         </button>
       </div>
 
-      <div className="flex space-x-2">
+      <div className="flex space-x-1">
         <IconButton
           icon="fa-solid fa-magnifying-glass-plus"
           onClick={zoomIn}
