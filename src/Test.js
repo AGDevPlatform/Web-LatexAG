@@ -1,112 +1,16 @@
-import React, { useState, useRef } from "react";
-import { FaBars, FaTimes } from "react-icons/fa"; // Import icons từ react-icons
-
-const Home = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const [theme, setTheme] = useState("light");
-  const [inputText, setInputText] = useState("");
-  const [isMenuExpanded, setIsMenuExpanded] = useState(false);
-  const inputRef = useRef(null);
-
-  const handleChange = (event) => {
-    setIsChecked(event.target.checked);
-  };
-
-  const handleThemeChange = (newTheme) => {
-    setTheme(newTheme);
-  };
-
-  const updatePreviewContent = () => {
-    // Logic cập nhật nội dung preview
-  };
-
-  const copyTextToClipboard = (text) => {
-    // Logic copy vào clipboard
-  };
-
-  const handleCopy = () => {
-    // Logic xử lý sao chép
-  };
-
-  const insertFormula = (formula) => {
-    // Logic chèn công thức
-  };
-
-  const handleInputChange = (event) => {
-    setInputText(event.target.value);
-  };
-
-  const insertFormulaShortcut = (event) => {
-    // Logic xử lý phím tắt chèn công thức
-  };
-
-  const toggleMenu = () => {
-    setIsMenuExpanded(!isMenuExpanded);
-  };
-
-  return (
-    <div className="relative">
-      <div className="absolute top-0 left-0 z-10">
-        <button onClick={toggleMenu} className="p-2 bg-gray-200 rounded">
-          {isMenuExpanded ? <FaTimes /> : <FaBars />}
-        </button>
-      </div>
-      <div
-        className={`grid grid-cols-1 gap-0 ${
-          isMenuExpanded ? "menu-expanded" : "menu-collapsed"
-        }`}
-      >
-        <MenuInput
-          isChecked={isChecked}
-          handleChange={handleChange}
-          theme={theme}
-          handleThemeChange={handleThemeChange}
-          setInputText={setInputText}
-          updateIframeContent={updatePreviewContent}
-          copyTextToClipboard={copyTextToClipboard}
-          handleCopy={handleCopy}
-          insertFormula={insertFormula}
-        />
-        <Editor
-          inputRef={inputRef}
-          MathShortcuts={MathShortcuts}
-          insertFormulaShortcut={insertFormulaShortcut}
-          theme={theme}
-          handleInputChange={handleInputChange}
-          inputText={inputText}
-          snippets={snippets}
-        />
+<div className="bg-white p-0.5 border-b border-[#EFEFEF]">
+  <div className="max-w-7xl mx-auto flex justify-between items-center relative">
+    <div className="flex-grow flex justify-center">
+      <div className="my-0.5 border-[1.5px] border-[#DDDDDD] rounded-lg w-[650px] flex justify-between items-center px-2.5">
+        {/* Nội dung chính giữ nguyên như cũ */}
+        {/* ... */}
       </div>
     </div>
-  );
-};
 
-const MenuInput = ({
-  isChecked,
-  handleChange,
-  theme,
-  handleThemeChange,
-  setInputText,
-  updateIframeContent,
-  copyTextToClipboard,
-  handleCopy,
-  insertFormula,
-}) => {
-  // Nội dung của component MenuInput
-  return <div className="menu-content">{/* Các phần tử của menu */}</div>;
-};
-
-const Editor = ({
-  inputRef,
-  MathShortcuts,
-  insertFormulaShortcut,
-  theme,
-  handleInputChange,
-  inputText,
-  snippets,
-}) => {
-  // Nội dung của component Editor
-  return <div>{/* Phần tử editor */}</div>;
-};
-
-export default Home;
+    <div className="absolute top-0 right-0 hidden md:flex items-center">
+      <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+        New
+      </span>
+    </div>
+  </div>
+</div>;

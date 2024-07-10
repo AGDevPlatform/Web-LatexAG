@@ -253,6 +253,18 @@ function Header({ handleOpen3 }) {
           </div>
         </Box>
       </Modal>
+      {/* <div
+        className="top-0 right-0 flex-shrink-0"
+        style={{
+          justifyContent: "space-between",
+          alignItems: "center",
+          display: "flex",
+        }}
+      >
+        <span className="bg-blue-100 text-blue-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 hidden md:inline">
+          New
+        </span>
+      </div> */}
 
       <div
         style={{
@@ -367,6 +379,17 @@ function Header({ handleOpen3 }) {
               <span>your visits</span>
             </div>
           </div>
+        </div>
+        <div
+          className="absolute top-0 right-0 hidden md:flex items-center "
+          style={{ marginTop: "2.5px", marginRight: "5px", padding: "2px" }}
+        >
+          <span
+            className="bg-blue-100 text-blue-800  font-semibold px-2.5 py-0.5 rounded-lg "
+            style={{ fontSize: "13px" }}
+          >
+            ✨ 7/10/2024 - Cập nhật Snippet và một số công thức.
+          </span>
         </div>
       </div>
     </div>
