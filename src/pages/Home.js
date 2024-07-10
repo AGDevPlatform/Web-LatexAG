@@ -582,17 +582,17 @@ function Home() {
                   Snippet
                 </div>
               </div>
-              <div className="mb-1  rounded-xl p-6 ">
+              <div className="mb-1  rounded-xl p-5 ">
                 <div className="space-y-4">
                   <input
                     type="text"
                     placeholder="Keyword"
-                    className="w-full border-2 border-blue-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-300"
+                    className="w-full border-2 border-blue-200 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-300"
                     id="newSnippetKeyword"
                   />
                   <textarea
                     placeholder="Content"
-                    className="w-full h-32 border-2 border-blue-200 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-300 resize-none text-green-600"
+                    className="w-full h-32 border-2 border-blue-200 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-300 resize-none text-green-600"
                     id="newSnippetContent"
                   />
                   <div className="flex justify-center">
@@ -619,7 +619,7 @@ function Home() {
                           toast.success("Snippet added successfully!");
                         }
                       }}
-                      className="w-auto bg-gradient-to-r from-blue-400 to-blue-600 text-white px-6 py-3 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-md"
+                      className="w-auto bg-gradient-to-r from-blue-400 to-blue-600 text-white px-4 py-1 rounded-lg transition duration-300 transform hover:scale-105 hover:shadow-md"
                     >
                       <i className="fas fa-plus mr-2"></i> Add Snippet
                     </button>
@@ -627,28 +627,51 @@ function Home() {
                 </div>
               </div>
 
-              <div className=" rounded-xl p-3">
-                <ul className="space-y-4">
-                  {snippets.map((snippet) => (
+              <div className="rounded-xl p-1">
+                <ul>
+                  {[...snippets].reverse().map((snippet, index) => (
                     <li
                       key={snippet.keyword}
-                      className="bg-blue-50 p-4 rounded-lg flex items-center justify-between transition duration-300 hover:bg-blue-100"
+                      className={`p-1 px-4 rounded-md flex items-center justify-between transition duration-300 ${
+                        index % 2 === 0 ? "bg-gray-100" : "bg-white"
+                      } hover:bg-blue-100`}
                     >
-                      <div className="flex-grow mr-4">
+                      {/* <div className="flex-grow mr-4 overflow-hidden">
                         <span className="font-semibold text-blue-700">
                           {snippet.keyword}:
                         </span>
-                        <span className="ml-2 text-green-600">
-                          {snippet.content.length > 140
-                            ? snippet.content.substring(0, 140) + "..."
+                        <span className="ml-2 text-green-600 break-words">
+                          {snippet.content.length > 50
+                            ? snippet.content.substring(0, 50) + "..."
+                            : snippet.content}
+                        </span>
+                      </div> */}
+                      <div className="flex-grow mr-4 overflow-hidden flex flex-col">
+                        <span
+                          className="font-semibold  mb-1"
+                          style={{ color: "#0D83FF" }}
+                        >
+                          <i class="fa-solid fa-key"></i> {snippet.keyword}
+                        </span>
+                        <span
+                          className=" break-words text-sm"
+                          style={{ color: "#36C84B" }}
+                        >
+                          {snippet.content.length > 100
+                            ? snippet.content.substring(0, 100) + "..."
                             : snippet.content}
                         </span>
                       </div>
                       <button
                         onClick={() => removeSnippet(snippet.keyword)}
-                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-300 transform hover:scale-105"
+                        className="shadow-md m-1 text-white px-2 py-1 rounded-lg transition duration-300 transform hover:scale-105 flex-shrink-0"
+                        style={{
+                          background:
+                            "linear-gradient(to right, #FC5753, #FD7E14)",
+                          boxShadow: "0 4px 6px rgba(252, 87, 83, 0.25)",
+                        }}
                       >
-                        <i class="fa-solid fa-trash-can"></i>
+                        <i className="fa-solid fa-trash-can"></i>
                       </button>
                     </li>
                   ))}
