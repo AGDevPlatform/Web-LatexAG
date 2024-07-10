@@ -42,14 +42,13 @@ function Header({ handleOpen3 }) {
 
   const shortcuts = [
     { name: "\\\\", key: "Ctrl + L" },
-
+    { name: "\\textbf{}", key: "Ctrl + B" },
+    { name: "\\textif{}", key: "Ctrl + I" },
     { name: "$$", key: "Ctrl + Shift + M" },
     { name: "\\dfrac{}{}", key: "Ctrl + Shift + F" },
     { name: "_{}", key: "Ctrl + Shift + D" },
     { name: "^{}", key: "Ctrl + Shift + U" },
     { name: "\\sqrt{}", key: "Ctrl + Shift + Q" },
-    { name: "\\textbf{}", key: "Ctrl + B" },
-    { name: "\\textif{}", key: "Ctrl + I" },
   ];
 
   // Close the shortcuts menu when clicking outside
@@ -298,7 +297,7 @@ function Header({ handleOpen3 }) {
             >
               Shortcuts
             </button>
-            {showShortcuts && (
+            {/* {showShortcuts && (
               <div
                 style={{
                   position: "absolute",
@@ -328,6 +327,33 @@ function Header({ handleOpen3 }) {
                       >
                         <span style={{ color: "green" }}>{shortcut.name}</span>
                         <span style={{ marginLeft: "20px" }}>
+                          {shortcut.key}
+                        </span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )} */}
+            {showShortcuts && (
+              <div className="absolute top-full left-0 bg-white/100  rounded-lg shadow-lg z-10 border border-white/30">
+                <ul className="list-none p-0 m-0">
+                  {shortcuts.map((shortcut, index) => (
+                    <li key={index} style={{ margin: "5px" }}>
+                      <div
+                        className="block py-1 px-2 flex justify-between items-center whitespace-nowrap transition duration-300 hover:bg-[#158AF5] group"
+                        style={{ borderRadius: "7px" }}
+                      >
+                        <span
+                          className="text-black/90 group-hover:text-white "
+                          style={{ fontWeight: "500", color: "#56F270" }}
+                        >
+                          {shortcut.name}
+                        </span>
+                        <span
+                          className="ml-5 text-black/70 group-hover:text-white "
+                          style={{ fontWeight: "400" }}
+                        >
                           {shortcut.key}
                         </span>
                       </div>

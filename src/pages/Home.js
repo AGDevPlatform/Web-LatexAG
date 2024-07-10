@@ -592,8 +592,9 @@ function Home() {
                   />
                   <textarea
                     placeholder="Content"
-                    className="w-full h-32 border-2 border-blue-200 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-300 resize-none text-green-600"
+                    className="w-full h-32 border-2 border-blue-200 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition duration-300 resize-none "
                     id="newSnippetContent"
+                    style={{ color: "#1EC939" }}
                   />
                   <div className="flex justify-center">
                     <button
@@ -655,7 +656,7 @@ function Home() {
                         </span>
                         <span
                           className=" break-words text-sm"
-                          style={{ color: "#36C84B" }}
+                          style={{ color: "#1EC939" }}
                         >
                           {snippet.content.length > 100
                             ? snippet.content.substring(0, 100) + "..."
