@@ -388,7 +388,7 @@ function Header({ handleOpen3 }) {
             className="bg-blue-100 text-blue-800  font-semibold px-2.5 py-0.5 rounded-lg "
             style={{ fontSize: "13px" }}
           >
-            ✨ 8/10/2024 - Cập nhật tô đỏ công thức gõ sai.
+            ✨ 11/7/2024 - Cập nhật tô đỏ công thức gõ sai.
           </span>
         </div>
       </div>
