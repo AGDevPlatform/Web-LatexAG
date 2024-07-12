@@ -4,17 +4,16 @@ import styled from "styled-components";
 import "./DraggableBox.css";
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  grid-template-columns: repeat(6, 1fr);
   gap: 5px;
   background-color: white;
   border-radius: 8px;
   padding: 10px;
   justify-content: center;
 `;
-
 const FormulaButton = styled.button`
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   border: 1px solid transparent;
   border-radius: 8px;
   padding: 4px;
@@ -92,6 +91,7 @@ const style = {
   boxShadow: 24,
   p: 2,
 };
+
 const DraggableBox = ({
   insertFormula,
   favoriteButtons2,
@@ -100,15 +100,22 @@ const DraggableBox = ({
   setVisible,
 }) => {
   const [isDragging, setIsDragging] = useState(false);
+  const [isResizing, setIsResizing] = useState(false);
   const [position, setPosition] = useState(() => {
     const savedPosition = localStorage.getItem("draggableBoxPosition");
     return savedPosition ? JSON.parse(savedPosition) : { x: 632, y: 136 };
   });
+  const [height, setHeight] = useState(() => {
+    const savedHeight = localStorage.getItem("draggableBoxHeight");
+    return savedHeight ? parseInt(savedHeight, 10) : 200; // Default height
+  });
+  const [contextMenu, setContextMenu] = useState(null);
+  const boxRef = useRef(null);
 
   const handleClose = () => {
     setVisible(false);
   };
-  const [contextMenu, setContextMenu] = useState(null);
+
   useEffect(() => {
     const handleStorageChange = () => {
       loadFavoriteButtons();
@@ -120,28 +127,36 @@ const DraggableBox = ({
       window.removeEventListener("storage", handleStorageChange);
     };
   }, [loadFavoriteButtons]);
+
   useEffect(() => {
     const handleMouseMove = (event) => {
-      if (!isDragging) return;
-
-      setPosition((prevPosition) => {
-        const newPosition = {
-          x: prevPosition.x + event.movementX,
-          y: prevPosition.y + event.movementY,
-        };
-        localStorage.setItem(
-          "draggableBoxPosition",
-          JSON.stringify(newPosition)
-        );
-        return newPosition;
-      });
+      if (isDragging) {
+        setPosition((prevPosition) => {
+          const newPosition = {
+            x: prevPosition.x + event.movementX,
+            y: prevPosition.y + event.movementY,
+          };
+          localStorage.setItem(
+            "draggableBoxPosition",
+            JSON.stringify(newPosition)
+          );
+          return newPosition;
+        });
+      } else if (isResizing) {
+        setHeight((prevHeight) => {
+          const newHeight = Math.max(150, prevHeight + event.movementY);
+          localStorage.setItem("draggableBoxHeight", newHeight.toString());
+          return newHeight;
+        });
+      }
     };
 
     const handleMouseUp = () => {
       setIsDragging(false);
+      setIsResizing(false);
     };
 
-    if (isDragging) {
+    if (isDragging || isResizing) {
       window.addEventListener("mousemove", handleMouseMove);
       window.addEventListener("mouseup", handleMouseUp);
     }
@@ -150,13 +165,19 @@ const DraggableBox = ({
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isDragging]);
+  }, [isDragging, isResizing]);
 
   const handleMouseDown = (e) => {
     if (e.target.closest('[data-draggable="true"]')) {
       setIsDragging(true);
     }
   };
+
+  const handleResizeMouseDown = (e) => {
+    e.preventDefault();
+    setIsResizing(true);
+  };
+
   const handleContextMenu = useCallback((e, index) => {
     e.preventDefault();
     setContextMenu({
@@ -172,11 +193,11 @@ const DraggableBox = ({
         (_, index) => index !== contextMenu.index
       );
       localStorage.setItem("favoriteButtons", JSON.stringify(updatedButtons));
-      loadFavoriteButtons(); // Reload the interface
+      loadFavoriteButtons();
       setContextMenu(null);
-      // toast.success("Button removed from favorites");
     }
   }, [contextMenu, favoriteButtons2, loadFavoriteButtons]);
+
   useEffect(() => {
     const handleOutsideClick = (e) => {
       if (contextMenu && !e.target.closest(".context-menu")) {
@@ -194,8 +215,10 @@ const DraggableBox = ({
   if (!visible) {
     return null;
   }
+
   return (
     <div
+      ref={boxRef}
       className="draggable-box"
       style={{
         position: "fixed",
@@ -204,12 +227,12 @@ const DraggableBox = ({
         backgroundColor: "white",
         border: "1px solid #ccc",
         borderRadius: "8px",
-        boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+        boxShadow: "0 2px 7px rgba(0, 0, 0, 0.1)",
         overflow: "hidden",
         display: "flex",
         flexDirection: "column",
-        maxHeight: "90vh", // Tăng từ 80vh lên 90vh
-        minHeight: "300px", // Thêm chiều cao tối thiểu
+        height: `${height}px`,
+        minHeight: "150px",
         minWidth: "250px",
       }}
       onMouseDown={handleMouseDown}
@@ -220,32 +243,25 @@ const DraggableBox = ({
         style={{
           cursor: "move",
           backgroundColor: "#f0f0f0",
-          padding: "8px",
+          padding: "5px",
           userSelect: "none",
         }}
       >
-        <div className="relative h-8 flex items-center justify-between ">
-          {/* <div className="ml-4 flex space-x-2 items-center">
-            <span className="h-3 w-3 rounded-full bg-red-400"></span>
-            <span className="h-3 w-3 rounded-full bg-yellow-400"></span>
-            <span className="h-3 w-3 rounded-full bg-green-400"></span>
-          </div> */}
-          <div className="ml-3 text-gray-600 flex space-x-2 items-center">
+        <div className="relative h-8 flex items-center justify-center">
+          <div className="text-base font-light text-sm font-medium truncate">
+            📌 Pinned Formulas
+          </div>
+          <div className="absolute right-0 flex space-x-2 items-center mr-2">
             <button title="Close" onClick={handleClose}>
               <i className="fa-solid fa-x"></i>
             </button>
           </div>
-          <div className="absolute inset-0 pointer-events-none flex items-center justify-center text-base font-light block text-sm font-medium truncate">
-            📌 Pinned Formulas
-          </div>
         </div>
       </div>
 
-      {/* <CloseButton onClick={handleClose}>×</CloseButton> */}
-
       <div
         className="content"
-        style={{ padding: "8px", overflowY: "auto", flexGrow: 1 }}
+        style={{ padding: "3px", overflowY: "auto", flexGrow: 1 }}
       >
         <GridContainer>
           {favoriteButtons2.map((item, index) => (
@@ -269,6 +285,16 @@ const DraggableBox = ({
           ))}
         </GridContainer>
       </div>
+
+      <div
+        style={{
+          height: "10px",
+          cursor: "ns-resize",
+          backgroundColor: "#f0f0f0",
+        }}
+        onMouseDown={handleResizeMouseDown}
+      />
+
       {contextMenu && (
         <ContextMenu
           className="context-menu"

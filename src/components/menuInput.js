@@ -63,7 +63,7 @@ const MenuInput = ({
             updateIframeContent("");
           }}
         />
-        <IconButton icon="fa-regular fa-clipboard" onClick={handleCopy} />
+        <IconButton icon="fa-regular fa-copy" onClick={handleCopy} />
         <IconButton
           icon="fa-solid fa-bold"
           onClick={() => insertFormula("\\textbf{}", 1, 9, 0, true, false)}

@@ -149,7 +149,6 @@ function Home() {
       return `<span style="color: #cc0000;">${tex}</span>`;
     }
   }, []);
-
   const processText = useCallback(
     (text) => {
       let processedText = text
@@ -159,7 +158,6 @@ function Home() {
           return commentIndex !== -1 ? line.slice(0, commentIndex) : line;
         })
         .join("\n")
-        .replace(/\\\\(\s*)/g, "<br>")
         .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
         .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
         .replace(
@@ -185,13 +183,56 @@ function Home() {
           } else if (part.startsWith("$") && part.endsWith("$")) {
             return renderMath(part.slice(1, -1), false);
           } else {
-            return part;
+            // Thay thế "\\\\" thành "<br>" chỉ trong các phần không phải công thức toán học
+            return part.replace(/\\\\(\s*)/g, "<br>");
           }
         })
         .join("");
     },
     [renderMath]
   );
+  // const processText = useCallback(
+  //   (text) => {
+  //     let processedText = text
+  //       .split("\n")
+  //       .map((line) => {
+  //         const commentIndex = line.indexOf("%");
+  //         return commentIndex !== -1 ? line.slice(0, commentIndex) : line;
+  //       })
+  //       .join("\n")
+  //       .replace(/\\\\(\s*)/g, "<br>")
+  //       .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
+  //       .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
+  //       .replace(
+  //         /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
+  //         '<div style="text-align: center;">$1</div>'
+  //       )
+  //       .replace(
+  //         /\\begin\{flushleft\}([\s\S]*?)\\end\{flushleft\}/g,
+  //         '<div style="text-align: left;">$1</div>'
+  //       )
+  //       .replace(
+  //         /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
+  //         '<div style="text-align: right;">$1</div>'
+  //       )
+  //       .replace(/\s+/g, " ")
+  //       .trim();
+
+  //     const parts = processedText.split(/(\$\$[\s\S]*?\$\$|\$[\s\S]*?\$)/g);
+  //     return parts
+  //       .map((part, index) => {
+  //         if (part.startsWith("$$") && part.endsWith("$$")) {
+  //           return renderMath(part.slice(2, -2), true);
+  //         } else if (part.startsWith("$") && part.endsWith("$")) {
+  //           return renderMath(part.slice(1, -1), false);
+  //         } else {
+  //           return part;
+  //         }
+  //       })
+  //       .join("");
+  //   },
+  //   [renderMath]
+  // );
   const updatePreviewContent = useCallback(
     (text) => {
       if (previewRef.current) {
