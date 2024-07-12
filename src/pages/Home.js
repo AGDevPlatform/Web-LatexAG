@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FormulaGrid from "../components/FormulaGrid";
 import MenuInput from "../components/menuInput";
@@ -16,18 +15,8 @@ import "katex/dist/katex.min.css";
 import Header from "../components/Header";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import styled from "styled-components";
+import toast, { Toaster } from "react-hot-toast";
 
 const MathShortcuts = {
   insertNewShortcut0: {
@@ -147,50 +136,6 @@ function Home() {
   const [scale, setScale] = useState(1);
   const [isChecked, setIsChecked] = useState(true);
   const [theme, setTheme] = useState("tomorrow");
-  // const updatePreviewContent = useCallback(
-  //   (text) => {
-  //     if (previewRef.current) {
-  //       const processedText = processText(text);
-  //       previewRef.current.innerHTML = processedText;
-
-  //       renderMathInElement(previewRef.current, {
-  //         delimiters: [
-  //           { left: "$$", right: "$$", display: true },
-  //           { left: "$", right: "$", display: false },
-  //         ],
-  //       });
-  //     }
-  //   },
-  //   [inputText]
-  // );
-
-  // const processText = useCallback((text) => {
-  //   return text
-  //     .split("\n")
-  //     .map((line) => {
-  //       const commentIndex = line.indexOf("%");
-  //       return commentIndex !== -1 ? line.slice(0, commentIndex) : line;
-  //     })
-  //     .join("\n")
-  //     .replace(/\\\\(\s*)/g, "<br>")
-  //     .replace(/\\textbf\{([^}]+)\}/g, "<strong>$1</strong>")
-  //     .replace(/\\textit\{([^}]+)\}/g, "<em>$1</em>")
-  //     .replace(
-  //       /\\begin\{center\}([\s\S]*?)\\end\{center\}/g,
-  //       '<div style="text-align: center;">$1</div>'
-  //     )
-  //     .replace(
-  //       /\\begin\{flushleft\}([\s\S]*?)\\end\{flushleft\}/g,
-  //       '<div style="text-align: left;">$1</div>'
-  //     )
-  //     .replace(
-  //       /\\begin\{flushright\}([\s\S]*?)\\end\{flushright\}/g,
-  //       '<div style="text-align: right;">$1</div>'
-  //     )
-  //     .replace(/\s+/g, " ")
-
-  //     .trim(); // Xóa khoảng trắng ở đầu và cuối chuỗi;
-  // }, []);
   const renderMath = useCallback((tex, displayMode) => {
     try {
       return katex.renderToString(tex, {
@@ -310,18 +255,32 @@ function Home() {
     localStorage.setItem("editorTheme", newTheme);
   };
 
-  const handleChange = (event) => {
-    const newValue = event.target.checked;
-    setIsChecked(newValue);
-    localStorage.setItem("checkboxState", JSON.stringify(newValue));
+  // const handleChange = (event) => {
+  //   const newValue = event.target.checked;
+  //   setIsChecked(newValue);
+  //   localStorage.setItem("checkboxState", JSON.stringify(newValue));
 
-    if (newValue) {
-      toast.success("Automatic copy enabled successfully!");
+  //   if (newValue) {
+  //     toast.success("Automatic copy enabled successfully!");
+  //   } else {
+  //     toast.warning("Automatic copy disabled!");
+  //   }
+  // };
+  const handleChange = (event) => {
+    if (event && event.target) {
+      const newValue = event.target.checked;
+      setIsChecked(newValue);
+      localStorage.setItem("checkboxState", JSON.stringify(newValue));
+
+      if (newValue) {
+        toast.success("Automatic copy enabled successfully!");
+      } else {
+        toast.success("Automatic copy disabled!");
+      }
     } else {
-      toast.warning("Automatic copy disabled!");
+      console.error("Event or event.target is undefined");
     }
   };
-
   useEffect(() => {
     if (isChecked && inputText !== "") {
       handleCopy2();
@@ -555,7 +514,7 @@ function Home() {
         toast.success("All content has been copied successfully !");
       })
       .catch((err) => {
-        console.error("Failed to copy text: ", err);
+        toast.error("Failed to copy text: ", err);
       });
   };
   const handleCopy2 = () => {
@@ -602,10 +561,33 @@ function Home() {
       )
     );
   }, []);
+  const [favoriteButtons, setFavoriteButtons] = useState([]);
+  const loadFavoriteButtons = useCallback(() => {
+    const buttons = JSON.parse(localStorage.getItem("favoriteButtons") || "[]");
+    setFavoriteButtons(buttons);
+  }, []);
+  useEffect(() => {
+    loadFavoriteButtons();
+    window.addEventListener("storage", loadFavoriteButtons);
 
+    return () => {
+      window.removeEventListener("storage", loadFavoriteButtons);
+    };
+  }, [loadFavoriteButtons]);
+  const [visible, setVisible] = useState(() => {
+    const savedVisible = localStorage.getItem("draggableBoxVisible");
+    return savedVisible !== null ? JSON.parse(savedVisible) : true;
+  });
+  useEffect(() => {
+    localStorage.setItem("draggableBoxVisible", JSON.stringify(visible));
+  }, [visible]);
+  const handleSetVisible = (value) => {
+    setVisible(value);
+  };
   return (
     <>
       <Header handleOpen3={handleOpen3} />
+
       <div
         style={{
           justifyContent: "center",
@@ -753,51 +735,61 @@ function Home() {
               formulas={basicFormulas}
               rows={6}
               insertFormula={insertFormula}
+              loadFavoriteButtons={loadFavoriteButtons}
             />
             <FormulaGrid
               formulas={basicFormulas2}
               rows={3}
               insertFormula={insertFormula}
+              loadFavoriteButtons={loadFavoriteButtons}
             />
             <FormulaGrid
               formulas={basicFormulas5}
               rows={3}
               insertFormula={insertFormula}
+              loadFavoriteButtons={loadFavoriteButtons}
             />
             <FormulaGrid
               formulas={basicFormulas10}
               rows={3}
               insertFormula={insertFormula}
+              loadFavoriteButtons={loadFavoriteButtons}
             />
             <FormulaGrid
               formulas={basicFormulas3}
               rows={6}
               insertFormula={insertFormula}
+              loadFavoriteButtons={loadFavoriteButtons}
             />
             <FormulaGrid
               formulas={basicFormulas4}
               rows={6}
               insertFormula={insertFormula}
+              loadFavoriteButtons={loadFavoriteButtons}
             />
             <FormulaGrid
               formulas={basicFormulas6}
               rows={4}
               insertFormula={insertFormula}
+              loadFavoriteButtons={loadFavoriteButtons}
             />
             <FormulaGrid
               formulas={basicFormulas7}
               rows={6}
               insertFormula={insertFormula}
+              loadFavoriteButtons={loadFavoriteButtons}
             />
             <FormulaGrid
               formulas={basicFormulas9}
               rows={7}
               insertFormula={insertFormula}
+              loadFavoriteButtons={loadFavoriteButtons}
             />
             <FormulaGrid
               formulas={basicFormulas8}
               rows={10}
               insertFormula={insertFormula}
+              loadFavoriteButtons={loadFavoriteButtons}
             />
           </div>
 
@@ -832,12 +824,21 @@ function Home() {
               zoomIn={zoomIn}
               zoomOut={zoomOut}
               reset={reset}
+              visible={visible}
+              setVisible={handleSetVisible}
             />
             <Preview ref={previewRef} scale={scale} />
           </div>
         </div>
-        <ToastContainer />
-        {/* <DraggableBox /> */}
+        <DraggableBox
+          insertFormula={insertFormula}
+          favoriteButtons2={favoriteButtons}
+          loadFavoriteButtons={loadFavoriteButtons}
+          visible={visible}
+          setVisible={handleSetVisible}
+        />
+        {/* <ToastContainer /> */}
+        <Toaster />
       </div>
     </>
   );

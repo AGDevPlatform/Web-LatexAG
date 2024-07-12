@@ -347,11 +347,16 @@ function Header({ handleOpen3 }) {
             Snippet
           </button>
           <button
-            href="/huongdan"
-            className="hover:underline block text-sm font-medium truncate"
+            class="hover:underline block text-sm font-medium truncate"
             style={{ margin: "0 10px", fontSize: "16px" }}
           >
-            <a href="/Guide"> Guide</a>
+            <a
+              href="https://www.facebook.com/latexvatly31415/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Fanpage
+            </a>
           </button>
 
           <button
@@ -388,7 +393,7 @@ function Header({ handleOpen3 }) {
             className="bg-blue-100 text-blue-800  font-semibold px-2.5 py-0.5 rounded-lg "
             style={{ fontSize: "13px" }}
           >
-            ✨ 11/7/2024 - Cập nhật tô đỏ công thức gõ sai.
+            ✨ 12/7/2024 - Cập nhật ghim công thức.
           </span>
         </div>
       </div>

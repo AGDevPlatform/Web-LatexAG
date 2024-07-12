@@ -1,8 +1,33 @@
 // MenuOutput.js
 import React from "react";
 import IconButton from "./IconButton"; // Giả sử bạn có component IconButton
+import styled from "styled-components";
 
-const MenuOutput = ({ inputTextLength, zoomIn, zoomOut, reset }) => {
+const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+`;
+
+const StyledCheckbox = styled.input`
+  margin-right: 5px;
+  height: 20px;
+  width: 20px;
+`;
+
+const CheckboxLabel = styled.label`
+  font-size: 18px;
+  cursor: pointer;
+`;
+
+const MenuOutput = ({
+  inputTextLength,
+  zoomIn,
+  zoomOut,
+  reset,
+  visible,
+  setVisible,
+}) => {
   return (
     <div
       style={{
@@ -31,6 +56,17 @@ const MenuOutput = ({ inputTextLength, zoomIn, zoomOut, reset }) => {
       </div>
 
       <div className="flex space-x-1">
+        <CheckboxContainer>
+          <StyledCheckbox
+            type="checkbox"
+            id="favoriteButtonsCheckbox"
+            checked={visible}
+            onChange={() => setVisible(!visible)}
+          />
+          <CheckboxLabel htmlFor="favoriteButtonsCheckbox">
+            📌 {visible ? "Show pinned window" : "Show pinned window"}
+          </CheckboxLabel>
+        </CheckboxContainer>
         <IconButton
           icon="fa-solid fa-magnifying-glass-plus"
           onClick={zoomIn}
