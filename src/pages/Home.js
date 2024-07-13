@@ -104,6 +104,7 @@ const style3 = {
   boxShadow: 24,
   p: 2,
 };
+
 function Home() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -777,60 +778,70 @@ function Home() {
               rows={6}
               insertFormula={insertFormula}
               loadFavoriteButtons={loadFavoriteButtons}
+              gridId="basic1"
             />
             <FormulaGrid
               formulas={basicFormulas2}
               rows={3}
               insertFormula={insertFormula}
               loadFavoriteButtons={loadFavoriteButtons}
+              gridId="basic2"
             />
             <FormulaGrid
               formulas={basicFormulas5}
               rows={3}
               insertFormula={insertFormula}
               loadFavoriteButtons={loadFavoriteButtons}
+              gridId="basic5"
             />
             <FormulaGrid
               formulas={basicFormulas10}
               rows={3}
               insertFormula={insertFormula}
               loadFavoriteButtons={loadFavoriteButtons}
+              gridId="basic10"
             />
             <FormulaGrid
               formulas={basicFormulas3}
               rows={6}
               insertFormula={insertFormula}
               loadFavoriteButtons={loadFavoriteButtons}
+              gridId="basic3"
             />
             <FormulaGrid
               formulas={basicFormulas4}
               rows={6}
               insertFormula={insertFormula}
               loadFavoriteButtons={loadFavoriteButtons}
+              gridId="basic4"
             />
             <FormulaGrid
               formulas={basicFormulas6}
               rows={4}
               insertFormula={insertFormula}
               loadFavoriteButtons={loadFavoriteButtons}
+              gridId="basic6"
             />
             <FormulaGrid
               formulas={basicFormulas7}
               rows={6}
               insertFormula={insertFormula}
               loadFavoriteButtons={loadFavoriteButtons}
+              gridId="basic7"
             />
             <FormulaGrid
               formulas={basicFormulas9}
               rows={7}
               insertFormula={insertFormula}
               loadFavoriteButtons={loadFavoriteButtons}
+              gridId="basic9"
             />
             <FormulaGrid
               formulas={basicFormulas8}
               rows={10}
               insertFormula={insertFormula}
               loadFavoriteButtons={loadFavoriteButtons}
+              gridId="basic8"
             />
           </div>
 

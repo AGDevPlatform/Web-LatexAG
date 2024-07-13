@@ -17,6 +17,7 @@
     "ace-builds": "^1.35.0",
     "brace": "^0.11.1",
     "countapi-js": "^1.0.2",
+    "framer-motion": "^11.3.2",
     "history": "^5.3.0",
     "hookrouter": "^1.2.5",
     "html2canvas": "^1.4.1",
