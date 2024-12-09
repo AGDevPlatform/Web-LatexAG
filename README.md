@@ -5,7 +5,6 @@
   ![GitHub repo file or directory count](https://img.shields.io/github/directory-file-count/thevi31415/WebLatexAG)
   ![GitHub contributors](https://img.shields.io/github/contributors/thevi31415/WebLatexAG)
   ![GitHub last commit](https://img.shields.io/github/last-commit/thevi31415/WebLatexAG)
-  ![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UCHolhpqtcjh-r4bICRRnqyA)
 
   
 ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
